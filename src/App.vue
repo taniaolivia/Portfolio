@@ -35,7 +35,7 @@ let renderer = new THREE.WebGLRenderer( { antialias: true } );
 renderer.setSize( width, height );
 renderer.gammaOutput = true;
 
-camera.position.set(-35, 50, 70);
+camera.position.set(-35, 10, 70);
 
 const leftLight = new THREE.DirectionalLight(0xffffff, 2.5);
 leftLight.position.set(-1, 0, 0);
@@ -71,9 +71,9 @@ let tempVector = new THREE.Vector3();
 let upVector = new THREE.Vector3(0, 1, 0);
 let joyManager;
 
-controls.maxDistance = 15;
-controls.minDistance = 15;
-controls.maxPolarAngle = Math.PI/2;
+controls.maxDistance = 10;
+controls.minDistance = 10;
+controls.maxPolarAngle = Math.PI/2.5;
 controls.minPolarAngle = 0;
 controls.autoRotate = false;
 controls.autoRotateSpeed = 0;
@@ -107,7 +107,8 @@ onMounted(() => {
 
     addJoystick();
     updatePlayerDesktop() 
-    document.addEventListener('pointermove', onPointerMove);
+   // document.addEventListener('pointermove', onPointerMove);
+   document.addEventListener('mousemove', onDocumentMouseMove, false);
 
     document.addEventListener('touchmove', onTouchMove);
 
@@ -371,6 +372,9 @@ function updatePlayerDesktop() {
         camera.position.add(new THREE.Vector3(-15, 8, 20)); // Adjust distance from the model
         camera.lookAt(walkModel.position)
       }
+      else if (event.keyCode === 16) { // Check if the pressed key is Shift (keyCode 16)
+        shiftPressed = true;
+      }
       else {        
         point.play();
 
@@ -387,6 +391,9 @@ function updatePlayerDesktop() {
       }
       else if(event.keyCode === 39) {
         walk.stop();
+      }
+      else if (event.keyCode === 16) { // Check if the pressed key is Shift (keyCode 16)
+        shiftPressed = false;
       }
       else {
         point.stop();
@@ -489,7 +496,7 @@ function onPointerMove(event) {
     const rotationAngle = deltaX * rotationSpeed;
 
     // Rotate the character mesh
-    walkModel.rotation.y += rotationAngle;
+    walkModel.rotation.y -= rotationAngle;
 }
 
 function onTouchMove(event) {
@@ -501,6 +508,25 @@ function onTouchMove(event) {
     // Rotate the character mesh
     walkModel.rotation.y -= rotationAngle;
 }
+
+
+// Define variables to track Shift key state
+let shiftPressed = false;
+
+// Function to handle mouse movement and rotate the camera
+function onDocumentMouseMove(event) {
+    if (shiftPressed) { // Check if Shift key is pressed
+        // Calculate rotation angles based on mouse movement
+        const rotationSpeed = 0.005; // Adjust rotation speed as needed
+        const deltaX = event.movementX * rotationSpeed;
+        const deltaY = event.movementY * rotationSpeed;
+
+        // Rotate the camera using OrbitControls
+        controls.rotateLeft(deltaX);
+        controls.rotateUp(deltaY);
+    }
+}
+
 
 
 </script>
