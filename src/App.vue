@@ -73,7 +73,7 @@ let joyManager;
 
 controls.maxDistance = 15;
 controls.minDistance = 15;
-controls.maxPolarAngle = Math.PI/2 ;
+controls.maxPolarAngle = Math.PI/2;
 controls.minPolarAngle = 0;
 controls.autoRotate = false;
 controls.autoRotateSpeed = 0;
@@ -82,8 +82,8 @@ controls.enableDamping = false;
 controls.dampingFactor = 0.1;
 controls.enableZoom = false;
 controls.enablePan = false;
-controls.minAzimuthAngle = - Math.PI/2; 
-controls.maxAzimuthAngle = Math.PI/4
+controls.minAzimuthAngle = -Math.PI; 
+controls.maxAzimuthAngle = Math.PI;
 
 controls.update();
 
@@ -99,98 +99,6 @@ onMounted(() => {
 
     createModels();
 
-    /*document.onkeydown = ((event) => {
-      if(event.keyCode === 38) {
-        walk.play();
-
-        walkModel.translateZ(0.6);
-        walkModel.translateX(-0.15);
-
-        if (detectCollision(walkModel, bridge1) === true && walkModel.position.y <= (bridge1.position.y + bridge1.geometry.boundingBox.max.y) / 4) {
-            walkModel.position.y = walkModel.position.y + (bridge1.position.y + bridge1.geometry.boundingBox.max.y) / 50; 
-        }
-        else if (detectCollision(walkModel, bridge2) === true && walkModel.position.y <= (bridge2.position.y + bridge2.geometry.boundingBox.max.y) / 2.2) {
-          walkModel.position.y = walkModel.position.y + (bridge2.position.y + bridge2.geometry.boundingBox.max.y) / 50; 
-        }
-        else if (detectCollision(walkModel, bridge3) === true && walkModel.position.y <= (bridge3.position.y + bridge3.geometry.boundingBox.max.y) / 2.2) {
-          walkModel.position.y = walkModel.position.y + (bridge3.position.y + bridge3.geometry.boundingBox.max.y) / 50; 
-        }
-        else if(detectCollision(walkModel, bridge1) === false && detectCollision(walkModel, bridge2) === false && detectCollision(walkModel, bridge3) === false && detectCollision(walkModel, bridge4) === true){
-            walkModel.position.y = walkModel.position.y - (bridge4.position.y + bridge4.geometry.boundingBox.max.y) / 40;
-        }
-        else if(detectCollision(walkModel, bridge1) === false && detectCollision(walkModel, bridge2) === false && detectCollision(walkModel, bridge3) === false && detectCollision(walkModel, bridge4) === false) {
-            walkModel.position.y = 2;
-        }
-        
-        camera.position.copy(walkModel.position)
-        camera.position.add(new THREE.Vector3(-17, 20, 30));
-        camera.lookAt(walkModel.position)
-
-      }
-      else if(event.keyCode === 39) {
-        walk.play();
-
-        walkModel.translateZ(0.6);
-        walkModel.position.x += 0.1;
-        walkModel.rotation.y = 0.02;
-
-        if (detectCollision(walkModel, bridge1) === true && walkModel.position.y <= (bridge1.position.y + bridge1.geometry.boundingBox.max.y) / 4) {
-            walkModel.position.y = walkModel.position.y + (bridge1.position.y + bridge1.geometry.boundingBox.max.y) / 50; 
-        }
-        else if (detectCollision(walkModel, bridge2) === true && walkModel.position.y <= (bridge2.position.y + bridge2.geometry.boundingBox.max.y) / 2.2) {
-          walkModel.position.y = walkModel.position.y + (bridge2.position.y + bridge2.geometry.boundingBox.max.y) / 50; 
-        }
-        else if (detectCollision(walkModel, bridge3) === true && walkModel.position.y <= (bridge3.position.y + bridge3.geometry.boundingBox.max.y) / 2.2) {
-          walkModel.position.y = walkModel.position.y + (bridge3.position.y + bridge3.geometry.boundingBox.max.y) / 50; 
-        }
-        else if(detectCollision(walkModel, bridge1) === false && detectCollision(walkModel, bridge2) === false && detectCollision(walkModel, bridge3) === false && detectCollision(walkModel, bridge4) === true){
-            walkModel.position.y = walkModel.position.y - (bridge4.position.y + bridge4.geometry.boundingBox.max.y) / 40;
-        }
-        else if(detectCollision(walkModel, bridge1) === false && detectCollision(walkModel, bridge2) === false && detectCollision(walkModel, bridge3) === false && detectCollision(walkModel, bridge4) === false) {
-            walkModel.position.y = 2;
-        }
-
-        camera.position.copy(walkModel.position)
-        camera.position.add(new THREE.Vector3(-17, 20, 30));
-        camera.lookAt(walkModel.position)
-
-      }
-      else if(event.keyCode === 37) {
-        walk.play();
-        walkModel.position.z -= 0.03;
-        walkModel.position.x -= 0.03;
-
-        camera.position.copy(walkModel.position)
-        camera.position.add(new THREE.Vector3(-15, 8, 20)); // Adjust distance from the model
-        camera.lookAt(walkModel.position)
-      }
-      else {        
-        point.play();
-
-        walkModel.visible = false;
-        pointingModel.visible = true;
-
-        pointingModel.position.copy(walkModel.position)
-      }
-    })
-
-    document.onkeyup = ((event) => {
-      if(event.keyCode === 38) {
-        walk.stop();
-      }
-      else if(event.keyCode === 39) {
-        walk.stop();
-      }
-      else {
-        point.stop();
-
-        walkModel.visible = true;
-        pointingModel.visible = false;
-
-        pointingModel.position.copy(walkModel.position)
-      }
-    })*/
-
     resize();
 
     animate();
@@ -198,6 +106,11 @@ onMounted(() => {
     window.addEventListener('resize',resize);
 
     addJoystick();
+    updatePlayerDesktop() 
+    document.addEventListener('pointermove', onPointerMove);
+
+    document.addEventListener('touchmove', onTouchMove);
+
 })
 
 function createModels() {
@@ -357,38 +270,134 @@ function detectCollision(modelMesh, otherMesh) {
 }
 
 function updatePlayer(){
-    const angle = controls.getAzimuthalAngle()
+    const angle = controls.getAzimuthalAngle();
     
     if (fwdValue > 0) {
         tempVector.set(0, 0, -fwdValue).applyAxisAngle(upVector, angle)
-        walkModel.position.addScaledVector(tempVector, 1) 
+        walkModel.position.addScaledVector(tempVector, 0.5) 
         walk.play()
     }
   
     if (bkdValue > 0) {
       tempVector.set(0, 0, bkdValue).applyAxisAngle(upVector, angle)
-      walkModel.position.addScaledVector(tempVector,1)
+      walkModel.position.addScaledVector(tempVector, 0.5)
       walk.play()
     }
 
     if (lftValue > 0) {
       tempVector.set(-lftValue, 0, 0).applyAxisAngle(upVector, angle)
-      walkModel.position.addScaledVector(tempVector,1)
+      walkModel.position.addScaledVector(tempVector, 0.5)
       walk.play()
     }
 
     if (rgtValue > 0) {
       tempVector.set(rgtValue, 0, 0).applyAxisAngle(upVector, angle)
-      walkModel.position.addScaledVector(tempVector,1)
+      walkModel.position.addScaledVector(tempVector, 0.5)
       walk.play()
     }
   
   
+    console.log(controls)
   // reposition camera
   camera.position.sub(controls.target)
   controls.target.copy(walkModel.position)
   camera.position.add(walkModel.position)
+
 };
+
+function updatePlayerDesktop() {
+  document.onkeydown = ((event) => {
+      if(event.keyCode === 38) {
+        walk.play();
+
+        walkModel.translateZ(0.6);
+        //walkModel.translateX(-0.15);
+
+        /*if (detectCollision(walkModel, bridge1) === true && walkModel.position.y <= (bridge1.position.y + bridge1.geometry.boundingBox.max.y) / 4) {
+            walkModel.position.y = walkModel.position.y + (bridge1.position.y + bridge1.geometry.boundingBox.max.y) / 50; 
+        }
+        else if (detectCollision(walkModel, bridge2) === true && walkModel.position.y <= (bridge2.position.y + bridge2.geometry.boundingBox.max.y) / 2.2) {
+          walkModel.position.y = walkModel.position.y + (bridge2.position.y + bridge2.geometry.boundingBox.max.y) / 50; 
+        }
+        else if (detectCollision(walkModel, bridge3) === true && walkModel.position.y <= (bridge3.position.y + bridge3.geometry.boundingBox.max.y) / 2.2) {
+          walkModel.position.y = walkModel.position.y + (bridge3.position.y + bridge3.geometry.boundingBox.max.y) / 50; 
+        }
+        else if(detectCollision(walkModel, bridge1) === false && detectCollision(walkModel, bridge2) === false && detectCollision(walkModel, bridge3) === false && detectCollision(walkModel, bridge4) === true){
+            walkModel.position.y = walkModel.position.y - (bridge4.position.y + bridge4.geometry.boundingBox.max.y) / 40;
+        }
+        else if(detectCollision(walkModel, bridge1) === false && detectCollision(walkModel, bridge2) === false && detectCollision(walkModel, bridge3) === false && detectCollision(walkModel, bridge4) === false) {
+            walkModel.position.y = 2;
+        }*/
+        
+        /*camera.position.copy(walkModel.position)
+        camera.position.add(new THREE.Vector3(-17, 20, 30));
+        camera.lookAt(walkModel.position)*/
+
+      }
+      else if(event.keyCode === 39) {
+        walk.play();
+
+        walkModel.translateZ(0.6);
+        walkModel.position.x += 0.1;
+        walkModel.rotation.y = 0.02;
+
+        if (detectCollision(walkModel, bridge1) === true && walkModel.position.y <= (bridge1.position.y + bridge1.geometry.boundingBox.max.y) / 4) {
+            walkModel.position.y = walkModel.position.y + (bridge1.position.y + bridge1.geometry.boundingBox.max.y) / 50; 
+        }
+        else if (detectCollision(walkModel, bridge2) === true && walkModel.position.y <= (bridge2.position.y + bridge2.geometry.boundingBox.max.y) / 2.2) {
+          walkModel.position.y = walkModel.position.y + (bridge2.position.y + bridge2.geometry.boundingBox.max.y) / 50; 
+        }
+        else if (detectCollision(walkModel, bridge3) === true && walkModel.position.y <= (bridge3.position.y + bridge3.geometry.boundingBox.max.y) / 2.2) {
+          walkModel.position.y = walkModel.position.y + (bridge3.position.y + bridge3.geometry.boundingBox.max.y) / 50; 
+        }
+        else if(detectCollision(walkModel, bridge1) === false && detectCollision(walkModel, bridge2) === false && detectCollision(walkModel, bridge3) === false && detectCollision(walkModel, bridge4) === true){
+            walkModel.position.y = walkModel.position.y - (bridge4.position.y + bridge4.geometry.boundingBox.max.y) / 40;
+        }
+        else if(detectCollision(walkModel, bridge1) === false && detectCollision(walkModel, bridge2) === false && detectCollision(walkModel, bridge3) === false && detectCollision(walkModel, bridge4) === false) {
+            walkModel.position.y = 2;
+        }
+
+        camera.position.copy(walkModel.position)
+        camera.position.add(new THREE.Vector3(-17, 20, 30));
+        camera.lookAt(walkModel.position)
+
+      }
+      else if(event.keyCode === 37) {
+        walk.play();
+        walkModel.position.z -= 0.03;
+        walkModel.position.x -= 0.03;
+
+        camera.position.copy(walkModel.position)
+        camera.position.add(new THREE.Vector3(-15, 8, 20)); // Adjust distance from the model
+        camera.lookAt(walkModel.position)
+      }
+      else {        
+        point.play();
+
+        walkModel.visible = false;
+        pointingModel.visible = true;
+
+        pointingModel.position.copy(walkModel.position)
+      }
+    })
+
+    document.onkeyup = ((event) => {
+      if(event.keyCode === 38) {
+        walk.stop();
+      }
+      else if(event.keyCode === 39) {
+        walk.stop();
+      }
+      else {
+        point.stop();
+
+        walkModel.visible = true;
+        pointingModel.visible = false;
+
+        pointingModel.position.copy(walkModel.position)
+      }
+    })
+}
 
 function addJoystick(){
    const options = {
@@ -405,13 +414,13 @@ function addJoystick(){
       }
    
    
-  joyManager = nipplejs.create(options);
+    joyManager = nipplejs.create(options);
   
-joyManager['0'].on('move', function (evt, data) {
+    joyManager['0'].on('move', function (evt, data) {
         const forward = data.vector.y
         const turn = data.vector.x
 
-        if(walkModel !== undefined && mapModel !== undefined) {
+    if(walkModel !== undefined && mapModel !== undefined) {
       if (detectCollision(walkModel, bridge1) === true && walkModel.position.y <= (bridge1.position.y + bridge1.geometry.boundingBox.max.y)) {
         console.log("bridge 1")
           walkModel.position.y = walkModel.position.y + (bridge1.position.y + bridge1.geometry.boundingBox.max.y) / 50; 
@@ -472,5 +481,26 @@ joyManager['0'].on('move', function (evt, data) {
       })
   
 }
+
+function onPointerMove(event) {
+    // Calculate the rotation angle based on the mouse movement
+    const rotationSpeed = 0.005; // Adjust the rotation speed as needed
+    const deltaX = event.movementX || event.mozMovementX || event.webkitMovementX || 0;
+    const rotationAngle = deltaX * rotationSpeed;
+
+    // Rotate the character mesh
+    walkModel.rotation.y += rotationAngle;
+}
+
+function onTouchMove(event) {
+    // Calculate the rotation angle based on the touch movement
+    const rotationSpeed = 0.005; // Adjust the rotation speed as needed
+    const deltaX = event.touches[0].clientX - event.touches[1].clientX;
+    const rotationAngle = deltaX * rotationSpeed;
+
+    // Rotate the character mesh
+    walkModel.rotation.y -= rotationAngle;
+}
+
 
 </script>
