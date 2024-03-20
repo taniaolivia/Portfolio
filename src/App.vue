@@ -329,31 +329,23 @@ function updatePlayerDesktop() {
 
   document.onkeydown = ((event) => {
       if(event.keyCode === 90) {
-
         walk.play();
 
         walkModel.translateZ(0.6);
         walkModel.translateX(-0.1);
-
       }
       else if(event.keyCode === 68) {
-
         walk.play();
         walkModel.translateX(-0.1);
-
       }
       else if(event.keyCode === 81) {
-
         walk.play();
         walkModel.translateX(0.1);
-
       }
       else if(event.keyCode === 83) {
-        
         walk.play();
         walkModel.translateZ(-0.6);
         walkModel.translateX(0.1);
-
       }
       else {        
         point.play();
