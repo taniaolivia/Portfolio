@@ -84,6 +84,7 @@ button:focus-visible {
   left: 20px;
   touch-action: manipulation;
 }
+
 #stick {
   position: absolute;
   width: 50px;
@@ -106,7 +107,7 @@ button:focus-visible {
   touch-action: manipulation;
 }
 
-#joystickWrapper1 {
+#joystick-wrapper {
   pointer-events: auto;
   display: block;
   position: absolute;

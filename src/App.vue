@@ -1,12 +1,9 @@
 <template>
-  <div id="map">
-  
-  </div>
+  <div id="map"></div>
 
   <div id="mobileInterface" class="noSelect">
-        <div id="joystickWrapper1"></div>
-        
-      </div>
+    <div id="joystick-wrapper"></div> 
+  </div>
 </template>
 
 <script setup>
@@ -63,13 +60,13 @@ scene.add(directionalLight4);
 
 let controls = new OrbitControls( camera, renderer.domElement );
 
-let fwdValue = 0;
-let bkdValue = 0;
-let rgtValue = 0;
-let lftValue = 0;
+let forwardValue = 0;
+let backwardValue = 0;
+let rightValue = 0;
+let leftValue = 0;
 let tempVector = new THREE.Vector3();
 let upVector = new THREE.Vector3(0, 1, 0);
-let joyManager;
+let joystick;
 
 controls.maxDistance = 12;
 controls.minDistance = 12;
@@ -96,19 +93,49 @@ loader.setDRACOLoader( dracoLoader );
 onMounted(() => {
 
     document.getElementById("map").appendChild(renderer.domElement);
+    window.addEventListener('resize', resize);
 
     createModels();
-
+    addMobileJoystick();
+    changeCharacterDirection();
     resize();
 
     animate();
 
-    window.addEventListener('resize',resize);
-
-    addJoystick();
-
-    changeCharacterDirection();
 })
+
+function animate() {
+    requestAnimationFrame(animate);
+    
+    if(walkModel !== undefined) {
+      updatePlayer();
+      updatePlayerDesktop() 
+    }
+
+    if(mixer !== undefined && pointingMixer !== undefined) {
+      mixer.update(0.06);
+      pointingMixer.update(0.04);
+    }
+
+    if(arrowLeftMixer !== undefined && arrowRightMixer !== undefined && arrowFrontMixer !== undefined) {
+      arrowLeftMixer.update(0.025);
+      arrowRightMixer.update(0.025);
+      arrowFrontMixer.update(0.025);
+    }
+
+    if (wave) {
+      const time = Date.now() * 0.001;
+      const vertices = wave.geometry.attributes.position.array;
+
+      for (let i = 0; i < vertices.length; i += 3) {
+          vertices[i + 1] = Math.sin(vertices[i] + vertices[i + 2] + time);
+      }
+      
+      wave.geometry.attributes.position.needsUpdate = true;
+    }
+
+    renderer.render( scene, camera );
+}
 
 function createModels() {
 
@@ -220,40 +247,6 @@ function resize(){
   camera.updateProjectionMatrix();
 }
 
-
-function animate( ) {
-    requestAnimationFrame(animate);
-    
-    if(walkModel !== undefined) {
-      updatePlayer();
-      updatePlayerDesktop() 
-    }
-
-    if(mixer !== undefined && pointingMixer !== undefined) {
-      mixer.update(0.06);
-      pointingMixer.update(0.04);
-    }
-
-    if(arrowLeftMixer !== undefined && arrowRightMixer !== undefined && arrowFrontMixer !== undefined) {
-      arrowLeftMixer.update(0.025);
-      arrowRightMixer.update(0.025);
-      arrowFrontMixer.update(0.025);
-    }
-
-    if (wave) {
-      const time = Date.now() * 0.001;
-      const vertices = wave.geometry.attributes.position.array;
-
-      for (let i = 0; i < vertices.length; i += 3) {
-          vertices[i + 1] = Math.sin(vertices[i] + vertices[i + 2] + time);
-      }
-      
-      wave.geometry.attributes.position.needsUpdate = true;
-    }
-
-    renderer.render( scene, camera );
-}
-
 function detectCollision(modelMesh, otherMesh) {
     const modelBox = new THREE.Box3().setFromObject(modelMesh);
     const otherBox = new THREE.Box3().setFromObject(otherMesh);
@@ -285,31 +278,30 @@ function updatePlayer(){
       walkModel.position.y = 6;
     }
     
-    if (fwdValue > 0) {
-        tempVector.set(0, 0, -fwdValue).applyAxisAngle(upVector, angle)
+    if (forwardValue > 0) {
+        tempVector.set(0, 0, -forwardValue).applyAxisAngle(upVector, angle)
         walkModel.position.addScaledVector(tempVector, 0.5) 
         walk.play()
     }
   
-    if (bkdValue > 0) {
-      tempVector.set(0, 0, bkdValue).applyAxisAngle(upVector, angle)
+    if (backwardValue > 0) {
+      tempVector.set(0, 0, backwardValue).applyAxisAngle(upVector, angle)
       walkModel.position.addScaledVector(tempVector, 0.5)
       walk.play()
     }
 
-    if (lftValue > 0) {
-      tempVector.set(-lftValue, 0, 0).applyAxisAngle(upVector, angle)
+    if (leftValue > 0) {
+      tempVector.set(-leftValue, 0, 0).applyAxisAngle(upVector, angle)
       walkModel.position.addScaledVector(tempVector, 0.5)
       walk.play()
     }
 
-    if (rgtValue > 0) {
-      tempVector.set(rgtValue, 0, 0).applyAxisAngle(upVector, angle)
+    if (rightValue > 0) {
+      tempVector.set(rightValue, 0, 0).applyAxisAngle(upVector, angle)
       walkModel.position.addScaledVector(tempVector, 0.5)
       walk.play()
     }
   
-    // reposition camera
     camera.position.sub(controls.target)
     controls.target.copy(walkModel.position)
     camera.position.add(walkModel.position)
@@ -401,51 +393,53 @@ function updatePlayerDesktop() {
     camera.position.add(walkModel.position)
 }
 
-function addJoystick(){
+function addMobileJoystick(){
    const options = {
-        zone: document.getElementById('joystickWrapper1'),
-        size: 120,
-        multitouch: true,
-        maxNumberOfNipples: 2,
-        mode: 'static',
-        restJoystick: true,
-        shape: 'circle',
-        position: { top: '60px', left: '60px' },
-        dynamicPage: true,
-        color: "black"
-      }
+      zone: document.getElementById('joystick-wrapper'),
+      size: 120,
+      multitouch: true,
+      maxNumberOfNipples: 2,
+      mode: 'static',
+      restJoystick: true,
+      shape: 'circle',
+      position: { top: '60px', left: '60px' },
+      dynamicPage: true,
+      color: "black"
+    }
    
-   
-    joyManager = nipplejs.create(options);
+    joystick = nipplejs.create(options);
   
-    joyManager['0'].on('move', function (evt, data) {
+    joystick['0'].on('move', function (evt, data) {
         const forward = data.vector.y
         const turn = data.vector.x
 
         if (forward > 0) {
-          fwdValue = Math.abs(forward)
-          bkdValue = 0
-        } else if (forward < 0) {
-          fwdValue = 0
-          bkdValue = Math.abs(forward)
+          forwardValue = Math.abs(forward)
+          backwardValue = 0
+        } 
+        else if (forward < 0) {
+          forwardValue = 0
+          backwardValue = Math.abs(forward)
         }
 
         if (turn > 0) {
-          lftValue = 0
-          rgtValue = Math.abs(turn)
-        } else if (turn < 0) {
-          lftValue = Math.abs(turn)
-          rgtValue = 0
+          leftValue = 0
+          rightValue = Math.abs(turn)
+        } 
+        else if (turn < 0) {
+          leftValue = Math.abs(turn)
+          rightValue = 0
         }
-      })
+    });
 
-     joyManager['0'].on('end', function (evt) {
-        bkdValue = 0
-        fwdValue = 0
-        lftValue = 0
-        rgtValue = 0
-        walk.stop()
-      })
+    joystick['0'].on('end', function (evt) {
+        backwardValue = 0;
+        forwardValue = 0;
+        leftValue = 0;
+        rightValue = 0;
+
+        walk.stop();
+    });
   
 }
 
@@ -459,7 +453,5 @@ function changeCharacterDirection() {
       walkModel.rotation.y = angle;
     });
 }
-
-
 
 </script>
