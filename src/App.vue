@@ -17,6 +17,7 @@ import nipplejs from 'nipplejs';
 let pointingMixer, pointingModel, point;
 let mixer, walkModel, walk;
 let wave, mapModel, bridge1, bridge2, bridge3, bridge4;
+let bridgeHandle1, bridgeHandle2, bridgeHandle3, bridgeHandle4, bridgeHandle5, bridgeHandle6, bridgeHandle7, bridgeHandle8;
 let arrowLeftModel, pointingArrowLeft, arrowLeftMixer;
 let arrowRightModel, pointingArrowRight, arrowRightMixer;
 let arrowFrontModel, pointingArrowFront, arrowFrontMixer;
@@ -70,7 +71,7 @@ let joystick;
 
 controls.maxDistance = 12;
 controls.minDistance = 12;
-controls.maxPolarAngle = Math.PI/3;
+controls.maxPolarAngle = Math.PI / 2;
 controls.minPolarAngle = 0;
 controls.autoRotate = false;
 controls.autoRotateSpeed = 0;
@@ -79,8 +80,8 @@ controls.enableDamping = false;
 controls.dampingFactor = 0.1;
 controls.enableZoom = false;
 controls.enablePan = false;
-controls.minAzimuthAngle = -Math.PI; 
-controls.maxAzimuthAngle = Math.PI;
+controls.minAzimuthAngle = -Infinity; 
+controls.maxAzimuthAngle = Infinity;
 
 controls.update();
 
@@ -153,6 +154,15 @@ function createModels() {
         bridge2 = mapModel.children[54];
         bridge3 = mapModel.children[55];
         bridge4 = mapModel.children[56];
+
+        bridgeHandle1 = mapModel.children[65];
+        bridgeHandle2 = mapModel.children[66];
+        bridgeHandle3 = mapModel.children[67];
+        bridgeHandle4 = mapModel.children[68];
+        bridgeHandle5 = mapModel.children[69];
+        bridgeHandle6 = mapModel.children[70];
+        bridgeHandle7 = mapModel.children[71];
+        bridgeHandle8 = mapModel.children[72];
 
         console.log(mapModel)
 
@@ -308,6 +318,8 @@ function updatePlayer(){
 
 };
 
+let collision = false;
+
 function updatePlayerDesktop() {
 
   if (detectCollision(walkModel, bridge1) === true && walkModel.position.y <= (bridge1.position.y + bridge1.geometry.boundingBox.max.y) / 2.3) {
@@ -331,21 +343,38 @@ function updatePlayerDesktop() {
       if(event.keyCode === 90) {
         walk.play();
 
+        /*mapModel.children.map((object, index) => {
+          if(!(index == 0 && index >= 53 && index <= 56)) {
+            if(detectCollision(walkModel, object) === false) {
+              collision = false;
+            }
+            else {
+              collision = true;
+            }
+          }
+        })*/
+
         walkModel.translateZ(0.6);
         walkModel.translateX(-0.1);
+    
       }
       else if(event.keyCode === 68) {
         walk.play();
+
         walkModel.translateX(-0.1);
+
       }
       else if(event.keyCode === 81) {
         walk.play();
+
         walkModel.translateX(0.1);
+
       }
       else if(event.keyCode === 83) {
         walk.play();
+
         walkModel.translateZ(-0.6);
-        walkModel.translateX(0.1);
+        walkModel.translateX(0.1);            
       }
       else {        
         point.play();
