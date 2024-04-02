@@ -13,11 +13,12 @@ import { DRACOLoader } from 'three/addons/loaders/DRACOLoader.js';
 import { onMounted } from 'vue';
 import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
 import nipplejs from 'nipplejs';
+import Cannon from 'cannon';
 
 let pointingMixer, pointingModel, point;
 let mixer, walkModel, walk;
 let wave, mapModel, bridge1, bridge2, bridge3, bridge4;
-let bridgeHandle1, bridgeHandle2, bridgeHandle3, bridgeHandle4, bridgeHandle5, bridgeHandle6, bridgeHandle7, bridgeHandle8;
+let bridgeHandleR1, bridgeHandleR2, bridgeHandleR3, bridgeHandleR4, bridgeHandleL1, bridgeHandleL2, bridgeHandleL3, bridgeHandleL4;
 let arrowLeftModel, pointingArrowLeft, arrowLeftMixer;
 let arrowRightModel, pointingArrowRight, arrowRightMixer;
 let arrowFrontModel, pointingArrowFront, arrowFrontMixer;
@@ -91,6 +92,8 @@ let dracoLoader = new DRACOLoader();
 dracoLoader.setDecoderPath( cdn + 'examples/jsm/libs/draco/' );
 loader.setDRACOLoader( dracoLoader );
 
+
+
 onMounted(() => {
 
     document.getElementById("map").appendChild(renderer.domElement);
@@ -109,7 +112,7 @@ function animate() {
     requestAnimationFrame(animate);
     
     if(walkModel !== undefined) {
-      updatePlayer();
+      //updatePlayer();
       updatePlayerDesktop() 
     }
 
@@ -155,14 +158,14 @@ function createModels() {
         bridge3 = mapModel.children[55];
         bridge4 = mapModel.children[56];
 
-        bridgeHandle1 = mapModel.children[65];
-        bridgeHandle2 = mapModel.children[66];
-        bridgeHandle3 = mapModel.children[67];
-        bridgeHandle4 = mapModel.children[68];
-        bridgeHandle5 = mapModel.children[69];
-        bridgeHandle6 = mapModel.children[70];
-        bridgeHandle7 = mapModel.children[71];
-        bridgeHandle8 = mapModel.children[72];
+        bridgeHandleR2 = mapModel.children[65];
+        bridgeHandleR3 = mapModel.children[66];
+        bridgeHandleL2 = mapModel.children[67];
+        bridgeHandleL3 = mapModel.children[68];
+        bridgeHandleR4 = mapModel.children[69];
+        bridgeHandleL4 = mapModel.children[70];
+        bridgeHandleL1 = mapModel.children[71];
+        bridgeHandleR1 = mapModel.children[72];
 
         console.log(mapModel)
 
@@ -189,7 +192,7 @@ function createModels() {
 
           walkModel = gltf.scene;
           walkModel.scale.set(0.8, 0.8, 0.8); 
-          walkModel.position.set(-56.5, 5.1, 85); 
+          walkModel.position.set(-56.5, 5, 85); 
           walkModel.rotation.set(0, -3.5, 0);
 
           scene.add(walkModel);
@@ -257,7 +260,7 @@ function resize(){
   camera.updateProjectionMatrix();
 }
 
-function detectCollision(modelMesh, otherMesh) {
+function detectCollision(modelMesh, otherMesh, distanceThreshold) {
     const modelBox = new THREE.Box3().setFromObject(modelMesh);
     const otherBox = new THREE.Box3().setFromObject(otherMesh);
 
@@ -318,12 +321,12 @@ function updatePlayer(){
 
 };
 
-let collision = false;
-
+let collision;
+  
 function updatePlayerDesktop() {
 
   if (detectCollision(walkModel, bridge1) === true && walkModel.position.y <= (bridge1.position.y + bridge1.geometry.boundingBox.max.y) / 2.3) {
-    walkModel.position.y = walkModel.position.y + (bridge1.position.y + bridge1.geometry.boundingBox.max.y) / 50; 
+    walkModel.position.y = walkModel.position.y + (bridge1.position.y + bridge1.geometry.boundingBox.max.y) / 100; 
   }
   else if (detectCollision(walkModel, bridge2) === true && walkModel.position.y <= (bridge2.position.y + bridge2.geometry.boundingBox.max.y) / 2.2) {
     walkModel.position.y = walkModel.position.y + (bridge2.position.y + bridge2.geometry.boundingBox.max.y) / 50; 
@@ -335,46 +338,93 @@ function updatePlayerDesktop() {
     walkModel.position.y = walkModel.position.y - (bridge4.position.y + bridge4.geometry.boundingBox.max.y) / 50;
   }
 
-  if(detectCollision(walkModel, bridge1) === false && detectCollision(walkModel, bridge2) === false && detectCollision(walkModel, bridge3) === false && detectCollision(walkModel, bridge4) === false){
-    walkModel.position.y = 6;
+
+  // Inside your update loop, reset collision flag
+  collision = false;
+
+
+  /*if (detectCollision(walkModel, bridgeHandle1) === true 
+    || detectCollision(walkModel, bridgeHandle2) === true
+    || detectCollision(walkModel, bridgeHandle3) === true
+    || detectCollision(walkModel, bridgeHandle4) === true
+    || detectCollision(walkModel, bridgeHandle5) === true
+    || detectCollision(walkModel, bridgeHandle6) === true
+    || detectCollision(walkModel, bridgeHandle7) === true
+    || detectCollision(walkModel, bridgeHandle8) === true
+    ) {
+    collision = true;
   }
+
+  if (detectCollision(walkModel, bridgeHandle1) === false
+    || detectCollision(walkModel, bridgeHandle2) === false
+    || detectCollision(walkModel, bridgeHandle3) === false
+    || detectCollision(walkModel, bridgeHandle4) === false
+    || detectCollision(walkModel, bridgeHandle5) === false
+    || detectCollision(walkModel, bridgeHandle6) === false
+    || detectCollision(walkModel, bridgeHandle7) === false
+    || detectCollision(walkModel, bridgeHandle8) === false
+  ) {
+    collision = false;
+  }*/
+
+  //console.log(collision);
+  if(detectCollision(walkModel, bridge1) === false && detectCollision(walkModel, bridge2) === false && detectCollision(walkModel, bridge3) === false && detectCollision(walkModel, bridge4) === false){
+    walkModel.position.y = 5;
+  }
+
+  if (detectCollision(walkModel, bridgeHandleR1) === false
+      && detectCollision(walkModel, bridgeHandleR2) === false
+      && detectCollision(walkModel, bridgeHandleR3) === false
+      && detectCollision(walkModel, bridgeHandleR4) === false
+      && detectCollision(walkModel, bridgeHandleL1) === true
+      && detectCollision(walkModel, bridgeHandleL2) === false
+      && detectCollision(walkModel, bridgeHandleL3) === false
+      && detectCollision(walkModel, bridgeHandleL4) === false
+      && walkModel.position.x >= (bridgeHandleL1.position.x + bridgeHandleL1.geometry.boundingBox.max.x) / 3.35
+    ) {
+      //console.log(walkModel)
+      //console.log(bridgeHandleL1)
+      // walkModel.position.x = walkModel.position.x - 0.1; 
+       //walkModel.position.y = walkModel.position.y + (bridgeHandleL1.position.y + bridgeHandleL1.geometry.boundingBox.max.y) / 100; 
+
+      //console.log("collide")
+
+      // Calculate the maximum allowed position for walkModel
+    }
+
+    //console.log("model:", walkModel.position.x)
+    //console.log((bridgeHandleL1.position.x + bridgeHandleL1.geometry.boundingBox.max.x) / 3.35)
 
   document.onkeydown = ((event) => {
       if(event.keyCode === 90) {
         walk.play();
 
-        /*mapModel.children.map((object, index) => {
-          if(!(index == 0 && index >= 53 && index <= 56)) {
-            if(detectCollision(walkModel, object) === false) {
-              collision = false;
-            }
-            else {
-              collision = true;
-            }
-          }
-        })*/
-
-        walkModel.translateZ(0.6);
-        walkModel.translateX(-0.1);
-    
+          walkModel.translateZ(0.6);
+          walkModel.translateX(-0.1); 
+        
       }
       else if(event.keyCode === 68) {
         walk.play();
 
-        walkModel.translateX(-0.1);
+       
+          walkModel.translateX(-0.1);
+
+        
 
       }
       else if(event.keyCode === 81) {
         walk.play();
 
-        walkModel.translateX(0.1);
+          walkModel.translateX(0.1);
+      
 
       }
       else if(event.keyCode === 83) {
         walk.play();
 
-        walkModel.translateZ(-0.6);
-        walkModel.translateX(0.1);            
+          walkModel.translateZ(-0.6);
+          walkModel.translateX(0.1);  
+            
       }
       else {        
         point.play();
