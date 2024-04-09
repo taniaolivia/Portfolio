@@ -327,49 +327,24 @@ function updatePlayerDesktop() {
 
   if (detectCollision(walkModel, bridge1) === true && walkModel.position.y <= (bridge1.position.y + bridge1.geometry.boundingBox.max.y) / 2.3) {
     walkModel.position.y = walkModel.position.y + (bridge1.position.y + bridge1.geometry.boundingBox.max.y) / 100; 
+    console.log("bridge 1")
   }
   else if (detectCollision(walkModel, bridge2) === true && walkModel.position.y <= (bridge2.position.y + bridge2.geometry.boundingBox.max.y) / 2.2) {
     walkModel.position.y = walkModel.position.y + (bridge2.position.y + bridge2.geometry.boundingBox.max.y) / 50; 
+    console.log("bridge 2")
   }
   else if (detectCollision(walkModel, bridge3) === true && detectCollision(walkModel, bridge4) === false && walkModel.position.y <= (bridge3.position.y + bridge3.geometry.boundingBox.max.y) / 2.3) {
     walkModel.position.y = (walkModel.position.y + 2) + (bridge3.position.y + bridge3.geometry.boundingBox.max.y) / 50; 
+    console.log("bridge 3")
   }
   else if(detectCollision(walkModel, bridge3) === false && detectCollision(walkModel, bridge4) === true && walkModel.position.y >= (bridge4.position.y + bridge4.geometry.boundingBox.max.y) / 1.7){
+    console.log("bridge 4")
     walkModel.position.y = walkModel.position.y - (bridge4.position.y + bridge4.geometry.boundingBox.max.y) / 50;
   }
+  
 
-
-  // Inside your update loop, reset collision flag
-  collision = false;
-
-
-  /*if (detectCollision(walkModel, bridgeHandle1) === true 
-    || detectCollision(walkModel, bridgeHandle2) === true
-    || detectCollision(walkModel, bridgeHandle3) === true
-    || detectCollision(walkModel, bridgeHandle4) === true
-    || detectCollision(walkModel, bridgeHandle5) === true
-    || detectCollision(walkModel, bridgeHandle6) === true
-    || detectCollision(walkModel, bridgeHandle7) === true
-    || detectCollision(walkModel, bridgeHandle8) === true
-    ) {
-    collision = true;
-  }
-
-  if (detectCollision(walkModel, bridgeHandle1) === false
-    || detectCollision(walkModel, bridgeHandle2) === false
-    || detectCollision(walkModel, bridgeHandle3) === false
-    || detectCollision(walkModel, bridgeHandle4) === false
-    || detectCollision(walkModel, bridgeHandle5) === false
-    || detectCollision(walkModel, bridgeHandle6) === false
-    || detectCollision(walkModel, bridgeHandle7) === false
-    || detectCollision(walkModel, bridgeHandle8) === false
-  ) {
-    collision = false;
-  }*/
-
-  //console.log(collision);
   if(detectCollision(walkModel, bridge1) === false && detectCollision(walkModel, bridge2) === false && detectCollision(walkModel, bridge3) === false && detectCollision(walkModel, bridge4) === false){
-    walkModel.position.y = 5;
+    walkModel.position.y = 6;
   }
 
   if (detectCollision(walkModel, bridgeHandleR1) === false
@@ -406,24 +381,71 @@ function updatePlayerDesktop() {
       else if(event.keyCode === 68) {
         walk.play();
 
-       
+        if (detectCollision(walkModel, bridgeHandleR1) === true
+          && walkModel.position.x >= (bridgeHandleR1.position.x + bridgeHandleR1.geometry.boundingBox.max.x) / 3.85
+        ) {
+          console.log("collide1")
+        }
+        else if (detectCollision(walkModel, bridgeHandleR2) === true
+          && walkModel.position.x >= (bridgeHandleR2.position.x + bridgeHandleR2.geometry.boundingBox.max.x) / 3.85
+        ) {
+          console.log("collide2")
+        }
+        else if (detectCollision(walkModel, bridgeHandleR3) === true
+          && walkModel.position.x >= (bridgeHandleR3.position.x + bridgeHandleR3.geometry.boundingBox.max.x) / 3.85
+        ) {
+          console.log("collide3")
+        }
+        else if (detectCollision(walkModel, bridgeHandleR4) === true
+          && walkModel.position.x >= (bridgeHandleR4.position.x + bridgeHandleR4.geometry.boundingBox.max.x) / 3.85
+        ) {
+          console.log("collide4")
+        }
+        else {
           walkModel.translateX(-0.1);
-
-        
+        }
 
       }
       else if(event.keyCode === 81) {
         walk.play();
 
+        if (detectCollision(walkModel, bridgeHandleL1) === true && walkModel.position.x <= (bridgeHandleL1.position.x + bridgeHandleL1.geometry.boundingBox.max.x) / 3.47
+        ) {}
+        else if(detectCollision(walkModel, bridgeHandleL3) === true && walkModel.position.x <= (bridgeHandleL3.position.x + bridgeHandleL3.geometry.boundingBox.max.x) / 3.5
+        ) {}
+          else if(detectCollision(walkModel, bridgeHandleL2) === true && walkModel.position.x <= (bridgeHandleL2.position.x + bridgeHandleL2.geometry.boundingBox.max.x) / 3.47
+        ) {}
+        else if(detectCollision(walkModel, bridgeHandleL4) === true && walkModel.position.x <= (bridgeHandleL4.position.x + bridgeHandleL4.geometry.boundingBox.max.x) / 3.45
+        ) {}
+        else 
+        {
           walkModel.translateX(0.1);
-      
-
+        }
       }
       else if(event.keyCode === 83) {
-        walk.play();
+          walk.play();
 
           walkModel.translateZ(-0.6);
           walkModel.translateX(0.1);  
+
+          if(detectCollision(walkModel, bridge3) === false && detectCollision(walkModel, bridge4) === true && walkModel.position.y <= (bridge4.position.y + bridge4.geometry.boundingBox.max.y) / 1.7){
+            console.log("bridge 4")
+            walkModel.position.y = walkModel.position.y + (bridge4.position.y + bridge4.geometry.boundingBox.max.y) / 100;
+          }
+
+          if (detectCollision(walkModel, bridge3) === true && detectCollision(walkModel, bridge4) === false && walkModel.position.y <= (bridge3.position.y + bridge3.geometry.boundingBox.max.y) / 1.2) {
+            console.log("bridge 3")
+
+            walkModel.position.y = walkModel.position.y  + (bridge3.position.y + bridge3.geometry.boundingBox.max.y) / 10; 
+            console.log(walkModel.position.y)
+  console.log("bridge:", (bridge3.position.y + bridge3.geometry.boundingBox.max.y) / 2.2)
+          }
+
+console.log(detectCollision(walkModel, bridge3) === true)
+
+  
+
+
             
       }
       else {        
