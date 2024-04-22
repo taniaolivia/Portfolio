@@ -222,7 +222,7 @@ function createModels() {
 
           arrowRightModel = gltf.scene;
           arrowRightModel.scale.set(1, 1, 1); 
-          arrowRightModel.position.set(15, 5, -70);
+          arrowRightModel.position.set(15, 20, -70);
           arrowRightModel.rotation.set(0, -2.1, 0);
 
           scene.add(arrowRightModel);
@@ -238,7 +238,7 @@ function createModels() {
 
           arrowFrontModel = gltf.scene;
           arrowFrontModel.scale.set(2, 2, 2); 
-          arrowFrontModel.position.set(-25.5, 0, 40); 
+          arrowFrontModel.position.set(0.5, 5, -5); 
           arrowFrontModel.rotation.set(0, -2.1, 0);
 
           scene.add(arrowFrontModel);
@@ -325,91 +325,113 @@ let collision;
   
 function updatePlayerDesktop() {
 
-  if (detectCollision(walkModel, bridge1) === true && walkModel.position.y <= (bridge1.position.y + bridge1.geometry.boundingBox.max.y) / 2.3) {
-    walkModel.position.y = walkModel.position.y + (bridge1.position.y + bridge1.geometry.boundingBox.max.y) / 100; 
-    console.log("bridge 1")
-  }
-  else if (detectCollision(walkModel, bridge2) === true && walkModel.position.y <= (bridge2.position.y + bridge2.geometry.boundingBox.max.y) / 2.2) {
-    walkModel.position.y = walkModel.position.y + (bridge2.position.y + bridge2.geometry.boundingBox.max.y) / 50; 
-    console.log("bridge 2")
-  }
-  else if (detectCollision(walkModel, bridge3) === true && detectCollision(walkModel, bridge4) === false && walkModel.position.y <= (bridge3.position.y + bridge3.geometry.boundingBox.max.y) / 2.3) {
-    walkModel.position.y = (walkModel.position.y + 2) + (bridge3.position.y + bridge3.geometry.boundingBox.max.y) / 50; 
-    console.log("bridge 3")
-  }
-  else if(detectCollision(walkModel, bridge3) === false && detectCollision(walkModel, bridge4) === true && walkModel.position.y >= (bridge4.position.y + bridge4.geometry.boundingBox.max.y) / 1.7){
-    console.log("bridge 4")
-    walkModel.position.y = walkModel.position.y - (bridge4.position.y + bridge4.geometry.boundingBox.max.y) / 50;
-  }
   
 
-  if(detectCollision(walkModel, bridge1) === false && detectCollision(walkModel, bridge2) === false && detectCollision(walkModel, bridge3) === false && detectCollision(walkModel, bridge4) === false){
-    walkModel.position.y = 6;
-  }
-
-  if (detectCollision(walkModel, bridgeHandleR1) === false
-      && detectCollision(walkModel, bridgeHandleR2) === false
-      && detectCollision(walkModel, bridgeHandleR3) === false
-      && detectCollision(walkModel, bridgeHandleR4) === false
-      && detectCollision(walkModel, bridgeHandleL1) === true
-      && detectCollision(walkModel, bridgeHandleL2) === false
-      && detectCollision(walkModel, bridgeHandleL3) === false
-      && detectCollision(walkModel, bridgeHandleL4) === false
-      && walkModel.position.x >= (bridgeHandleL1.position.x + bridgeHandleL1.geometry.boundingBox.max.x) / 3.35
-    ) {
-      //console.log(walkModel)
-      //console.log(bridgeHandleL1)
-      // walkModel.position.x = walkModel.position.x - 0.1; 
-       //walkModel.position.y = walkModel.position.y + (bridgeHandleL1.position.y + bridgeHandleL1.geometry.boundingBox.max.y) / 100; 
-
-      //console.log("collide")
-
-      // Calculate the maximum allowed position for walkModel
-    }
-
-    //console.log("model:", walkModel.position.x)
-    //console.log((bridgeHandleL1.position.x + bridgeHandleL1.geometry.boundingBox.max.x) / 3.35)
-
+ 
   document.onkeydown = ((event) => {
       if(event.keyCode === 90) {
-        walk.play();
+        if (detectCollision(walkModel, bridge1) === true && walkModel.position.y <= (bridge1.position.y + bridge1.geometry.boundingBox.max.y) / 2.3) {
+          walkModel.position.y = walkModel.position.y + (bridge1.position.y + bridge1.geometry.boundingBox.max.y) / 100; 
+        }
+        else if (detectCollision(walkModel, bridge2) === true && walkModel.position.y <= (bridge2.position.y + bridge2.geometry.boundingBox.max.y) / 2.2) {
+          walkModel.position.y = walkModel.position.y + (bridge2.position.y + bridge2.geometry.boundingBox.max.y) / 50; 
+        }
+        else if (detectCollision(walkModel, bridge3) === true && detectCollision(walkModel, bridge4) === false && walkModel.position.y <= (bridge3.position.y + bridge3.geometry.boundingBox.max.y) / 2.3) {
+          walkModel.position.y = (walkModel.position.y + 2) + (bridge3.position.y + bridge3.geometry.boundingBox.max.y) / 50; 
+        }
+        else if(detectCollision(walkModel, bridge3) === false && detectCollision(walkModel, bridge4) === true && walkModel.position.y >= (bridge4.position.y + bridge4.geometry.boundingBox.max.y) / 1.7){
+          walkModel.position.y = walkModel.position.y - (bridge4.position.y + bridge4.geometry.boundingBox.max.y) / 50;
+        }
+        
+
+        if(detectCollision(walkModel, bridge1) === false && detectCollision(walkModel, bridge2) === false && detectCollision(walkModel, bridge3) === false && detectCollision(walkModel, bridge4) === false){
+          walkModel.position.y = 6;
+        }
+
+          walk.play();
 
           walkModel.translateZ(0.6);
           walkModel.translateX(-0.1); 
         
       }
       else if(event.keyCode === 68) {
+        if (detectCollision(walkModel, bridge1) === true && walkModel.position.y <= (bridge1.position.y + bridge1.geometry.boundingBox.max.y) / 2.3) {
+          walkModel.position.y = walkModel.position.y + (bridge1.position.y + bridge1.geometry.boundingBox.max.y) / 100; 
+        }
+        else if (detectCollision(walkModel, bridge2) === true && walkModel.position.y <= (bridge2.position.y + bridge2.geometry.boundingBox.max.y) / 2.2) {
+          walkModel.position.y = walkModel.position.y + (bridge2.position.y + bridge2.geometry.boundingBox.max.y) / 50; 
+        }
+        else if (detectCollision(walkModel, bridge3) === true && detectCollision(walkModel, bridge4) === false && walkModel.position.y <= (bridge3.position.y + bridge3.geometry.boundingBox.max.y) / 2.3) {
+          walkModel.position.y = (walkModel.position.y + 2) + (bridge3.position.y + bridge3.geometry.boundingBox.max.y) / 50; 
+        }
+        else if(detectCollision(walkModel, bridge3) === false && detectCollision(walkModel, bridge4) === true && walkModel.position.y >= (bridge4.position.y + bridge4.geometry.boundingBox.max.y) / 1.7){
+          walkModel.position.y = walkModel.position.y - (bridge4.position.y + bridge4.geometry.boundingBox.max.y) / 50;
+        }
+        
+
+        if(detectCollision(walkModel, bridge1) === false && detectCollision(walkModel, bridge2) === false && detectCollision(walkModel, bridge3) === false && detectCollision(walkModel, bridge4) === false){
+          walkModel.position.y = 6;
+        }
+
         walk.play();
 
         if (detectCollision(walkModel, bridgeHandleR1) === true
-          && walkModel.position.x >= (bridgeHandleR1.position.x + bridgeHandleR1.geometry.boundingBox.max.x) / 3.85
-        ) {
-          console.log("collide1")
-        }
+          && walkModel.position.x >= (bridgeHandleR1.position.x + bridgeHandleR1.geometry.boundingBox.max.x) / 3.87
+        ) {}
         else if (detectCollision(walkModel, bridgeHandleR2) === true
-          && walkModel.position.x >= (bridgeHandleR2.position.x + bridgeHandleR2.geometry.boundingBox.max.x) / 3.85
-        ) {
-          console.log("collide2")
-        }
+          && walkModel.position.x >= (bridgeHandleR2.position.x + bridgeHandleR2.geometry.boundingBox.max.x) / 3.87
+        ) {}
         else if (detectCollision(walkModel, bridgeHandleR3) === true
-          && walkModel.position.x >= (bridgeHandleR3.position.x + bridgeHandleR3.geometry.boundingBox.max.x) / 3.85
-        ) {
-          console.log("collide3")
-        }
+          && walkModel.position.x >= (bridgeHandleR3.position.x + bridgeHandleR3.geometry.boundingBox.max.x) / 3.87
+        ) {}
         else if (detectCollision(walkModel, bridgeHandleR4) === true
-          && walkModel.position.x >= (bridgeHandleR4.position.x + bridgeHandleR4.geometry.boundingBox.max.x) / 3.85
-        ) {
-          console.log("collide4")
-        }
+          && walkModel.position.x >= (bridgeHandleR4.position.x + bridgeHandleR4.geometry.boundingBox.max.x) / 3.87
+        ) {}
         else {
-          walkModel.translateX(-0.1);
+          walkModel.translateX(-0.5);
         }
 
       }
       else if(event.keyCode === 81) {
+        if (detectCollision(walkModel, bridge1) === true && walkModel.position.y <= (bridge1.position.y + bridge1.geometry.boundingBox.max.y) / 2.3) {
+          walkModel.position.y = walkModel.position.y + (bridge1.position.y + bridge1.geometry.boundingBox.max.y) / 100; 
+        }
+        else if (detectCollision(walkModel, bridge2) === true && walkModel.position.y <= (bridge2.position.y + bridge2.geometry.boundingBox.max.y) / 2.2) {
+          walkModel.position.y = walkModel.position.y + (bridge2.position.y + bridge2.geometry.boundingBox.max.y) / 50; 
+        }
+        else if (detectCollision(walkModel, bridge3) === true && detectCollision(walkModel, bridge4) === false && walkModel.position.y <= (bridge3.position.y + bridge3.geometry.boundingBox.max.y) / 2.3) {
+          walkModel.position.y = (walkModel.position.y + 2) + (bridge3.position.y + bridge3.geometry.boundingBox.max.y) / 50; 
+        }
+        else if(detectCollision(walkModel, bridge3) === false && detectCollision(walkModel, bridge4) === true && walkModel.position.y >= (bridge4.position.y + bridge4.geometry.boundingBox.max.y) / 1.7){
+          walkModel.position.y = walkModel.position.y - (bridge4.position.y + bridge4.geometry.boundingBox.max.y) / 50;
+        }
+        
+        if(detectCollision(walkModel, bridge1) === false && detectCollision(walkModel, bridge2) === false && detectCollision(walkModel, bridge3) === false && detectCollision(walkModel, bridge4) === false){
+          walkModel.position.y = 6;
+        }
+
         walk.play();
 
-        if (detectCollision(walkModel, bridgeHandleL1) === true && walkModel.position.x <= (bridgeHandleL1.position.x + bridgeHandleL1.geometry.boundingBox.max.x) / 3.47
+        if (detectCollision(walkModel, bridgeHandleL1) === true && walkModel.position.x <= (bridgeHandleL1.position.x + bridgeHandleL1.geometry.boundingBox.max.x) / 3.65
+        ) {
+        }
+        else if(detectCollision(walkModel, bridgeHandleL3) === true && walkModel.position.x <= (bridgeHandleL3.position.x + bridgeHandleL3.geometry.boundingBox.max.x) / 3.65
+        ) {}
+          else if(detectCollision(walkModel, bridgeHandleL2) === true && walkModel.position.x <= (bridgeHandleL2.position.x + bridgeHandleL2.geometry.boundingBox.max.x) / 3.65
+        ) {}
+        else if(detectCollision(walkModel, bridgeHandleL4) === true && walkModel.position.x <= (bridgeHandleL4.position.x + bridgeHandleL4.geometry.boundingBox.max.x) / 3.65
+        ) {}
+        else
+        {
+          walkModel.translateX(0.5);
+        }
+      }
+      else if(event.keyCode === 83) {
+          walk.play();
+
+          walkModel.translateZ(-0.6);
+
+          if (detectCollision(walkModel, bridgeHandleL1) === true && walkModel.position.x <= (bridgeHandleL1.position.x + bridgeHandleL1.geometry.boundingBox.max.x) / 3.47
         ) {}
         else if(detectCollision(walkModel, bridgeHandleL3) === true && walkModel.position.x <= (bridgeHandleL3.position.x + bridgeHandleL3.geometry.boundingBox.max.x) / 3.5
         ) {}
@@ -421,32 +443,23 @@ function updatePlayerDesktop() {
         {
           walkModel.translateX(0.1);
         }
-      }
-      else if(event.keyCode === 83) {
-          walk.play();
-
-          walkModel.translateZ(-0.6);
-          walkModel.translateX(0.1);  
-
-          if(detectCollision(walkModel, bridge3) === false && detectCollision(walkModel, bridge4) === true && walkModel.position.y <= (bridge4.position.y + bridge4.geometry.boundingBox.max.y) / 1.7){
-            console.log("bridge 4")
-            walkModel.position.y = walkModel.position.y + (bridge4.position.y + bridge4.geometry.boundingBox.max.y) / 100;
-          }
-
-          if (detectCollision(walkModel, bridge3) === true && detectCollision(walkModel, bridge4) === false && walkModel.position.y <= (bridge3.position.y + bridge3.geometry.boundingBox.max.y) / 1.2) {
-            console.log("bridge 3")
-
-            walkModel.position.y = walkModel.position.y  + (bridge3.position.y + bridge3.geometry.boundingBox.max.y) / 10; 
-            console.log(walkModel.position.y)
-  console.log("bridge:", (bridge3.position.y + bridge3.geometry.boundingBox.max.y) / 2.2)
-          }
-
-console.log(detectCollision(walkModel, bridge3) === true)
-
-  
-
-
-            
+         
+        if(detectCollision(walkModel, bridge1) === false && detectCollision(walkModel, bridge2) === false && detectCollision(walkModel, bridge3) === false && detectCollision(walkModel, bridge4) === false ){
+          walkModel.position.y = 6;
+        }
+                  
+        if(detectCollision(walkModel, bridge3) === false && detectCollision(walkModel, bridge4) === true && walkModel.position.y <= (bridge4.position.y + bridge4.geometry.boundingBox.max.y) / 1.6){
+          walkModel.position.y = walkModel.position.y + (bridge4.position.y + bridge4.geometry.boundingBox.max.y) / 80;
+        }
+        else if (detectCollision(walkModel, bridge3) === true && detectCollision(walkModel, bridge4) === false && walkModel.position.y <= (bridge3.position.y + bridge3.geometry.boundingBox.max.y) / 2.2) {
+          walkModel.position.y = walkModel.position.y  + (bridge3.position.y + bridge3.geometry.boundingBox.max.y) / 50; 
+        }
+        else if (detectCollision(walkModel, bridge2) && detectCollision(walkModel, bridge3) === false && walkModel.position.y <= (bridge2.position.y + bridge2.geometry.boundingBox.max.y) / 2.3) {
+          walkModel.position.y = (walkModel.position.y + 2) + (bridge2.position.y + bridge2.geometry.boundingBox.max.y) / 50;
+        }
+        else if(detectCollision(walkModel, bridge1)  && walkModel.position.y >= (bridge1.position.y + bridge1.geometry.boundingBox.max.y) / 1.6){
+          walkModel.position.y = walkModel.position.y - (bridge1.position.y + bridge1.geometry.boundingBox.max.y) / 50;
+        }
       }
       else {        
         point.play();
