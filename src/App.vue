@@ -206,7 +206,7 @@ function createModels() {
 
           arrowLeftModel = gltf.scene;
           arrowLeftModel.scale.set(1, 1, 1); 
-          arrowLeftModel.position.set(-12, 5, -50);
+          arrowLeftModel.position.set(-17, 7, 1);
           arrowLeftModel.rotation.set(0, 1, 0);
 
           scene.add(arrowLeftModel);
@@ -222,7 +222,7 @@ function createModels() {
 
           arrowRightModel = gltf.scene;
           arrowRightModel.scale.set(1, 1, 1); 
-          arrowRightModel.position.set(15, 20, -70);
+          arrowRightModel.position.set(0, 7, 12);
           arrowRightModel.rotation.set(0, -2.1, 0);
 
           scene.add(arrowRightModel);
@@ -237,8 +237,8 @@ function createModels() {
         loader.load(cdn + 'models/arrowFront.glb', function ( gltf ) {
 
           arrowFrontModel = gltf.scene;
-          arrowFrontModel.scale.set(2, 2, 2); 
-          arrowFrontModel.position.set(0.5, 5, -5); 
+          arrowFrontModel.scale.set(1, 1, 1); 
+          arrowFrontModel.position.set(0.5, 7, -5); 
           arrowFrontModel.rotation.set(0, -2.1, 0);
 
           scene.add(arrowFrontModel);
@@ -324,9 +324,6 @@ function updatePlayer(){
 let collision;
   
 function updatePlayerDesktop() {
-
-  
-
  
   document.onkeydown = ((event) => {
       if(event.keyCode === 90) {
@@ -348,10 +345,64 @@ function updatePlayerDesktop() {
           walkModel.position.y = 6;
         }
 
-          walk.play();
+        walk.play();
 
+        /*if (detectCollision(walkModel, bridgeHandleR1) === true
+          && walkModel.position.x >= (bridgeHandleR1.position.x + bridgeHandleR1.geometry.boundingBox.max.x) / 4
+        ) {
+          console.log("collide 1")
+        }
+        else if (detectCollision(walkModel, bridgeHandleR2) === true
+          && walkModel.position.x >= (bridgeHandleR2.position.x + bridgeHandleR2.geometry.boundingBox.max.x) / 4
+        ) {
+          console.log("collide 2")
+
+        }
+        else if (detectCollision(walkModel, bridgeHandleR3) === true
+          && walkModel.position.x >= (bridgeHandleR3.position.x + bridgeHandleR3.geometry.boundingBox.max.x) / 4
+        ) {
+          console.log("collide 3")
+
+        }
+        else if (detectCollision(walkModel, bridgeHandleR4) === true
+          && walkModel.position.x >= (bridgeHandleR4.position.x + bridgeHandleR4.geometry.boundingBox.max.x) / 4
+        ) {
+          console.log("collide 4")
+
+        }
+        else {
+         console.log("no collision")
           walkModel.translateZ(0.6);
-          walkModel.translateX(-0.1); 
+          walkModel.translateX(-0.1);         
+        }*/
+
+        if (detectCollision(walkModel, bridgeHandleL1) === true && walkModel.position.x <= (bridgeHandleL1.position.x + bridgeHandleL1.geometry.boundingBox.max.x) / 3.6
+        ) {
+          walkModel.position.z = walkModel.position.z + 0.1;
+          walkModel.position.y = walkModel.position.y - 0.05;  
+
+        }
+        else if(detectCollision(walkModel, bridgeHandleL3) === true && walkModel.position.x <= (bridgeHandleL3.position.x + bridgeHandleL3.geometry.boundingBox.max.x) /3.6
+        ) {
+          walkModel.position.z = walkModel.position.z + 0.1;
+          walkModel.position.y = walkModel.position.y - 0.05;  
+        }
+          else if(detectCollision(walkModel, bridgeHandleL2) === true && walkModel.position.x <= (bridgeHandleL2.position.x + bridgeHandleL2.geometry.boundingBox.max.x) / 3.6
+        ) {
+          walkModel.position.z = walkModel.position.z + 0.1;
+          walkModel.position.y = walkModel.position.y - 0.05;  
+
+        }
+        else if(detectCollision(walkModel, bridgeHandleL4) === true && walkModel.position.x <= (bridgeHandleL4.position.x + bridgeHandleL4.geometry.boundingBox.max.x) / 3.6
+        ) {
+          walkModel.position.z = walkModel.position.z + 0.1;
+          walkModel.position.y = walkModel.position.y - 0.05;  
+        }
+        else 
+        {
+          walkModel.translateZ(0.6);
+          walkModel.translateX(-0.1);   
+        }
         
       }
       else if(event.keyCode === 68) {
