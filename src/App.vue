@@ -1,6 +1,8 @@
 <template>
   <div id="map"></div>
 
+  <div id="info">Description</div>
+
   <div id="mobileInterface" class="noSelect">
     <div id="joystick-wrapper"></div> 
   </div>
@@ -13,7 +15,9 @@ import { DRACOLoader } from 'three/addons/loaders/DRACOLoader.js';
 import { onMounted } from 'vue';
 import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
 import nipplejs from 'nipplejs';
-import Cannon from 'cannon';
+import { FontLoader } from 'three/addons/loaders/FontLoader.js';
+import { TextGeometry } from 'three/addons/geometries/TextGeometry.js';
+
 
 let pointingMixer, pointingModel, point;
 let mixer, walkModel, walk;
@@ -141,6 +145,348 @@ function animate() {
     renderer.render( scene, camera );
 }
 
+
+function createTextStandsLeftSide() {
+  const loader = new FontLoader();
+  let standLeft1Geometry, standLeft2Geometry, standLeft3Geometry, standLeft4Geometry, standLeft5Geometry, standLeft6Geometry, standLeft7Geometry;
+  let standRight1Geometry, standRight2Geometry, standRight3Geometry, standRight4Geometry, standRight5Geometry, standRight6Geometry, standRight7Geometry;
+  let textLeft1Mesh, textLeft2Mesh, textLeft3Mesh, textLeft4Mesh, textLeft5Mesh, textLeft6Mesh, textLeft7Mesh;
+  let textRight1Mesh, textRight2Mesh, textRight3Mesh, textRight4Mesh, textRight5Mesh, textRight6Mesh, textRight7Mesh;
+
+  loader.load(cdn + "fonts/Apothem_Bold.json", function (font) {
+
+    // STANDS 1
+    standLeft1Geometry = new TextGeometry( "Viami", {
+      font: font,
+      size: 0.9,
+      height: 0.7
+    })
+
+    textLeft1Mesh = new THREE.Mesh(standLeft1Geometry, new THREE.MeshPhongMaterial({color: 0x000000}), new THREE.MeshPhongMaterial({color: 0x000000}));
+
+    textLeft1Mesh.castShadow = true;
+    textLeft1Mesh.position.set(-22.2, 12.2, 11);
+    textLeft1Mesh.rotation.set(0, 2.6, 0);
+
+    scene.add(textLeft1Mesh)
+
+    standRight1Geometry = new TextGeometry( "VivaTech", {
+      font: font,
+      size: 0.9,
+      height: 0.7
+    })
+
+    textRight1Mesh = new THREE.Mesh(standRight1Geometry, new THREE.MeshPhongMaterial({color: 0x000000}), new THREE.MeshPhongMaterial({color: 0x000000}));
+
+    textRight1Mesh.castShadow = true;
+    textRight1Mesh.position.set(-14.2, 12.6, -10.5);
+    textRight1Mesh.rotation.set(0, -0.6, 0);
+
+    scene.add(textRight1Mesh)
+
+    // STANDS 2
+    standLeft2Geometry = new TextGeometry( "Timer", {
+      font: font,
+      size: 0.9,
+      height: 0.7
+    })
+
+    textLeft2Mesh = new THREE.Mesh(standLeft2Geometry, new THREE.MeshPhongMaterial({color: 0x000000}), new THREE.MeshPhongMaterial({color: 0x000000}));
+
+    textLeft2Mesh.castShadow = true;
+    textLeft2Mesh.position.set(-29.8, 12.2, 6);
+    textLeft2Mesh.rotation.set(0, 2.6, 0);
+
+    scene.add(textLeft2Mesh)
+
+    standRight2Geometry = new TextGeometry( "Space-X", {
+      font: font,
+      size: 0.9,
+      height: 0.7
+    })
+
+    textRight2Mesh = new THREE.Mesh(standRight2Geometry, new THREE.MeshPhongMaterial({color: 0x000000}), new THREE.MeshPhongMaterial({color: 0x000000}));
+
+    textRight2Mesh.castShadow = true;
+    textRight2Mesh.position.set(-21.5, 12.6, -15.2);
+    textRight2Mesh.rotation.set(0, -0.6, 0);
+
+    scene.add(textRight2Mesh)
+
+    // STANDS 3
+    standLeft3Geometry = new TextGeometry( "Reuninou", {
+      font: font,
+      size: 0.9,
+      height: 0.7
+    })
+
+    textLeft3Mesh = new THREE.Mesh(standLeft3Geometry, new THREE.MeshPhongMaterial({color: 0x000000}), new THREE.MeshPhongMaterial({color: 0x000000}));
+
+    textLeft3Mesh.castShadow = true;
+    textLeft3Mesh.position.set(-36, 12.4, 2);
+    textLeft3Mesh.rotation.set(0, 2.6, 0);
+
+    scene.add(textLeft3Mesh)
+
+    standRight3Geometry = new TextGeometry( "Net'radio", {
+      font: font,
+      size: 0.9,
+      height: 0.7
+    })
+
+    textRight3Mesh = new THREE.Mesh(standRight3Geometry, new THREE.MeshPhongMaterial({color: 0x000000}), new THREE.MeshPhongMaterial({color: 0x000000}));
+
+    textRight3Mesh.castShadow = true;
+    textRight3Mesh.position.set(-29, 12.6, -20.2);
+    textRight3Mesh.rotation.set(0, -0.6, 0);
+
+    scene.add(textRight3Mesh)
+
+    // STANDS 4
+    standLeft4Geometry = new TextGeometry( "Bicycle", {
+      font: font,
+      size: 0.9,
+      height: 0.7
+    })
+
+    textLeft4Mesh = new THREE.Mesh(standLeft4Geometry, new THREE.MeshPhongMaterial({color: 0x000000}), new THREE.MeshPhongMaterial({color: 0x000000}));
+
+    textLeft4Mesh.castShadow = true;
+    textLeft4Mesh.position.set(-44, 12.4, -3.3);
+    textLeft4Mesh.rotation.set(0, 2.6, 0);
+
+    scene.add(textLeft4Mesh)
+
+    standRight4Geometry = new TextGeometry( "Beehoneyst", {
+      font: font,
+      size: 0.9,
+      height: 0.7
+    })
+
+    textRight4Mesh = new THREE.Mesh(standRight4Geometry, new THREE.MeshPhongMaterial({color: 0x000000}), new THREE.MeshPhongMaterial({color: 0x000000}));
+
+    textRight4Mesh.castShadow = true;
+    textRight4Mesh.position.set(-37, 12.6, -25.7);
+    textRight4Mesh.rotation.set(0, -0.6, 0);
+
+    scene.add(textRight4Mesh)
+
+    // STANDS 5
+    standLeft5Geometry = new TextGeometry( "Coronavirus App", {
+      font: font,
+      size: 0.65,
+      height: 0.6
+    })
+
+    textLeft5Mesh = new THREE.Mesh(standLeft5Geometry, new THREE.MeshPhongMaterial({color: 0x000000}), new THREE.MeshPhongMaterial({color: 0x000000}));
+
+    textLeft5Mesh.castShadow = true;
+    textLeft5Mesh.position.set(-50.4, 12.8, -7.6);
+    textLeft5Mesh.rotation.set(0, 2.6, 0);
+
+    scene.add(textLeft5Mesh)
+
+    standRight5Geometry = new TextGeometry( "Media Library App", {
+      font: font,
+      size: 0.65,
+      height: 0.6
+    })
+
+    textRight5Mesh = new THREE.Mesh(standRight5Geometry, new THREE.MeshPhongMaterial({color: 0x000000}), new THREE.MeshPhongMaterial({color: 0x000000}));
+
+    textRight5Mesh.castShadow = true;
+    textRight5Mesh.position.set(-44.7, 12.6, -30.6);
+    textRight5Mesh.rotation.set(0, -0.6, 0);
+
+    scene.add(textRight5Mesh)
+
+    // STANDS 6
+    standLeft6Geometry = new TextGeometry( "Museum Maritime", {
+      font: font,
+      size: 0.7,
+      height: 0.6
+    })
+
+    textLeft6Mesh = new THREE.Mesh(standLeft6Geometry, new THREE.MeshPhongMaterial({color: 0x000000}), new THREE.MeshPhongMaterial({color: 0x000000}));
+
+    textLeft6Mesh.castShadow = true;
+    textLeft6Mesh.position.set(-57.5, 12.4, -12.5);
+    textLeft6Mesh.rotation.set(0, 2.6, 0);
+
+    scene.add(textLeft6Mesh)
+
+    standRight6Geometry = new TextGeometry( "Breakout", {
+      font: font,
+      size: 0.9,
+      height: 0.7
+    })
+
+    textRight6Mesh = new THREE.Mesh(standRight6Geometry, new THREE.MeshPhongMaterial({color: 0x000000}), new THREE.MeshPhongMaterial({color: 0x000000}));
+
+    textRight6Mesh.castShadow = true;
+    textRight6Mesh.position.set(-51, 12.6, -34.8);
+    textRight6Mesh.rotation.set(0, -0.6, 0);
+
+    scene.add(textRight6Mesh)
+
+    // STANDS 7
+    standLeft7Geometry = new TextGeometry( "lehangar.local", {
+      font: font,
+      size: 0.85,
+      height: 0.65
+    })
+
+    textLeft7Mesh = new THREE.Mesh(standLeft7Geometry, new THREE.MeshPhongMaterial({color: 0x000000}), new THREE.MeshPhongMaterial({color: 0x000000}));
+
+    textLeft7Mesh.castShadow = true;
+    textLeft7Mesh.position.set(-65.5, 12.6, -17.5);
+    textLeft7Mesh.rotation.set(0, 2.6, 0);
+
+    scene.add(textLeft7Mesh)
+
+    standRight7Geometry = new TextGeometry( "Franck Picci's Music", {
+      font: font,
+      size: 0.55,
+      height: 0.5
+    })
+
+    textRight7Mesh = new THREE.Mesh(standRight7Geometry, new THREE.MeshPhongMaterial({color: 0x000000}), new THREE.MeshPhongMaterial({color: 0x000000}));
+
+    textRight7Mesh.castShadow = true;
+    textRight7Mesh.position.set(-59.1, 12.9, -40.1);
+    textRight7Mesh.rotation.set(0, -0.6, 0);
+
+    scene.add(textRight7Mesh)
+  })
+}
+
+function createTextStandsRightSide() {
+  const loader = new FontLoader();
+  let standLeft1Geometry, standLeft2Geometry, standLeft3Geometry, standLeft4Geometry;
+  let standRight1Geometry, standRight2Geometry, standRight3Geometry, standRight4Geometry;
+  let textLeft1Mesh, textLeft2Mesh, textLeft3Mesh, textLeft4Mesh;
+  let textRight1Mesh, textRight2Mesh, textRight3Mesh, textRight4Mesh;
+
+  loader.load(cdn + "fonts/Apothem_Bold.json", function (font) {
+
+    // STANDS 1
+    standLeft1Geometry = new TextGeometry( "Viami", {
+      font: font,
+      size: 0.9,
+      height: 0.7
+    })
+
+    textLeft1Mesh = new THREE.Mesh(standLeft1Geometry, new THREE.MeshPhongMaterial({color: 0x000000}), new THREE.MeshPhongMaterial({color: 0x000000}));
+
+    textLeft1Mesh.castShadow = true;
+    textLeft1Mesh.position.set(-22.2, 12.2, 11);
+    textLeft1Mesh.rotation.set(0, 2.6, 0);
+
+    scene.add(textLeft1Mesh)
+
+    standRight1Geometry = new TextGeometry( "VivaTech", {
+      font: font,
+      size: 0.9,
+      height: 0.7
+    })
+
+    textRight1Mesh = new THREE.Mesh(standRight1Geometry, new THREE.MeshPhongMaterial({color: 0x000000}), new THREE.MeshPhongMaterial({color: 0x000000}));
+
+    textRight1Mesh.castShadow = true;
+    textRight1Mesh.position.set(-14.2, 12.6, -10.5);
+    textRight1Mesh.rotation.set(0, -0.6, 0);
+
+    scene.add(textRight1Mesh)
+
+    // STANDS 2
+    /*standLeft2Geometry = new TextGeometry( "Timer", {
+      font: font,
+      size: 0.9,
+      height: 0.7
+    })
+
+    textLeft2Mesh = new THREE.Mesh(standLeft2Geometry, new THREE.MeshPhongMaterial({color: 0x000000}), new THREE.MeshPhongMaterial({color: 0x000000}));
+
+    textLeft2Mesh.castShadow = true;
+    textLeft2Mesh.position.set(-29.8, 12.2, 6);
+    textLeft2Mesh.rotation.set(0, 2.6, 0);
+
+    scene.add(textLeft2Mesh)
+
+    standRight2Geometry = new TextGeometry( "Space-X", {
+      font: font,
+      size: 0.9,
+      height: 0.7
+    })
+
+    textRight2Mesh = new THREE.Mesh(standRight2Geometry, new THREE.MeshPhongMaterial({color: 0x000000}), new THREE.MeshPhongMaterial({color: 0x000000}));
+
+    textRight2Mesh.castShadow = true;
+    textRight2Mesh.position.set(-21.5, 12.6, -15.2);
+    textRight2Mesh.rotation.set(0, -0.6, 0);
+
+    scene.add(textRight2Mesh)
+
+    // STANDS 3
+    standLeft3Geometry = new TextGeometry( "Reuninou", {
+      font: font,
+      size: 0.9,
+      height: 0.7
+    })
+
+    textLeft3Mesh = new THREE.Mesh(standLeft3Geometry, new THREE.MeshPhongMaterial({color: 0x000000}), new THREE.MeshPhongMaterial({color: 0x000000}));
+
+    textLeft3Mesh.castShadow = true;
+    textLeft3Mesh.position.set(-36, 12.4, 2);
+    textLeft3Mesh.rotation.set(0, 2.6, 0);
+
+    scene.add(textLeft3Mesh)
+
+    standRight3Geometry = new TextGeometry( "Net'radio", {
+      font: font,
+      size: 0.9,
+      height: 0.7
+    })
+
+    textRight3Mesh = new THREE.Mesh(standRight3Geometry, new THREE.MeshPhongMaterial({color: 0x000000}), new THREE.MeshPhongMaterial({color: 0x000000}));
+
+    textRight3Mesh.castShadow = true;
+    textRight3Mesh.position.set(-29, 12.6, -20.2);
+    textRight3Mesh.rotation.set(0, -0.6, 0);
+
+    scene.add(textRight3Mesh)
+
+    // STANDS 4
+    standLeft4Geometry = new TextGeometry( "Bicycle", {
+      font: font,
+      size: 0.9,
+      height: 0.7
+    })
+
+    textLeft4Mesh = new THREE.Mesh(standLeft4Geometry, new THREE.MeshPhongMaterial({color: 0x000000}), new THREE.MeshPhongMaterial({color: 0x000000}));
+
+    textLeft4Mesh.castShadow = true;
+    textLeft4Mesh.position.set(-44, 12.4, -3.3);
+    textLeft4Mesh.rotation.set(0, 2.6, 0);
+
+    scene.add(textLeft4Mesh)
+
+    standRight4Geometry = new TextGeometry( "Beehoneyst", {
+      font: font,
+      size: 0.9,
+      height: 0.7
+    })
+
+    textRight4Mesh = new THREE.Mesh(standRight4Geometry, new THREE.MeshPhongMaterial({color: 0x000000}), new THREE.MeshPhongMaterial({color: 0x000000}));
+
+    textRight4Mesh.castShadow = true;
+    textRight4Mesh.position.set(-37, 12.6, -25.7);
+    textRight4Mesh.rotation.set(0, -0.6, 0);
+
+    scene.add(textRight4Mesh)*/
+  })
+}
+
 function createModels() {
 
     loader.load(cdn + 'models/map.glb', function ( gltf ) {
@@ -248,6 +594,9 @@ function createModels() {
 
           pointingArrowFront.play();
         }); 
+
+        createTextStandsLeftSide();
+        createTextStandsRightSide();
     });
 }
 

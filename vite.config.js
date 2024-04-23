@@ -11,6 +11,7 @@ export default defineConfig({
         alias: {
             '@models': new URL('./src/assets/models/', import.meta.url).pathname,
             '@examples': new URL('./src/assets/examples/', import.meta.url).pathname,
+            '@fonts': new URL('./src/assets/fonts/', import.meta.url).pathname,
         },
     }
 });
