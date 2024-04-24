@@ -17,7 +17,7 @@ import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
 import nipplejs from 'nipplejs';
 import { FontLoader } from 'three/addons/loaders/FontLoader.js';
 import { TextGeometry } from 'three/addons/geometries/TextGeometry.js';
-
+import GUI from 'lil-gui'
 
 let pointingMixer, pointingModel, point;
 let mixer, walkModel, walk;
@@ -31,6 +31,7 @@ let cdn = import.meta.env.VITE_CDN_URL;
 let width = window.innerWidth, height = window.innerHeight;
 let camera = new THREE.PerspectiveCamera( 70, width / height, 0.1, 1000 );
 
+let gui = new GUI();
 let scene = new THREE.Scene();
 scene.background = new THREE.Color(0x05081c);
 
@@ -40,7 +41,7 @@ renderer.gammaOutput = true;
 
 camera.position.set(-25, 30, 40);
 
-const leftLight = new THREE.DirectionalLight(0xffffff, 2.5);
+/*const leftLight = new THREE.DirectionalLight(0xffffff, 2.5);
 leftLight.position.set(-1, 0, 0);
 scene.add(leftLight);
 
@@ -62,7 +63,83 @@ scene.add(directionalLight3);
 
 const directionalLight4 = new THREE.DirectionalLight(0xffffff, 2.5);
 directionalLight4.position.set(0, 0, -1); 
-scene.add(directionalLight4);
+scene.add(directionalLight4);*/
+
+const ambientLight = new THREE.AmbientLight('#b9d5ff', 0.324)
+gui.add(ambientLight, 'intensity').min(0).max(1).step(0.001)
+scene.add(ambientLight)
+
+// Directional light
+const moonLight = new THREE.DirectionalLight('#b9d5ff', 0.754)
+moonLight.position.set(2.542, 5, -1.637)
+gui.add(moonLight, 'intensity').min(0).max(1).step(0.001)
+gui.add(moonLight.position, 'x').min(- 5).max(5).step(0.001)
+gui.add(moonLight.position, 'y').min(- 5).max(5).step(0.001)
+gui.add(moonLight.position, 'z').min(- 5).max(5).step(0.001)
+scene.add(moonLight)
+
+// Door light
+const doorlight = new THREE.PointLight('#ff7d46', 1, 7)
+doorlight.position.set(0, 2.2, 2.7)
+scene.add(doorlight)
+
+
+// Ghost
+const ghost1 = new THREE.PointLight('#FFD700', 100, 3)
+scene.add(ghost1)
+
+const ghost2 = new THREE.PointLight('#00ffff', 2, 3)
+scene.add(ghost2)
+
+const ghost3 = new THREE.PointLight('#ffff00', 2, 3)
+scene.add(ghost3)
+
+moonLight.castShadow = true
+doorlight.castShadow = true
+ghost1.castShadow = true
+ghost2.castShadow = true
+ghost3.castShadow = true
+
+ghost1.shadow.mapSize.width = 256
+ghost1.shadow.mapSize.height = 256
+ghost1.shadow.camera.far = 7
+
+ghost2.shadow.mapSize.width = 256
+ghost2.shadow.mapSize.height = 256
+ghost2.shadow.camera.far = 7
+
+ghost3.shadow.mapSize.width = 256
+ghost3.shadow.mapSize.height = 256
+ghost3.shadow.camera.far = 7
+const clock = new THREE.Clock()
+
+
+const elapsedTime = clock.getElapsedTime()
+
+// Update ghost
+//const ghost1Angle = elapsedTime * 0.5
+ghost1.position.x = -13.079
+ghost1.position.z = 16.42
+ghost1.position.y = 20
+gui.add(ghost1, 'intensity').min(0).max(100).step(0.001)
+gui.add(ghost1.position, 'x').min(-100).max(100).step(0.001)
+gui.add(ghost1.position, 'y').min(- 5).max(20).step(0.001)
+gui.add(ghost1.position, 'z').min(-100).max(100).step(0.001)
+/*const ghost2Angle = - elapsedTime * 0.32
+ghost2.position.x = Math.cos(ghost2Angle) * 5
+ghost2.position.z = Math.sin(ghost2Angle) * 5
+ghost2.position.y = Math.sin(elapsedTime * 4) + Math.sin(elapsedTime * 2.5)
+
+const ghost3Angle = - elapsedTime * 0.18
+ghost3.position.x = Math.cos(ghost3Angle) * (7 + Math.sin(elapsedTime * 0.32))
+ghost3.position.z = Math.sin(ghost3Angle) * (7 + Math.sin(elapsedTime * 0.5))
+ghost3.position.y = Math.sin(elapsedTime * 4) * Math.sin(elapsedTime * 2.5)*/
+
+
+
+const fog = new THREE.FogExp2("#05081c", 0.01)
+scene.fog = fog
+
 
 let controls = new OrbitControls( camera, renderer.domElement );
 
@@ -74,8 +151,8 @@ let tempVector = new THREE.Vector3();
 let upVector = new THREE.Vector3(0, 1, 0);
 let joystick;
 
-controls.maxDistance = 12;
-controls.minDistance = 12;
+controls.maxDistance = 10;
+controls.minDistance = 6;
 controls.maxPolarAngle = Math.PI / 2;
 controls.minPolarAngle = 0;
 controls.autoRotate = false;
@@ -370,7 +447,7 @@ function createTextStandsRightSide() {
   loader.load(cdn + "fonts/Apothem_Bold.json", function (font) {
 
     // STANDS 1
-    standLeft1Geometry = new TextGeometry( "Viami", {
+    standLeft1Geometry = new TextGeometry( "AI Blob ³D", {
       font: font,
       size: 0.9,
       height: 0.7
@@ -379,12 +456,12 @@ function createTextStandsRightSide() {
     textLeft1Mesh = new THREE.Mesh(standLeft1Geometry, new THREE.MeshPhongMaterial({color: 0x000000}), new THREE.MeshPhongMaterial({color: 0x000000}));
 
     textLeft1Mesh.castShadow = true;
-    textLeft1Mesh.position.set(-22.2, 12.2, 11);
+    textLeft1Mesh.position.set(0.4, 12.4, 24.2);
     textLeft1Mesh.rotation.set(0, 2.6, 0);
 
     scene.add(textLeft1Mesh)
 
-    standRight1Geometry = new TextGeometry( "VivaTech", {
+    standRight1Geometry = new TextGeometry( "Tree ³D", {
       font: font,
       size: 0.9,
       height: 0.7
@@ -393,85 +470,85 @@ function createTextStandsRightSide() {
     textRight1Mesh = new THREE.Mesh(standRight1Geometry, new THREE.MeshPhongMaterial({color: 0x000000}), new THREE.MeshPhongMaterial({color: 0x000000}));
 
     textRight1Mesh.castShadow = true;
-    textRight1Mesh.position.set(-14.2, 12.6, -10.5);
+    textRight1Mesh.position.set(8.2, 12.4, 4.2);
     textRight1Mesh.rotation.set(0, -0.6, 0);
 
     scene.add(textRight1Mesh)
 
     // STANDS 2
-    /*standLeft2Geometry = new TextGeometry( "Timer", {
+    standLeft2Geometry = new TextGeometry( "Shiba Inu ³D", {
       font: font,
-      size: 0.9,
+      size: 0.75,
       height: 0.7
     })
 
     textLeft2Mesh = new THREE.Mesh(standLeft2Geometry, new THREE.MeshPhongMaterial({color: 0x000000}), new THREE.MeshPhongMaterial({color: 0x000000}));
 
     textLeft2Mesh.castShadow = true;
-    textLeft2Mesh.position.set(-29.8, 12.2, 6);
+    textLeft2Mesh.position.set(8.7, 12.1, 30);
     textLeft2Mesh.rotation.set(0, 2.6, 0);
 
     scene.add(textLeft2Mesh)
 
-    standRight2Geometry = new TextGeometry( "Space-X", {
+    standRight2Geometry = new TextGeometry( "Don't eat the salad", {
       font: font,
-      size: 0.9,
-      height: 0.7
+      size: 0.55,
+      height: 0.5
     })
 
     textRight2Mesh = new THREE.Mesh(standRight2Geometry, new THREE.MeshPhongMaterial({color: 0x000000}), new THREE.MeshPhongMaterial({color: 0x000000}));
 
     textRight2Mesh.castShadow = true;
-    textRight2Mesh.position.set(-21.5, 12.6, -15.2);
+    textRight2Mesh.position.set(16.1, 12.4,  9.7);
     textRight2Mesh.rotation.set(0, -0.6, 0);
 
     scene.add(textRight2Mesh)
 
     // STANDS 3
-    standLeft3Geometry = new TextGeometry( "Reuninou", {
+    standLeft3Geometry = new TextGeometry( "Zombie Attack", {
       font: font,
-      size: 0.9,
+      size: 0.75,
       height: 0.7
     })
 
     textLeft3Mesh = new THREE.Mesh(standLeft3Geometry, new THREE.MeshPhongMaterial({color: 0x000000}), new THREE.MeshPhongMaterial({color: 0x000000}));
 
     textLeft3Mesh.castShadow = true;
-    textLeft3Mesh.position.set(-36, 12.4, 2);
+    textLeft3Mesh.position.set(17.6, 12.3, 35.7);
     textLeft3Mesh.rotation.set(0, 2.6, 0);
 
     scene.add(textLeft3Mesh)
 
-    standRight3Geometry = new TextGeometry( "Net'radio", {
+    standRight3Geometry = new TextGeometry( "Rock paper scissors", {
       font: font,
-      size: 0.9,
-      height: 0.7
+      size: 0.55,
+      height: 0.5
     })
 
     textRight3Mesh = new THREE.Mesh(standRight3Geometry, new THREE.MeshPhongMaterial({color: 0x000000}), new THREE.MeshPhongMaterial({color: 0x000000}));
 
     textRight3Mesh.castShadow = true;
-    textRight3Mesh.position.set(-29, 12.6, -20.2);
+    textRight3Mesh.position.set(23.9, 12.4,  14.7);
     textRight3Mesh.rotation.set(0, -0.6, 0);
 
     scene.add(textRight3Mesh)
 
     // STANDS 4
-    standLeft4Geometry = new TextGeometry( "Bicycle", {
+    standLeft4Geometry = new TextGeometry( "Word search", {
       font: font,
-      size: 0.9,
-      height: 0.7
+      size: 0.8,
+      height: 0.75
     })
 
     textLeft4Mesh = new THREE.Mesh(standLeft4Geometry, new THREE.MeshPhongMaterial({color: 0x000000}), new THREE.MeshPhongMaterial({color: 0x000000}));
 
     textLeft4Mesh.castShadow = true;
-    textLeft4Mesh.position.set(-44, 12.4, -3.3);
+    textLeft4Mesh.position.set(26, 12.1, 41.2);
     textLeft4Mesh.rotation.set(0, 2.6, 0);
 
     scene.add(textLeft4Mesh)
 
-    standRight4Geometry = new TextGeometry( "Beehoneyst", {
+    /*standRight4Geometry = new TextGeometry( "Beehoneyst", {
       font: font,
       size: 0.9,
       height: 0.7
@@ -486,6 +563,135 @@ function createTextStandsRightSide() {
     scene.add(textRight4Mesh)*/
   })
 }
+
+function createTextCategory() {
+  const loader = new FontLoader();
+  let standLeftGeometry, standRightGeometry, professionalGeometry, experienceGeometry, aboutGeometry, skillGeometry, educationGeometry, socmedGeometry;
+  let textLeftMesh, textRightMesh, textProfessionalMesh, textExperienceMesh, textAboutMesh, textSkillMesh, textEducationMesh, textSocmedMesh;
+
+  loader.load(cdn + "fonts/Apothem_Bold.json", function (font) {
+
+    // STANDS LEFT SIDE
+    standLeftGeometry = new TextGeometry( "PROJECTS", {
+      font: font,
+      size: 2,
+      height: 1.9
+    })
+
+    textLeftMesh = new THREE.Mesh(standLeftGeometry, new THREE.MeshPhongMaterial({color: 0xFFD700}), new THREE.MeshPhongMaterial({color: 0xFFD700}));
+
+    textLeftMesh.castShadow = true;
+    textLeftMesh.position.set(-17, 16, 8.2);
+    textLeftMesh.rotation.set(0, 1, 0);
+
+    scene.add(textLeftMesh)
+
+    // STANDS RIGHT SIDE
+    standRightGeometry = new TextGeometry( "R&D", {
+      font: font,
+      size: 2,
+      height: 1.9
+    })
+
+    textRightMesh = new THREE.Mesh(standRightGeometry, new THREE.MeshPhongMaterial({color: 0xFFD700}), new THREE.MeshPhongMaterial({color: 0xFFD700}));
+
+    textRightMesh.castShadow = true;
+    textRightMesh.position.set(0.4, 16, 9.2);
+    textRightMesh.rotation.set(0, -2.2, 0);
+
+    scene.add(textRightMesh)
+
+    // EXPERIENCES
+    professionalGeometry = new TextGeometry( "PROFESSIONAL", {
+      font: font,
+      size: 0.6,
+      height: 0.55
+    })
+
+    textProfessionalMesh = new THREE.Mesh(professionalGeometry, new THREE.MeshPhongMaterial({color: 0xFFD700}), new THREE.MeshPhongMaterial({color: 0xFFD700}));
+
+    textProfessionalMesh.castShadow = true;
+    textProfessionalMesh.position.set(39, 14, -31.2);
+    textProfessionalMesh.rotation.set(0, -0.6, 0);
+
+    scene.add(textProfessionalMesh)
+
+    experienceGeometry = new TextGeometry( "EXPERIENCES", {
+      font: font,
+      size: 0.6,
+      height: 0.55
+    })
+
+    textExperienceMesh = new THREE.Mesh(experienceGeometry, new THREE.MeshPhongMaterial({color: 0xFFD700}), new THREE.MeshPhongMaterial({color: 0xFFD700}));
+
+    textExperienceMesh.castShadow = true;
+    textExperienceMesh.position.set(39, 13, -31.2);
+    textExperienceMesh.rotation.set(0, -0.6, 0);
+
+    scene.add(textExperienceMesh)
+
+    // ABOUT ME
+    aboutGeometry = new TextGeometry( "ABOUT ME", {
+      font: font,
+      size: 2,
+      height: 1.9
+    })
+
+    textAboutMesh = new THREE.Mesh(aboutGeometry, new THREE.MeshPhongMaterial({color: 0xFFD700}), new THREE.MeshPhongMaterial({color: 0xFFD700}));
+
+    textAboutMesh.castShadow = true;
+    textAboutMesh.position.set(29, 14, -88.2);
+    textAboutMesh.rotation.set(0, -0.6, 0);
+
+    scene.add(textAboutMesh)
+
+    // COMPETENCES & SKILLS
+    skillGeometry = new TextGeometry( "COMPETENCES & SKILLS", {
+      font: font,
+      size: 0.6,
+      height: 0.55
+    })
+
+    textSkillMesh = new THREE.Mesh(skillGeometry, new THREE.MeshPhongMaterial({color: 0xFFD700}), new THREE.MeshPhongMaterial({color: 0xFFD700}));
+
+    textSkillMesh.castShadow = true;
+    textSkillMesh.position.set(48, 13, -25.2);
+    textSkillMesh.rotation.set(0, -0.6, 0);
+
+    scene.add(textSkillMesh)
+
+    // EDUCATION
+    educationGeometry = new TextGeometry( "EDUCATION", {
+      font: font,
+      size: 0.6,
+      height: 0.55
+    })
+
+    textEducationMesh = new THREE.Mesh(educationGeometry, new THREE.MeshPhongMaterial({color: 0xFFD700}), new THREE.MeshPhongMaterial({color: 0xFFD700}));
+
+    textEducationMesh.castShadow = true;
+    textEducationMesh.position.set(-20.3, 13, -69.2);
+    textEducationMesh.rotation.set(0, -0.6, 0);
+
+    scene.add(textEducationMesh)
+
+    // SOCIAL MEDIAS
+    socmedGeometry = new TextGeometry( "SOCIAL MEDIAS", {
+      font: font,
+      size: 0.6,
+      height: 0.55
+    })
+
+    textSocmedMesh = new THREE.Mesh(socmedGeometry, new THREE.MeshPhongMaterial({color: 0xFFD700}), new THREE.MeshPhongMaterial({color: 0x000000}));
+
+    textSocmedMesh.castShadow = true;
+    textSocmedMesh.position.set(-31.8, 13, -77.2);
+    textSocmedMesh.rotation.set(0, -0.6, 0);
+
+    scene.add(textSocmedMesh)
+  })
+}
+
 
 function createModels() {
 
@@ -551,8 +757,8 @@ function createModels() {
         loader.load(cdn + 'models/arrowLeft.glb', function ( gltf ) {
 
           arrowLeftModel = gltf.scene;
-          arrowLeftModel.scale.set(1, 1, 1); 
-          arrowLeftModel.position.set(-17, 7, 1);
+          arrowLeftModel.scale.set(0.7, 0.7, 0.7); 
+          arrowLeftModel.position.set(-17, 5, 1);
           arrowLeftModel.rotation.set(0, 1, 0);
 
           scene.add(arrowLeftModel);
@@ -567,8 +773,8 @@ function createModels() {
         loader.load(cdn + 'models/arrowRight.glb', function ( gltf ) {
 
           arrowRightModel = gltf.scene;
-          arrowRightModel.scale.set(1, 1, 1); 
-          arrowRightModel.position.set(0, 7, 12);
+          arrowRightModel.scale.set(0.7, 0.7, 0.7); 
+          arrowRightModel.position.set(0, 5, 12);
           arrowRightModel.rotation.set(0, -2.1, 0);
 
           scene.add(arrowRightModel);
@@ -583,8 +789,8 @@ function createModels() {
         loader.load(cdn + 'models/arrowFront.glb', function ( gltf ) {
 
           arrowFrontModel = gltf.scene;
-          arrowFrontModel.scale.set(1, 1, 1); 
-          arrowFrontModel.position.set(0.5, 7, -5); 
+          arrowFrontModel.scale.set(0.7, 0.7, 0.7); 
+          arrowFrontModel.position.set(0.5, 5, -5); 
           arrowFrontModel.rotation.set(0, -2.1, 0);
 
           scene.add(arrowFrontModel);
@@ -597,6 +803,7 @@ function createModels() {
 
         createTextStandsLeftSide();
         createTextStandsRightSide();
+        createTextCategory();
     });
 }
 
