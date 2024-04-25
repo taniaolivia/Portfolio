@@ -83,14 +83,40 @@ const doorlight = new THREE.PointLight('#ff7d46', 1, 7)
 doorlight.position.set(0, 2.2, 2.7)
 scene.add(doorlight)
 
+// ENTRANCE LIGHTS
+const lightEntranceLeft1 = new THREE.PointLight('#FFD700', 100, 100)
+scene.add(lightEntranceLeft1)
 
-// Ghost
+const lightEntranceLeft2 = new THREE.PointLight('#FFD700', 100, 100)
+scene.add(lightEntranceLeft2)
+
+const lightEntranceLeft3 = new THREE.PointLight('#FFD700', 100, 100)
+scene.add(lightEntranceLeft3)
+
+const lightEntranceLeft4 = new THREE.PointLight('#FFD700', 100, 100)
+scene.add(lightEntranceLeft4)
+
+const lightEntranceRight1 = new THREE.PointLight('#FFD700', 100, 100)
+scene.add(lightEntranceRight1)
+
+const lightEntranceRight2 = new THREE.PointLight('#FFD700', 100, 100)
+scene.add(lightEntranceRight2)
+
+const lightEntranceRight3 = new THREE.PointLight('#FFD700', 100, 100)
+scene.add(lightEntranceRight3)
+
+const lightEntranceRight4 = new THREE.PointLight('#FFD700', 100, 100)
+scene.add(lightEntranceRight4)
+
+// MIDDLE LATTERN
 const lightMiddleFront = new THREE.PointLight('#FFD700', 100, 100)
 scene.add(lightMiddleFront)
 
 const lightMiddleBack = new THREE.PointLight('#FFD700', 100, 100)
 scene.add(lightMiddleBack)
 
+
+// RIGHT SIDE LANTERNS
 const lightRightFront1 = new THREE.PointLight('#FFD700', 100, 100)
 scene.add(lightRightFront1)
 
@@ -151,10 +177,217 @@ scene.add(lightRightFrontBottom5)
 const lightRightBackBottom5 = new THREE.PointLight('#FFD700', 100, 100)
 scene.add(lightRightBackBottom5)
 
+
+// LEFT SIDE LANTERNS (TOP)
+const lightLeftFront1 = new THREE.PointLight('#FFD700', 100, 100)
+scene.add(lightLeftFront1)
+
+const lightLeftBack1 = new THREE.PointLight('#FFD700', 100, 100)
+scene.add(lightLeftBack1)
+
+const lightLeftFront2 = new THREE.PointLight('#FFD700', 100, 100)
+scene.add(lightLeftFront2)
+
+const lightLeftBack2 = new THREE.PointLight('#FFD700', 100, 100)
+scene.add(lightLeftBack2)
+
+const lightLeftFront3 = new THREE.PointLight('#FFD700', 100, 100)
+scene.add(lightLeftFront3)
+
+const lightLeftBack3 = new THREE.PointLight('#FFD700', 100, 100)
+scene.add(lightLeftBack3)
+
+const lightLeftFront4 = new THREE.PointLight('#FFD700', 100, 100)
+scene.add(lightLeftFront4)
+
+const lightLeftBack4 = new THREE.PointLight('#FFD700', 100, 100)
+scene.add(lightLeftBack4)
+
+const lightLeftFront5 = new THREE.PointLight('#FFD700', 100, 100)
+scene.add(lightLeftFront5)
+
+const lightLeftBack5 = new THREE.PointLight('#FFD700', 100, 100)
+scene.add(lightLeftBack5)
+
+const lightLeftFront6 = new THREE.PointLight('#FFD700', 100, 100)
+scene.add(lightLeftFront6)
+
+const lightLeftBack6 = new THREE.PointLight('#FFD700', 100, 100)
+scene.add(lightLeftBack6)
+
+const lightLeftFront7 = new THREE.PointLight('#FFD700', 100, 100)
+scene.add(lightLeftFront7)
+
+const lightLeftBack7 = new THREE.PointLight('#FFD700', 100, 100)
+scene.add(lightLeftBack7)
+
+const lightLeftFront8 = new THREE.PointLight('#FFD700', 100, 100)
+scene.add(lightLeftFront8)
+
+const lightLeftBack8 = new THREE.PointLight('#FFD700', 100, 100)
+scene.add(lightLeftBack8)
+
+const lightLeftFront9 = new THREE.PointLight('#FFD700', 100, 100)
+scene.add(lightLeftFront9)
+
+const lightLeftBack9 = new THREE.PointLight('#FFD700', 100, 100)
+scene.add(lightLeftBack9)
+
+const lightLeftFront10 = new THREE.PointLight('#FFD700', 100, 100)
+scene.add(lightLeftFront10)
+
+const lightLeftBack10 = new THREE.PointLight('#FFD700', 100, 100)
+scene.add(lightLeftBack10)
+
+const lightLeftFront11 = new THREE.PointLight('#FFD700', 100, 100)
+scene.add(lightLeftFront11)
+
+const lightLeftBack11 = new THREE.PointLight('#FFD700', 100, 100)
+scene.add(lightLeftBack11)
+
+const lightLeftFront12 = new THREE.PointLight('#FFD700', 100, 100)
+scene.add(lightLeftFront12)
+
+const lightLeftBack12 = new THREE.PointLight('#FFD700', 100, 100)
+scene.add(lightLeftBack12)
+
+
+// LEFT SIDE LANTERNS (BOTTOM)
+const lightLeftFrontBottom1 = new THREE.PointLight('#FFD700', 100, 100)
+scene.add(lightLeftFrontBottom1)
+
+const lightLeftBackBottom1 = new THREE.PointLight('#FFD700', 100, 100)
+scene.add(lightLeftBackBottom1)
+
+const lightLeftFrontBottom2 = new THREE.PointLight('#FFD700', 100, 100)
+scene.add(lightLeftFrontBottom2)
+
+const lightLeftBackBottom2 = new THREE.PointLight('#FFD700', 100, 100)
+scene.add(lightLeftBackBottom2)
+
+const lightLeftFrontBottom3 = new THREE.PointLight('#FFD700', 100, 100)
+scene.add(lightLeftFrontBottom3)
+
+const lightLeftBackBottom3 = new THREE.PointLight('#FFD700', 100, 100)
+scene.add(lightLeftBackBottom3)
+
+const lightLeftFrontBottom4 = new THREE.PointLight('#FFD700', 100, 100)
+scene.add(lightLeftFrontBottom4)
+
+const lightLeftBackBottom4 = new THREE.PointLight('#FFD700', 100, 100)
+scene.add(lightLeftBackBottom4)
+
+const lightLeftFrontBottom5 = new THREE.PointLight('#FFD700', 100, 100)
+scene.add(lightLeftFrontBottom5)
+
+const lightLeftBackBottom5 = new THREE.PointLight('#FFD700', 100, 100)
+scene.add(lightLeftBackBottom5)
+
+const lightLeftFrontBottom6 = new THREE.PointLight('#FFD700', 100, 100)
+scene.add(lightLeftFrontBottom6)
+
+const lightLeftBackBottom6 = new THREE.PointLight('#FFD700', 100, 100)
+scene.add(lightLeftBackBottom6)
+
+const lightLeftFrontBottom7 = new THREE.PointLight('#FFD700', 100, 100)
+scene.add(lightLeftFrontBottom7)
+
+const lightLeftBackBottom7 = new THREE.PointLight('#FFD700', 100, 100)
+scene.add(lightLeftBackBottom7)
+
+const lightLeftFrontBottom8 = new THREE.PointLight('#FFD700', 100, 100)
+scene.add(lightLeftFrontBottom8)
+
+const lightLeftBackBottom8 = new THREE.PointLight('#FFD700', 100, 100)
+scene.add(lightLeftBackBottom8)
+
+const lightLeftFrontBottom9 = new THREE.PointLight('#FFD700', 100, 100)
+scene.add(lightLeftFrontBottom9)
+
+const lightLeftBackBottom9 = new THREE.PointLight('#FFD700', 100, 100)
+scene.add(lightLeftBackBottom9)
+
+const lightLeftFrontBottom10 = new THREE.PointLight('#FFD700', 100, 100)
+scene.add(lightLeftFrontBottom10)
+
+const lightLeftBackBottom10 = new THREE.PointLight('#FFD700', 100, 100)
+scene.add(lightLeftBackBottom10)
+
+const lightLeftFrontBottom11 = new THREE.PointLight('#FFD700', 100, 100)
+scene.add(lightLeftFrontBottom11)
+
+const lightLeftBackBottom11 = new THREE.PointLight('#FFD700', 100, 100)
+scene.add(lightLeftBackBottom11)
+
+const lightLeftFrontBottom12 = new THREE.PointLight('#FFD700', 100, 100)
+scene.add(lightLeftFrontBottom12)
+
+const lightLeftBackBottom12 = new THREE.PointLight('#FFD700', 100, 100)
+scene.add(lightLeftBackBottom12)
+
+
+/**
+ * SHADOWS
+ */
 moonLight.castShadow = true
 doorlight.castShadow = true
+
+// ENTRANCE LIGHTS
+lightEntranceLeft1.castShadow = true
+lightEntranceLeft2.castShadow = true
+lightEntranceLeft3.castShadow = true
+lightEntranceLeft4.castShadow = true
+lightEntranceRight1.castShadow = true
+lightEntranceRight2.castShadow = true
+lightEntranceRight3.castShadow = true
+lightEntranceRight4.castShadow = true
+
+lightEntranceLeft1.shadow.mapSize.width = 256
+lightEntranceLeft1.shadow.mapSize.height = 256
+lightEntranceLeft1.shadow.camera.far = 7
+
+lightEntranceLeft2.shadow.mapSize.width = 256
+lightEntranceLeft2.shadow.mapSize.height = 256
+lightEntranceLeft2.shadow.camera.far = 7
+
+lightEntranceLeft3.shadow.mapSize.width = 256
+lightEntranceLeft3.shadow.mapSize.height = 256
+lightEntranceLeft3.shadow.camera.far = 7
+
+lightEntranceLeft4.shadow.mapSize.width = 256
+lightEntranceLeft4.shadow.mapSize.height = 256
+lightEntranceLeft4.shadow.camera.far = 7
+
+lightEntranceRight1.shadow.mapSize.width = 256
+lightEntranceRight1.shadow.mapSize.height = 256
+lightEntranceRight1.shadow.camera.far = 7
+
+lightEntranceRight2.shadow.mapSize.width = 256
+lightEntranceRight2.shadow.mapSize.height = 256
+lightEntranceRight2.shadow.camera.far = 7
+
+lightEntranceRight3.shadow.mapSize.width = 256
+lightEntranceRight3.shadow.mapSize.height = 256
+lightEntranceRight3.shadow.camera.far = 7
+
+lightEntranceRight4.shadow.mapSize.width = 256
+lightEntranceRight4.shadow.mapSize.height = 256
+lightEntranceRight4.shadow.camera.far = 7
+
+
+// MIDDLE LANTERN
 lightMiddleFront.castShadow = true
 lightMiddleBack.castShadow = true
+
+lightMiddleFront.shadow.mapSize.width = 256
+lightMiddleFront.shadow.mapSize.height = 256
+lightMiddleFront.shadow.camera.far = 7
+
+lightMiddleBack.shadow.mapSize.width = 256
+lightMiddleBack.shadow.mapSize.height = 256
+lightMiddleBack.shadow.camera.far = 7
+
+// RIGHT SIDE LANTERNS
 lightRightFront1.castShadow = true
 lightRightBack1.castShadow = true
 lightRightFront2.castShadow = true
@@ -166,14 +399,7 @@ lightRightBack4.castShadow = true
 lightRightFront5.castShadow = true
 lightRightBack5.castShadow = true
 
-lightMiddleFront.shadow.mapSize.width = 256
-lightMiddleFront.shadow.mapSize.height = 256
-lightMiddleFront.shadow.camera.far = 7
-
-lightMiddleBack.shadow.mapSize.width = 256
-lightMiddleBack.shadow.mapSize.height = 256
-lightMiddleBack.shadow.camera.far = 7
-
+// RIGHT SIDE LANTERNS (TOP)
 lightRightFront1.shadow.mapSize.width = 256
 lightRightFront1.shadow.mapSize.height = 256
 lightRightFront1.shadow.camera.far = 7
@@ -214,7 +440,7 @@ lightRightBack5.shadow.mapSize.width = 256
 lightRightBack5.shadow.mapSize.height = 256
 lightRightBack5.shadow.camera.far = 7
 
-// BOTTOM
+// RIGHT SIDE LANTERNS (BOTTOM)
 lightRightFrontBottom1.shadow.mapSize.width = 256
 lightRightFrontBottom1.shadow.mapSize.height = 256
 lightRightFrontBottom1.shadow.camera.far = 7
@@ -255,114 +481,369 @@ lightRightBackBottom5.shadow.mapSize.width = 256
 lightRightBackBottom5.shadow.mapSize.height = 256
 lightRightBackBottom5.shadow.camera.far = 7
 
-const clock = new THREE.Clock()
+// LEFT SIDE LANTERNS
+lightLeftFront1.castShadow = true
+lightLeftBack1.castShadow = true
+lightLeftFront2.castShadow = true
+lightLeftBack2.castShadow = true
+lightLeftFront3.castShadow = true
+lightLeftBack3.castShadow = true
+lightLeftFront4.castShadow = true
+lightLeftBack4.castShadow = true
+lightLeftFront5.castShadow = true
+lightLeftBack5.castShadow = true
+lightLeftFront6.castShadow = true
+lightLeftBack6.castShadow = true
+lightLeftFront7.castShadow = true
+lightLeftBack7.castShadow = true
+lightLeftFront8.castShadow = true
+lightLeftBack8.castShadow = true
+lightLeftFront9.castShadow = true
+lightLeftBack9.castShadow = true
+lightLeftFront10.castShadow = true
+lightLeftBack10.castShadow = true
+lightLeftFront11.castShadow = true
+lightLeftBack11.castShadow = true
+lightLeftFront12.castShadow = true
+lightLeftBack12.castShadow = true
+
+// LEFT SIDE LANTERNS (TOP)
+lightLeftFront1.shadow.mapSize.width = 256
+lightLeftFront1.shadow.mapSize.height = 256
+lightLeftFront1.shadow.camera.far = 7
+
+lightLeftBack1.shadow.mapSize.width = 256
+lightLeftBack1.shadow.mapSize.height = 256
+lightLeftBack1.shadow.camera.far = 7
+
+lightLeftFront2.shadow.mapSize.width = 256
+lightLeftFront2.shadow.mapSize.height = 256
+lightLeftFront2.shadow.camera.far = 7
+
+lightLeftBack2.shadow.mapSize.width = 256
+lightLeftBack2.shadow.mapSize.height = 256
+lightLeftBack2.shadow.camera.far = 7
+
+lightLeftFront3.shadow.mapSize.width = 256
+lightLeftFront3.shadow.mapSize.height = 256
+lightLeftFront3.shadow.camera.far = 7
+
+lightLeftBack3.shadow.mapSize.width = 256
+lightLeftBack3.shadow.mapSize.height = 256
+lightLeftBack3.shadow.camera.far = 7
+
+lightLeftFront4.shadow.mapSize.width = 256
+lightLeftFront4.shadow.mapSize.height = 256
+lightLeftFront4.shadow.camera.far = 7
+
+lightLeftBack4.shadow.mapSize.width = 256
+lightLeftBack4.shadow.mapSize.height = 256
+lightLeftBack4.shadow.camera.far = 7
+
+lightLeftFront5.shadow.mapSize.width = 256
+lightLeftFront5.shadow.mapSize.height = 256
+lightLeftFront5.shadow.camera.far = 7
+
+lightLeftBack5.shadow.mapSize.width = 256
+lightLeftBack5.shadow.mapSize.height = 256
+lightLeftBack5.shadow.camera.far = 7
+
+lightLeftFront6.shadow.mapSize.width = 256
+lightLeftFront6.shadow.mapSize.height = 256
+lightLeftFront6.shadow.camera.far = 7
+
+lightLeftBack6.shadow.mapSize.width = 256
+lightLeftBack6.shadow.mapSize.height = 256
+lightLeftBack6.shadow.camera.far = 7
+
+lightLeftFront7.shadow.mapSize.width = 256
+lightLeftFront7.shadow.mapSize.height = 256
+lightLeftFront7.shadow.camera.far = 7
+
+lightLeftBack7.shadow.mapSize.width = 256
+lightLeftBack7.shadow.mapSize.height = 256
+lightLeftBack7.shadow.camera.far = 7
+
+lightLeftFront8.shadow.mapSize.width = 256
+lightLeftFront8.shadow.mapSize.height = 256
+lightLeftFront8.shadow.camera.far = 7
+
+lightLeftBack8.shadow.mapSize.width = 256
+lightLeftBack8.shadow.mapSize.height = 256
+lightLeftBack8.shadow.camera.far = 7
+
+lightLeftFront9.shadow.mapSize.width = 256
+lightLeftFront9.shadow.mapSize.height = 256
+lightLeftFront9.shadow.camera.far = 7
+
+lightLeftBack9.shadow.mapSize.width = 256
+lightLeftBack9.shadow.mapSize.height = 256
+lightLeftBack9.shadow.camera.far = 7
+
+lightLeftFront10.shadow.mapSize.width = 256
+lightLeftFront10.shadow.mapSize.height = 256
+lightLeftFront10.shadow.camera.far = 7
+
+lightLeftBack10.shadow.mapSize.width = 256
+lightLeftBack10.shadow.mapSize.height = 256
+lightLeftBack10.shadow.camera.far = 7
+
+lightLeftFront11.shadow.mapSize.width = 256
+lightLeftFront11.shadow.mapSize.height = 256
+lightLeftFront11.shadow.camera.far = 7
+
+lightLeftBack11.shadow.mapSize.width = 256
+lightLeftBack11.shadow.mapSize.height = 256
+lightLeftBack11.shadow.camera.far = 7
+
+lightLeftFront12.shadow.mapSize.width = 256
+lightLeftFront12.shadow.mapSize.height = 256
+lightLeftFront12.shadow.camera.far = 7
+
+lightLeftBack12.shadow.mapSize.width = 256
+lightLeftBack12.shadow.mapSize.height = 256
+lightLeftBack12.shadow.camera.far = 7
+
+// LEFT SIDE LANTERNS (BOTTOM)
+lightLeftFrontBottom1.shadow.mapSize.width = 256
+lightLeftFrontBottom1.shadow.mapSize.height = 256
+lightLeftFrontBottom1.shadow.camera.far = 7
+
+lightLeftBackBottom1.shadow.mapSize.width = 256
+lightLeftBackBottom1.shadow.mapSize.height = 256
+lightLeftBackBottom1.shadow.camera.far = 7
+
+lightLeftFrontBottom2.shadow.mapSize.width = 256
+lightLeftFrontBottom2.shadow.mapSize.height = 256
+lightLeftFrontBottom2.shadow.camera.far = 7
+
+lightLeftBackBottom2.shadow.mapSize.width = 256
+lightLeftBackBottom2.shadow.mapSize.height = 256
+lightLeftBackBottom2.shadow.camera.far = 7
+
+lightLeftFrontBottom3.shadow.mapSize.width = 256
+lightLeftFrontBottom3.shadow.mapSize.height = 256
+lightLeftFrontBottom3.shadow.camera.far = 7
+
+lightLeftBackBottom3.shadow.mapSize.width = 256
+lightLeftBackBottom3.shadow.mapSize.height = 256
+lightLeftBackBottom3.shadow.camera.far = 7
+
+lightLeftFrontBottom4.shadow.mapSize.width = 256
+lightLeftFrontBottom4.shadow.mapSize.height = 256
+lightLeftFrontBottom4.shadow.camera.far = 7
+
+lightLeftBackBottom4.shadow.mapSize.width = 256
+lightLeftBackBottom4.shadow.mapSize.height = 256
+lightLeftBackBottom4.shadow.camera.far = 7
+
+lightLeftFrontBottom5.shadow.mapSize.width = 256
+lightLeftFrontBottom5.shadow.mapSize.height = 256
+lightLeftFrontBottom5.shadow.camera.far = 7
+
+lightLeftBackBottom5.shadow.mapSize.width = 256
+lightLeftBackBottom5.shadow.mapSize.height = 256
+lightLeftBackBottom5.shadow.camera.far = 7
+
+lightLeftFrontBottom6.shadow.mapSize.width = 256
+lightLeftFrontBottom6.shadow.mapSize.height = 256
+lightLeftFrontBottom6.shadow.camera.far = 7
+
+lightLeftBackBottom6.shadow.mapSize.width = 256
+lightLeftBackBottom6.shadow.mapSize.height = 256
+lightLeftBackBottom6.shadow.camera.far = 7
+
+lightLeftFrontBottom7.shadow.mapSize.width = 256
+lightLeftFrontBottom7.shadow.mapSize.height = 256
+lightLeftFrontBottom7.shadow.camera.far = 7
+
+lightLeftBackBottom7.shadow.mapSize.width = 256
+lightLeftBackBottom7.shadow.mapSize.height = 256
+lightLeftBackBottom7.shadow.camera.far = 7
+
+lightLeftFrontBottom8.shadow.mapSize.width = 256
+lightLeftFrontBottom8.shadow.mapSize.height = 256
+lightLeftFrontBottom8.shadow.camera.far = 7
+
+lightLeftBackBottom8.shadow.mapSize.width = 256
+lightLeftBackBottom8.shadow.mapSize.height = 256
+lightLeftBackBottom8.shadow.camera.far = 7
+
+lightLeftFrontBottom9.shadow.mapSize.width = 256
+lightLeftFrontBottom9.shadow.mapSize.height = 256
+lightLeftFrontBottom9.shadow.camera.far = 7
+
+lightLeftBackBottom9.shadow.mapSize.width = 256
+lightLeftBackBottom9.shadow.mapSize.height = 256
+lightLeftBackBottom9.shadow.camera.far = 7
+
+lightLeftFrontBottom10.shadow.mapSize.width = 256
+lightLeftFrontBottom10.shadow.mapSize.height = 256
+lightLeftFrontBottom10.shadow.camera.far = 7
+
+lightLeftBackBottom10.shadow.mapSize.width = 256
+lightLeftBackBottom10.shadow.mapSize.height = 256
+lightLeftBackBottom10.shadow.camera.far = 7
+
+lightLeftFrontBottom11.shadow.mapSize.width = 256
+lightLeftFrontBottom11.shadow.mapSize.height = 256
+lightLeftFrontBottom11.shadow.camera.far = 7
+
+lightLeftBackBottom11.shadow.mapSize.width = 256
+lightLeftBackBottom11.shadow.mapSize.height = 256
+lightLeftBackBottom11.shadow.camera.far = 7
+
+lightLeftFrontBottom12.shadow.mapSize.width = 256
+lightLeftFrontBottom12.shadow.mapSize.height = 256
+lightLeftFrontBottom12.shadow.camera.far = 7
+
+lightLeftBackBottom12.shadow.mapSize.width = 256
+lightLeftBackBottom12.shadow.mapSize.height = 256
+lightLeftBackBottom12.shadow.camera.far = 7
 
 
-const elapsedTime = clock.getElapsedTime()
+//const clock = new THREE.Clock()
+//const elapsedTime = clock.getElapsedTime()
 
 // Update ghost
 
-gui.add(lightRightFront5, 'intensity').min(0).max(100).step(0.001)
-gui.add(lightRightFront5.position, 'x').min(-100).max(100).step(0.001)
-gui.add(lightRightFront5.position, 'y').min(-100).max(100).step(0.001)
-gui.add(lightRightFront5.position, 'z').min(-100).max(100).step(0.001)
+gui.add(lightEntranceLeft4, 'intensity').min(0).max(100).step(0.001)
+gui.add(lightEntranceLeft4.position, 'x').min(-100).max(100).step(0.001)
+gui.add(lightEntranceLeft4.position, 'y').min(-100).max(100).step(0.001)
+gui.add(lightEntranceLeft4.position, 'z').min(-100).max(100).step(0.001)
 
-gui.add(lightRightBack5, 'intensity').min(0).max(100).step(0.001)
-gui.add(lightRightBack5.position, 'x').min(-100).max(100).step(0.001)
-gui.add(lightRightBack5.position, 'y').min(-100).max(100).step(0.001)
-gui.add(lightRightBack5.position, 'z').min(-100).max(100).step(0.001)
+gui.add(lightEntranceRight4, 'intensity').min(0).max(100).step(0.001)
+gui.add(lightEntranceRight4.position, 'x').min(-100).max(100).step(0.001)
+gui.add(lightEntranceRight4.position, 'y').min(-100).max(100).step(0.001)
+gui.add(lightEntranceRight4.position, 'z').min(-100).max(100).step(0.001)
+
+
+// ENTRANCE LIGHTS
+lightEntranceLeft1.position.set(-54.868, 18.878, 77.876)
+lightEntranceLeft2.position.set(-49.952, 18.878, 65.585)
+lightEntranceLeft3.position.set(-45.036, 20, 53.294)
+lightEntranceLeft4.position.set(-45.036, 20, 53.294)
+lightEntranceRight1.position.set(-47.494, 18.878, 82.792)
+lightEntranceRight2.position.set(-42.577, 18.878, 70.501)
+lightEntranceRight3.position.set(-35.203, 20, 60.668)
+lightEntranceRight4.position.set(-35.203, 20, 60.668)
 
 //const ghost1Angle = elapsedTime * 0.5
-lightMiddleFront.position.x = -22.923
-lightMiddleFront.position.z = 31.163
-lightMiddleFront.position.y = 17.234
+// MIDDLE LANTERN
+lightMiddleFront.position.set(-22.923, 17.234, 31.163)
+lightMiddleBack.position.set(-18.006, 16.412, 23.788)
 
-lightMiddleBack.position.x = -18.006
-lightMiddleBack.position.z = 23.788
-lightMiddleBack.position.y = 16.412
+// RIGHT SIDE LATERNS TOP
+lightRightFront1.position.set(-13.089, 18.871, 36.08)
+lightRightBack1.position.set(-8.172, 18.871, 31.163)
 
-lightRightFront1.position.x = -13.089
-lightRightFront1.position.z = 36.08
-lightRightFront1.position.y = 18.871
+lightRightFront2.position.set(-8.172, 18.871, 40.997)
+lightRightBack2.position.set(-3.256, 18.871, 33.621)
 
-lightRightBack1.position.x = -8.172
-lightRightBack1.position.z = 31.163
-lightRightBack1.position.y = 18.871
+lightRightFront3.position.set(-3.256, 18.871, 43.455)
+lightRightBack3.position.set(3.2, 18.871, 38.538)
 
-lightRightFront2.position.x = -8.172
-lightRightFront2.position.z = 40.997
-lightRightFront2.position.y = 18.871
+lightRightFront4.position.set(4.12, 18.871, 48.372)
+lightRightBack4.position.set(11.495, 18.871, 40.997)
 
-lightRightBack2.position.x = -3.256
-lightRightBack2.position.z = 33.621
-lightRightBack2.position.y = 18.871
+lightRightFront5.position.set(11.495, 18.871, 52.289)
+lightRightBack5.position.set(17.6, 18.871, 45.914)
 
-lightRightFront3.position.x = -3.256
-lightRightFront3.position.z = 43.455
-lightRightFront3.position.y = 18.871
 
-lightRightBack3.position.x = 3.2
-lightRightBack3.position.z = 38.538
-lightRightBack3.position.y = 18.871
+// RIGHT SIDE LATERNS BOTTOM
+lightRightFrontBottom1.position.set(-13.089, 11.495, 36.08)
+lightRightBackBottom1.position.set(-8.172, 11.495, 31.163)
 
-lightRightFront4.position.x = 4.12
-lightRightFront4.position.z = 48.372
-lightRightFront4.position.y = 18.871
+lightRightFrontBottom2.position.set(-8.172, 11.495, 40.997)
+lightRightBackBottom2.position.set(-3.256, 11.495, 33.621)
 
-lightRightBack4.position.x = 11.495
-lightRightBack4.position.z = 40.997
-lightRightBack4.position.y = 18.871
+lightRightFrontBottom3.position.set(-3.256, 11.495, 43.455)
+lightRightBackBottom3.position.set(3.2, 11.495, 38.538)
 
-lightRightFront5.position.x = 11.495
-lightRightFront5.position.z = 52.289
-lightRightFront5.position.y = 18.871
+lightRightFrontBottom4.position.set(4.12, 11.495, 48.372)
+lightRightBackBottom4.position.set(11.495, 11.495, 40.997)
 
-lightRightBack5.position.x = 17.6
-lightRightBack5.position.z = 45.914
-lightRightBack5.position.y = 18.871
+lightRightFrontBottom5.position.set(11.495, 11.495, 52.289)
+lightRightBackBottom5.position.set(17.6, 11.495, 45.914)
 
-// BOTTOM
-lightRightFrontBottom1.position.x = -13.089
-lightRightFrontBottom1.position.z = 36.08
-lightRightFrontBottom1.position.y = 11.495
 
-lightRightBackBottom1.position.x = -8.172
-lightRightBackBottom1.position.z = 31.163
-lightRightBackBottom1.position.y = 11.495
+// LEFT SIDE LATERNS TOP
+lightLeftFront1.position.set(-30.286, 18.871, 30.286)
+lightLeftBack1.position.set(-25.37, 18.871, 21.337)
 
-lightRightFrontBottom2.position.x = -8.172
-lightRightFrontBottom2.position.z = 40.997
-lightRightFrontBottom2.position.y = 11.495
+lightLeftFront2.position.set(-35.203, 18.871, 23.795)
+lightLeftBack2.position.set(-32.744, 18.871, 16.42)
 
-lightRightBackBottom2.position.x = -3.256
-lightRightBackBottom2.position.z = 33.621
-lightRightBackBottom2.position.y = 11.495
+lightLeftFront3.position.set(-41, 18.871, 18.878)
+lightLeftBack3.position.set(-35.203, 18.871, 9.046)
 
-lightRightFrontBottom3.position.x = -3.256
-lightRightFrontBottom3.position.z = 43.455
-lightRightFrontBottom3.position.y = 11.495
+lightLeftFront4.position.set(-45.036, 18.871, 16.42)
+lightLeftBack4.position.set(-45.036, 18.871, 6.587)
 
-lightRightBackBottom3.position.x = 3.2
-lightRightBackBottom3.position.z = 38.538
-lightRightBackBottom3.position.y = 11.495
+lightLeftFront5.position.set(-52.41, 18.871, 11.504)
+lightLeftBack5.position.set(-47.494, 18.871, 4.129)
 
-lightRightFrontBottom4.position.x = 4.12
-lightRightFrontBottom4.position.z = 48.372
-lightRightFrontBottom4.position.y = 11.495
+lightLeftFront6.position.set(-57.327, 18.871, 9.046)
+lightLeftBack6.position.set(-49.952, 18.871, 1.671)
 
-lightRightBackBottom4.position.x = 11.495
-lightRightBackBottom4.position.z = 40.997
-lightRightBackBottom4.position.y = 11.495
+lightLeftFront7.position.set(-62.243, 18.871, 4.8)
+lightLeftBack7.position.set(-57.327, 18.871, -3.246)
 
-lightRightFrontBottom5.position.x = 11.495
-lightRightFrontBottom5.position.z = 52.289
-lightRightFrontBottom5.position.y = 11.495
+lightLeftFront8.position.set(-64.701, 18.871, 4.129)
+lightLeftBack8.position.set(-62.243, 18.871, -5.704)
 
-lightRightBackBottom5.position.x = 17.6
-lightRightBackBottom5.position.z = 45.914
-lightRightBackBottom5.position.y = 11.495
+lightLeftFront9.position.set(-69.618, 18.871, 0.8)
+lightLeftBack9.position.set(-67.16, 18.871, -8.162)
 
-const fog = new THREE.FogExp2("#05081c", 0.01)
+lightLeftFront10.position.set(-76.993, 18.871, -3.246)
+lightLeftBack10.position.set(-69.618, 18.871, -10.62)
+
+lightLeftFront11.position.set(-81.909, 18.871, -5.704)
+lightLeftBack11.position.set(-76.993, 18.871, -13.079)
+
+lightLeftFront12.position.set(-84.367, 18.871,-8.162)
+lightLeftBack12.position.set(-17.995, 18.871, -17.995)
+
+
+// LEFT SIDE LATERNS BOTTOM
+lightLeftFrontBottom1.position.set(-30.286, 11.495, 30.286)
+lightLeftBackBottom1.position.set(-25.37, 11.495, 21.337)
+
+lightLeftFrontBottom2.position.set(-35.203, 11.495, 23.795)
+lightLeftBackBottom2.position.set(-32.744, 11.495, 16.42)
+
+lightLeftFrontBottom3.position.set(-41, 11.495, 18.878)
+lightLeftBackBottom3.position.set(-35.203, 11.495, 9.046)
+
+lightLeftFrontBottom4.position.set(-45.036, 11.495, 16.42)
+lightLeftBackBottom4.position.set(-45.036, 11.495, 6.587)
+
+lightLeftFrontBottom5.position.set(-52.41, 11.495, 11.504)
+lightLeftBackBottom5.position.set(-47.494, 11.495, 4.129)
+
+lightLeftFrontBottom6.position.set(-57.327, 11.495, 9.046)                                       
+lightLeftBackBottom6.position.set(-49.952, 11.495, 1.671)
+
+lightLeftFrontBottom7.position.set(-62.243, 11.495, 4.8)
+lightLeftBackBottom7.position.set(-57.327, 11.495, -3.246)
+
+lightLeftFrontBottom8.position.set(-64.701, 11.495, 4.129)
+lightLeftBackBottom8.position.set(-62.243, 11.495, -5.704)
+
+lightLeftFrontBottom9.position.set(-69.618, 11.495, 0.8)
+lightLeftBackBottom9.position.set(-67.16, 11.495, -8.162)
+
+lightLeftFrontBottom10.position.set(-76.993, 11.495, -3.246)
+lightLeftBackBottom10.position.set(-69.618, 11.495, -10.62)
+
+lightLeftFrontBottom11.position.set(-81.909, 11.495, -5.704)
+lightLeftBackBottom11.position.set(-76.993, 11.495, -13.079)
+
+lightLeftFrontBottom12.position.set(-84.367, 11.495,-8.162)
+lightLeftBackBottom12.position.set(-17.995, 11.495, -17.995)
+
+
+let fog = new THREE.FogExp2("#05081c", 0.01)
 scene.fog = fog
 
 let controls = new OrbitControls( camera, renderer.domElement );
