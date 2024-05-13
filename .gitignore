@@ -2,7 +2,8 @@
 node_modules
 /dist
 package-lock.json
-
+src/assets/datas/*
+src/data/*
 
 # local env files
 .env

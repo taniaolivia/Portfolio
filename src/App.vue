@@ -1,11 +1,17 @@
 <template>
   <div id="map"></div>
 
-  <div id="info">Description</div>
-
   <div id="mobileInterface" class="noSelect">
     <div id="joystick-wrapper"></div> 
   </div>
+
+  <popinProject v-if="showPopin" :project="data.data.projects[openPopin]" @close="close"></popinProject>
+  <popinRD v-if="showPopinRD" :rd="data.data.rd[openPopin]" @close="close"></popinRD>
+  <popinAboutMe v-if="showPopinAboutMe" :about-me="data.data.aboutMe" @close="close"></popinAboutMe>
+  <popinEducation v-if="showPopinEducation" :education="data.data.education" @close="close"></popinEducation>
+  <popinExperience v-if="showPopinExperience" :experience="data.data.experiences" @close="close"></popinExperience>
+  <popinMedSoc v-if="showPopinMedSoc" :media-social="data.data.socialMedias" @close="close"></popinMedSoc>
+  <popinSkill v-if="showPopinSkill" :skill="data.data.skills" @close="close"></popinSkill>
 </template>
 
 <script setup>
@@ -18,6 +24,24 @@ import nipplejs from 'nipplejs';
 import { FontLoader } from 'three/addons/loaders/FontLoader.js';
 import { TextGeometry } from 'three/addons/geometries/TextGeometry.js';
 import GUI from 'lil-gui'
+import {ref, onBeforeMount, computed, watch} from "vue";
+import popinProject from './components/popinProject.vue';
+import data from "./data/tania.js";
+import popinRD from './components/popinRD.vue';
+import popinAboutMe from './components/popinAboutMe.vue';
+import popinEducation from './components/popinEducation.vue';
+import popinMedSoc from './components/popinMedSoc.vue';
+import popinExperience from './components/popinExperience.vue';
+import popinSkill from './components/popinSkill.vue';
+
+let showPopin = ref(false);
+let showPopinRD = ref(false);
+let showPopinExperience = ref(false);
+let showPopinSkill = ref(false);
+let showPopinMedSoc = ref(false);
+let showPopinEducation = ref(false);
+let showPopinAboutMe = ref(false);
+let openPopin = ref(0);
 
 let pointingMixer, pointingModel, point;
 let mixer, walkModel, walk;
@@ -72,10 +96,6 @@ scene.add(ambientLight)
 // Directional light
 const moonLight = new THREE.DirectionalLight('#b9d5ff', 0.754)
 moonLight.position.set(2.542, 5, -1.637)
-gui.add(moonLight, 'intensity').min(0).max(1).step(0.001)
-gui.add(moonLight.position, 'x').min(- 5).max(5).step(0.001)
-gui.add(moonLight.position, 'y').min(- 5).max(5).step(0.001)
-gui.add(moonLight.position, 'z').min(- 5).max(5).step(0.001)
 scene.add(moonLight)
 
 // Door light
@@ -83,248 +103,102 @@ const doorlight = new THREE.PointLight('#ff7d46', 1, 7)
 doorlight.position.set(0, 2.2, 2.7)
 scene.add(doorlight)
 
+
 // ENTRANCE LIGHTS
-const lightEntranceLeft1 = new THREE.PointLight('#FFD700', 100, 100)
+/*const lightEntranceLeft1 = new THREE.PointLight('#FFD700', 50, 50)
 scene.add(lightEntranceLeft1)
 
-const lightEntranceLeft2 = new THREE.PointLight('#FFD700', 100, 100)
+const lightEntranceLeft2 = new THREE.PointLight('#FFD700', 50, 50)
 scene.add(lightEntranceLeft2)
 
-const lightEntranceLeft3 = new THREE.PointLight('#FFD700', 100, 100)
+const lightEntranceLeft3 = new THREE.PointLight('#FFD700', 50, 50)
 scene.add(lightEntranceLeft3)
 
-const lightEntranceLeft4 = new THREE.PointLight('#FFD700', 100, 100)
+const lightEntranceLeft4 = new THREE.PointLight('#FFD700', 50, 50)
 scene.add(lightEntranceLeft4)
 
-const lightEntranceRight1 = new THREE.PointLight('#FFD700', 100, 100)
+const lightEntranceRight1 = new THREE.PointLight('#FFD700', 50, 50)
 scene.add(lightEntranceRight1)
 
-const lightEntranceRight2 = new THREE.PointLight('#FFD700', 100, 100)
+const lightEntranceRight2 = new THREE.PointLight('#FFD700', 50, 50)
 scene.add(lightEntranceRight2)
 
-const lightEntranceRight3 = new THREE.PointLight('#FFD700', 100, 100)
+const lightEntranceRight3 = new THREE.PointLight('#FFD700', 50, 50)
 scene.add(lightEntranceRight3)
 
-const lightEntranceRight4 = new THREE.PointLight('#FFD700', 100, 100)
+const lightEntranceRight4 = new THREE.PointLight('#FFD700', 50, 50)
 scene.add(lightEntranceRight4)
-
-// MIDDLE LATTERN
-const lightMiddleFront = new THREE.PointLight('#FFD700', 100, 100)
-scene.add(lightMiddleFront)
-
-const lightMiddleBack = new THREE.PointLight('#FFD700', 100, 100)
-scene.add(lightMiddleBack)
+*/
 
 
 // RIGHT SIDE LANTERNS
-const lightRightFront1 = new THREE.PointLight('#FFD700', 100, 100)
+const lightRightFront1 = new THREE.PointLight('#FFD700', 500, 800)
 scene.add(lightRightFront1)
 
-const lightRightBack1 = new THREE.PointLight('#FFD700', 100, 100)
+const lightRightBack1 = new THREE.PointLight('#FFD700',  500, 800)
 scene.add(lightRightBack1)
 
-const lightRightFront2 = new THREE.PointLight('#FFD700', 100, 100)
+const lightRightFront2 = new THREE.PointLight('#FFD700', 500, 800)
 scene.add(lightRightFront2)
 
-const lightRightBack2 = new THREE.PointLight('#FFD700', 100, 100)
+const lightRightBack2 = new THREE.PointLight('#FFD700', 500, 800)
 scene.add(lightRightBack2)
 
-const lightRightFront3 = new THREE.PointLight('#FFD700', 100, 100)
-scene.add(lightRightFront3)
 
-const lightRightBack3 = new THREE.PointLight('#FFD700', 100, 100)
-scene.add(lightRightBack3)
-
-const lightRightFront4 = new THREE.PointLight('#FFD700', 100, 100)
-scene.add(lightRightFront4)
-
-const lightRightBack4 = new THREE.PointLight('#FFD700', 100, 100)
-scene.add(lightRightBack4)
-
-const lightRightFront5 = new THREE.PointLight('#FFD700', 100, 100)
-scene.add(lightRightFront5)
-
-const lightRightBack5 = new THREE.PointLight('#FFD700', 100, 100)
-scene.add(lightRightBack5)
-
-const lightRightFrontBottom1 = new THREE.PointLight('#FFD700', 100, 100)
-scene.add(lightRightFrontBottom1)
-
-const lightRightBackBottom1 = new THREE.PointLight('#FFD700', 100, 100)
-scene.add(lightRightBackBottom1)
-
-const lightRightFrontBottom2 = new THREE.PointLight('#FFD700', 100, 100)
-scene.add(lightRightFrontBottom2)
-
-const lightRightBackBottom2 = new THREE.PointLight('#FFD700', 100, 100)
-scene.add(lightRightBackBottom2)
-
-const lightRightFrontBottom3 = new THREE.PointLight('#FFD700', 100, 100)
-scene.add(lightRightFrontBottom3)
-
-const lightRightBackBottom3 = new THREE.PointLight('#FFD700', 100, 100)
-scene.add(lightRightBackBottom3)
-
-const lightRightFrontBottom4 = new THREE.PointLight('#FFD700', 100, 100)
-scene.add(lightRightFrontBottom4)
-
-const lightRightBackBottom4 = new THREE.PointLight('#FFD700', 100, 100)
-scene.add(lightRightBackBottom4)
-
-const lightRightFrontBottom5 = new THREE.PointLight('#FFD700', 100, 100)
-scene.add(lightRightFrontBottom5)
-
-const lightRightBackBottom5 = new THREE.PointLight('#FFD700', 100, 100)
-scene.add(lightRightBackBottom5)
-
-
-// LEFT SIDE LANTERNS (TOP)
-const lightLeftFront1 = new THREE.PointLight('#FFD700', 100, 100)
+// LEFT SIDE LANTERNS
+const lightLeftFront1 = new THREE.PointLight('#FFD700', 500, 800)
 scene.add(lightLeftFront1)
 
-const lightLeftBack1 = new THREE.PointLight('#FFD700', 100, 100)
+const lightLeftBack1 = new THREE.PointLight('#FFD700', 500, 800)
 scene.add(lightLeftBack1)
 
-const lightLeftFront2 = new THREE.PointLight('#FFD700', 100, 100)
+const lightLeftFront2 = new THREE.PointLight('#FFD700', 500, 800)
 scene.add(lightLeftFront2)
 
-const lightLeftBack2 = new THREE.PointLight('#FFD700', 100, 100)
+const lightLeftBack2 = new THREE.PointLight('#FFD700', 500, 800)
 scene.add(lightLeftBack2)
 
-const lightLeftFront3 = new THREE.PointLight('#FFD700', 100, 100)
+const lightLeftFront3 = new THREE.PointLight('#FFD700', 500, 800)
 scene.add(lightLeftFront3)
 
-const lightLeftBack3 = new THREE.PointLight('#FFD700', 100, 100)
+const lightLeftBack3 = new THREE.PointLight('#FFD700', 500, 800)
 scene.add(lightLeftBack3)
 
-const lightLeftFront4 = new THREE.PointLight('#FFD700', 100, 100)
+const lightLeftFront4 = new THREE.PointLight('#FFD700', 800, 800)
 scene.add(lightLeftFront4)
 
-const lightLeftBack4 = new THREE.PointLight('#FFD700', 100, 100)
+const lightLeftBack4 = new THREE.PointLight('#FFD700', 500, 800)
 scene.add(lightLeftBack4)
 
-const lightLeftFront5 = new THREE.PointLight('#FFD700', 100, 100)
-scene.add(lightLeftFront5)
+const lightLeftStand1 = new THREE.PointLight('#FFD700', 500, 800)
+scene.add(lightLeftStand1)
 
-const lightLeftBack5 = new THREE.PointLight('#FFD700', 100, 100)
-scene.add(lightLeftBack5)
+const lightLeftStand2 = new THREE.PointLight('#FFD700', 500, 800)
+scene.add(lightLeftStand2)
 
-const lightLeftFront6 = new THREE.PointLight('#FFD700', 100, 100)
-scene.add(lightLeftFront6)
+const lightLeftStand3 = new THREE.PointLight('#FFD700', 500, 800)
+scene.add(lightLeftStand3)
 
-const lightLeftBack6 = new THREE.PointLight('#FFD700', 100, 100)
-scene.add(lightLeftBack6)
+const lightRightStand1 = new THREE.PointLight('#FFD700', 500, 800)
+scene.add(lightRightStand1)
 
-const lightLeftFront7 = new THREE.PointLight('#FFD700', 100, 100)
-scene.add(lightLeftFront7)
+const lightRightStand2 = new THREE.PointLight('#FFD700', 500, 800)
+scene.add(lightRightStand2)
 
-const lightLeftBack7 = new THREE.PointLight('#FFD700', 100, 100)
-scene.add(lightLeftBack7)
+const lightRightStone1 = new THREE.PointLight('#FFD700', 500, 800)
+scene.add(lightRightStone1)
 
-const lightLeftFront8 = new THREE.PointLight('#FFD700', 100, 100)
-scene.add(lightLeftFront8)
+const lightRightStone2 = new THREE.PointLight('#FFD700', 500, 800)
+scene.add(lightRightStone2)
 
-const lightLeftBack8 = new THREE.PointLight('#FFD700', 100, 100)
-scene.add(lightLeftBack8)
+const lightLeftStone1 = new THREE.PointLight('#FFD700', 500, 800)
+scene.add(lightLeftStone1)
 
-const lightLeftFront9 = new THREE.PointLight('#FFD700', 100, 100)
-scene.add(lightLeftFront9)
+const lightLeftStone2 = new THREE.PointLight('#FFD700', 500, 800)
+scene.add(lightLeftStone2)
 
-const lightLeftBack9 = new THREE.PointLight('#FFD700', 100, 100)
-scene.add(lightLeftBack9)
-
-const lightLeftFront10 = new THREE.PointLight('#FFD700', 100, 100)
-scene.add(lightLeftFront10)
-
-const lightLeftBack10 = new THREE.PointLight('#FFD700', 100, 100)
-scene.add(lightLeftBack10)
-
-const lightLeftFront11 = new THREE.PointLight('#FFD700', 100, 100)
-scene.add(lightLeftFront11)
-
-const lightLeftBack11 = new THREE.PointLight('#FFD700', 100, 100)
-scene.add(lightLeftBack11)
-
-const lightLeftFront12 = new THREE.PointLight('#FFD700', 100, 100)
-scene.add(lightLeftFront12)
-
-const lightLeftBack12 = new THREE.PointLight('#FFD700', 100, 100)
-scene.add(lightLeftBack12)
-
-
-// LEFT SIDE LANTERNS (BOTTOM)
-const lightLeftFrontBottom1 = new THREE.PointLight('#FFD700', 100, 100)
-scene.add(lightLeftFrontBottom1)
-
-const lightLeftBackBottom1 = new THREE.PointLight('#FFD700', 100, 100)
-scene.add(lightLeftBackBottom1)
-
-const lightLeftFrontBottom2 = new THREE.PointLight('#FFD700', 100, 100)
-scene.add(lightLeftFrontBottom2)
-
-const lightLeftBackBottom2 = new THREE.PointLight('#FFD700', 100, 100)
-scene.add(lightLeftBackBottom2)
-
-const lightLeftFrontBottom3 = new THREE.PointLight('#FFD700', 100, 100)
-scene.add(lightLeftFrontBottom3)
-
-const lightLeftBackBottom3 = new THREE.PointLight('#FFD700', 100, 100)
-scene.add(lightLeftBackBottom3)
-
-const lightLeftFrontBottom4 = new THREE.PointLight('#FFD700', 100, 100)
-scene.add(lightLeftFrontBottom4)
-
-const lightLeftBackBottom4 = new THREE.PointLight('#FFD700', 100, 100)
-scene.add(lightLeftBackBottom4)
-
-const lightLeftFrontBottom5 = new THREE.PointLight('#FFD700', 100, 100)
-scene.add(lightLeftFrontBottom5)
-
-const lightLeftBackBottom5 = new THREE.PointLight('#FFD700', 100, 100)
-scene.add(lightLeftBackBottom5)
-
-const lightLeftFrontBottom6 = new THREE.PointLight('#FFD700', 100, 100)
-scene.add(lightLeftFrontBottom6)
-
-const lightLeftBackBottom6 = new THREE.PointLight('#FFD700', 100, 100)
-scene.add(lightLeftBackBottom6)
-
-const lightLeftFrontBottom7 = new THREE.PointLight('#FFD700', 100, 100)
-scene.add(lightLeftFrontBottom7)
-
-const lightLeftBackBottom7 = new THREE.PointLight('#FFD700', 100, 100)
-scene.add(lightLeftBackBottom7)
-
-const lightLeftFrontBottom8 = new THREE.PointLight('#FFD700', 100, 100)
-scene.add(lightLeftFrontBottom8)
-
-const lightLeftBackBottom8 = new THREE.PointLight('#FFD700', 100, 100)
-scene.add(lightLeftBackBottom8)
-
-const lightLeftFrontBottom9 = new THREE.PointLight('#FFD700', 100, 100)
-scene.add(lightLeftFrontBottom9)
-
-const lightLeftBackBottom9 = new THREE.PointLight('#FFD700', 100, 100)
-scene.add(lightLeftBackBottom9)
-
-const lightLeftFrontBottom10 = new THREE.PointLight('#FFD700', 100, 100)
-scene.add(lightLeftFrontBottom10)
-
-const lightLeftBackBottom10 = new THREE.PointLight('#FFD700', 100, 100)
-scene.add(lightLeftBackBottom10)
-
-const lightLeftFrontBottom11 = new THREE.PointLight('#FFD700', 100, 100)
-scene.add(lightLeftFrontBottom11)
-
-const lightLeftBackBottom11 = new THREE.PointLight('#FFD700', 100, 100)
-scene.add(lightLeftBackBottom11)
-
-const lightLeftFrontBottom12 = new THREE.PointLight('#FFD700', 100, 100)
-scene.add(lightLeftFrontBottom12)
-
-const lightLeftBackBottom12 = new THREE.PointLight('#FFD700', 100, 100)
-scene.add(lightLeftBackBottom12)
-
+const lightMiddleStone1 = new THREE.PointLight('#FFD700', 500, 800)
+scene.add(lightMiddleStone1)
 
 /**
  * SHADOWS
@@ -333,514 +207,95 @@ moonLight.castShadow = true
 doorlight.castShadow = true
 
 // ENTRANCE LIGHTS
-lightEntranceLeft1.castShadow = true
-lightEntranceLeft2.castShadow = true
-lightEntranceLeft3.castShadow = true
-lightEntranceLeft4.castShadow = true
-lightEntranceRight1.castShadow = true
-lightEntranceRight2.castShadow = true
-lightEntranceRight3.castShadow = true
-lightEntranceRight4.castShadow = true
+/*lightEntranceLeft1.castShadow = false
+lightEntranceLeft2.castShadow = false
+lightEntranceLeft3.castShadow = false
+lightEntranceLeft4.castShadow = false
+lightEntranceRight1.castShadow = false
+lightEntranceRight2.castShadow = false
+lightEntranceRight3.castShadow = false
+lightEntranceRight4.castShadow = false
 
-lightEntranceLeft1.shadow.mapSize.width = 256
-lightEntranceLeft1.shadow.mapSize.height = 256
+lightEntranceLeft1.shadow.mapSize.width = 128
+lightEntranceLeft1.shadow.mapSize.height = 128
 lightEntranceLeft1.shadow.camera.far = 7
 
-lightEntranceLeft2.shadow.mapSize.width = 256
-lightEntranceLeft2.shadow.mapSize.height = 256
+lightEntranceLeft2.shadow.mapSize.width = 128
+lightEntranceLeft2.shadow.mapSize.height = 128
 lightEntranceLeft2.shadow.camera.far = 7
 
-lightEntranceLeft3.shadow.mapSize.width = 256
-lightEntranceLeft3.shadow.mapSize.height = 256
+lightEntranceLeft3.shadow.mapSize.width = 128
+lightEntranceLeft3.shadow.mapSize.height = 128
 lightEntranceLeft3.shadow.camera.far = 7
 
-lightEntranceLeft4.shadow.mapSize.width = 256
-lightEntranceLeft4.shadow.mapSize.height = 256
+lightEntranceLeft4.shadow.mapSize.width = 128
+lightEntranceLeft4.shadow.mapSize.height = 128
 lightEntranceLeft4.shadow.camera.far = 7
 
-lightEntranceRight1.shadow.mapSize.width = 256
-lightEntranceRight1.shadow.mapSize.height = 256
+lightEntranceRight1.shadow.mapSize.width = 128
+lightEntranceRight1.shadow.mapSize.height = 128
 lightEntranceRight1.shadow.camera.far = 7
 
-lightEntranceRight2.shadow.mapSize.width = 256
-lightEntranceRight2.shadow.mapSize.height = 256
+lightEntranceRight2.shadow.mapSize.width = 128
+lightEntranceRight2.shadow.mapSize.height = 128
 lightEntranceRight2.shadow.camera.far = 7
 
-lightEntranceRight3.shadow.mapSize.width = 256
-lightEntranceRight3.shadow.mapSize.height = 256
+lightEntranceRight3.shadow.mapSize.width = 128
+lightEntranceRight3.shadow.mapSize.height = 128
 lightEntranceRight3.shadow.camera.far = 7
 
-lightEntranceRight4.shadow.mapSize.width = 256
-lightEntranceRight4.shadow.mapSize.height = 256
+lightEntranceRight4.shadow.mapSize.width = 128
+lightEntranceRight4.shadow.mapSize.height = 128
 lightEntranceRight4.shadow.camera.far = 7
-
-
-// MIDDLE LANTERN
-lightMiddleFront.castShadow = true
-lightMiddleBack.castShadow = true
-
-lightMiddleFront.shadow.mapSize.width = 256
-lightMiddleFront.shadow.mapSize.height = 256
-lightMiddleFront.shadow.camera.far = 7
-
-lightMiddleBack.shadow.mapSize.width = 256
-lightMiddleBack.shadow.mapSize.height = 256
-lightMiddleBack.shadow.camera.far = 7
-
-// RIGHT SIDE LANTERNS
-lightRightFront1.castShadow = true
-lightRightBack1.castShadow = true
-lightRightFront2.castShadow = true
-lightRightBack2.castShadow = true
-lightRightFront3.castShadow = true
-lightRightBack3.castShadow = true
-lightRightFront4.castShadow = true
-lightRightBack4.castShadow = true
-lightRightFront5.castShadow = true
-lightRightBack5.castShadow = true
-
-// RIGHT SIDE LANTERNS (TOP)
-lightRightFront1.shadow.mapSize.width = 256
-lightRightFront1.shadow.mapSize.height = 256
-lightRightFront1.shadow.camera.far = 7
-
-lightRightBack1.shadow.mapSize.width = 256
-lightRightBack1.shadow.mapSize.height = 256
-lightRightBack1.shadow.camera.far = 7
-
-lightRightFront2.shadow.mapSize.width = 256
-lightRightFront2.shadow.mapSize.height = 256
-lightRightFront2.shadow.camera.far = 7
-
-lightRightBack2.shadow.mapSize.width = 256
-lightRightBack2.shadow.mapSize.height = 256
-lightRightBack2.shadow.camera.far = 7
-
-lightRightFront3.shadow.mapSize.width = 256
-lightRightFront3.shadow.mapSize.height = 256
-lightRightFront3.shadow.camera.far = 7
-
-lightRightBack3.shadow.mapSize.width = 256
-lightRightBack3.shadow.mapSize.height = 256
-lightRightBack3.shadow.camera.far = 7
-
-lightRightFront4.shadow.mapSize.width = 256
-lightRightFront4.shadow.mapSize.height = 256
-lightRightFront4.shadow.camera.far = 7
-
-lightRightBack4.shadow.mapSize.width = 256
-lightRightBack4.shadow.mapSize.height = 256
-lightRightBack4.shadow.camera.far = 7
-
-lightRightFront5.shadow.mapSize.width = 256
-lightRightFront5.shadow.mapSize.height = 256
-lightRightFront5.shadow.camera.far = 7
-
-lightRightBack5.shadow.mapSize.width = 256
-lightRightBack5.shadow.mapSize.height = 256
-lightRightBack5.shadow.camera.far = 7
-
-// RIGHT SIDE LANTERNS (BOTTOM)
-lightRightFrontBottom1.shadow.mapSize.width = 256
-lightRightFrontBottom1.shadow.mapSize.height = 256
-lightRightFrontBottom1.shadow.camera.far = 7
-
-lightRightBackBottom1.shadow.mapSize.width = 256
-lightRightBackBottom1.shadow.mapSize.height = 256
-lightRightBackBottom1.shadow.camera.far = 7
-
-lightRightFront2.shadow.mapSize.width = 256
-lightRightFront2.shadow.mapSize.height = 256
-lightRightFront2.shadow.camera.far = 7
-
-lightRightBackBottom2.shadow.mapSize.width = 256
-lightRightBackBottom2.shadow.mapSize.height = 256
-lightRightBackBottom2.shadow.camera.far = 7
-
-lightRightFrontBottom3.shadow.mapSize.width = 256
-lightRightFrontBottom3.shadow.mapSize.height = 256
-lightRightFrontBottom3.shadow.camera.far = 7
-
-lightRightBackBottom3.shadow.mapSize.width = 256
-lightRightBackBottom3.shadow.mapSize.height = 256
-lightRightBackBottom3.shadow.camera.far = 7
-
-lightRightFrontBottom4.shadow.mapSize.width = 256
-lightRightFrontBottom4.shadow.mapSize.height = 256
-lightRightFrontBottom4.shadow.camera.far = 7
-
-lightRightBackBottom4.shadow.mapSize.width = 256
-lightRightBackBottom4.shadow.mapSize.height = 256
-lightRightBackBottom4.shadow.camera.far = 7
-
-lightRightFrontBottom5.shadow.mapSize.width = 256
-lightRightFrontBottom5.shadow.mapSize.height = 256
-lightRightFrontBottom5.shadow.camera.far = 7
-
-lightRightBackBottom5.shadow.mapSize.width = 256
-lightRightBackBottom5.shadow.mapSize.height = 256
-lightRightBackBottom5.shadow.camera.far = 7
-
-// LEFT SIDE LANTERNS
-lightLeftFront1.castShadow = true
-lightLeftBack1.castShadow = true
-lightLeftFront2.castShadow = true
-lightLeftBack2.castShadow = true
-lightLeftFront3.castShadow = true
-lightLeftBack3.castShadow = true
-lightLeftFront4.castShadow = true
-lightLeftBack4.castShadow = true
-lightLeftFront5.castShadow = true
-lightLeftBack5.castShadow = true
-lightLeftFront6.castShadow = true
-lightLeftBack6.castShadow = true
-lightLeftFront7.castShadow = true
-lightLeftBack7.castShadow = true
-lightLeftFront8.castShadow = true
-lightLeftBack8.castShadow = true
-lightLeftFront9.castShadow = true
-lightLeftBack9.castShadow = true
-lightLeftFront10.castShadow = true
-lightLeftBack10.castShadow = true
-lightLeftFront11.castShadow = true
-lightLeftBack11.castShadow = true
-lightLeftFront12.castShadow = true
-lightLeftBack12.castShadow = true
-
-// LEFT SIDE LANTERNS (TOP)
-lightLeftFront1.shadow.mapSize.width = 256
-lightLeftFront1.shadow.mapSize.height = 256
-lightLeftFront1.shadow.camera.far = 7
-
-lightLeftBack1.shadow.mapSize.width = 256
-lightLeftBack1.shadow.mapSize.height = 256
-lightLeftBack1.shadow.camera.far = 7
-
-lightLeftFront2.shadow.mapSize.width = 256
-lightLeftFront2.shadow.mapSize.height = 256
-lightLeftFront2.shadow.camera.far = 7
-
-lightLeftBack2.shadow.mapSize.width = 256
-lightLeftBack2.shadow.mapSize.height = 256
-lightLeftBack2.shadow.camera.far = 7
-
-lightLeftFront3.shadow.mapSize.width = 256
-lightLeftFront3.shadow.mapSize.height = 256
-lightLeftFront3.shadow.camera.far = 7
-
-lightLeftBack3.shadow.mapSize.width = 256
-lightLeftBack3.shadow.mapSize.height = 256
-lightLeftBack3.shadow.camera.far = 7
-
-lightLeftFront4.shadow.mapSize.width = 256
-lightLeftFront4.shadow.mapSize.height = 256
-lightLeftFront4.shadow.camera.far = 7
-
-lightLeftBack4.shadow.mapSize.width = 256
-lightLeftBack4.shadow.mapSize.height = 256
-lightLeftBack4.shadow.camera.far = 7
-
-lightLeftFront5.shadow.mapSize.width = 256
-lightLeftFront5.shadow.mapSize.height = 256
-lightLeftFront5.shadow.camera.far = 7
-
-lightLeftBack5.shadow.mapSize.width = 256
-lightLeftBack5.shadow.mapSize.height = 256
-lightLeftBack5.shadow.camera.far = 7
-
-lightLeftFront6.shadow.mapSize.width = 256
-lightLeftFront6.shadow.mapSize.height = 256
-lightLeftFront6.shadow.camera.far = 7
-
-lightLeftBack6.shadow.mapSize.width = 256
-lightLeftBack6.shadow.mapSize.height = 256
-lightLeftBack6.shadow.camera.far = 7
-
-lightLeftFront7.shadow.mapSize.width = 256
-lightLeftFront7.shadow.mapSize.height = 256
-lightLeftFront7.shadow.camera.far = 7
-
-lightLeftBack7.shadow.mapSize.width = 256
-lightLeftBack7.shadow.mapSize.height = 256
-lightLeftBack7.shadow.camera.far = 7
-
-lightLeftFront8.shadow.mapSize.width = 256
-lightLeftFront8.shadow.mapSize.height = 256
-lightLeftFront8.shadow.camera.far = 7
-
-lightLeftBack8.shadow.mapSize.width = 256
-lightLeftBack8.shadow.mapSize.height = 256
-lightLeftBack8.shadow.camera.far = 7
-
-lightLeftFront9.shadow.mapSize.width = 256
-lightLeftFront9.shadow.mapSize.height = 256
-lightLeftFront9.shadow.camera.far = 7
-
-lightLeftBack9.shadow.mapSize.width = 256
-lightLeftBack9.shadow.mapSize.height = 256
-lightLeftBack9.shadow.camera.far = 7
-
-lightLeftFront10.shadow.mapSize.width = 256
-lightLeftFront10.shadow.mapSize.height = 256
-lightLeftFront10.shadow.camera.far = 7
-
-lightLeftBack10.shadow.mapSize.width = 256
-lightLeftBack10.shadow.mapSize.height = 256
-lightLeftBack10.shadow.camera.far = 7
-
-lightLeftFront11.shadow.mapSize.width = 256
-lightLeftFront11.shadow.mapSize.height = 256
-lightLeftFront11.shadow.camera.far = 7
-
-lightLeftBack11.shadow.mapSize.width = 256
-lightLeftBack11.shadow.mapSize.height = 256
-lightLeftBack11.shadow.camera.far = 7
-
-lightLeftFront12.shadow.mapSize.width = 256
-lightLeftFront12.shadow.mapSize.height = 256
-lightLeftFront12.shadow.camera.far = 7
-
-lightLeftBack12.shadow.mapSize.width = 256
-lightLeftBack12.shadow.mapSize.height = 256
-lightLeftBack12.shadow.camera.far = 7
-
-// LEFT SIDE LANTERNS (BOTTOM)
-lightLeftFrontBottom1.shadow.mapSize.width = 256
-lightLeftFrontBottom1.shadow.mapSize.height = 256
-lightLeftFrontBottom1.shadow.camera.far = 7
-
-lightLeftBackBottom1.shadow.mapSize.width = 256
-lightLeftBackBottom1.shadow.mapSize.height = 256
-lightLeftBackBottom1.shadow.camera.far = 7
-
-lightLeftFrontBottom2.shadow.mapSize.width = 256
-lightLeftFrontBottom2.shadow.mapSize.height = 256
-lightLeftFrontBottom2.shadow.camera.far = 7
-
-lightLeftBackBottom2.shadow.mapSize.width = 256
-lightLeftBackBottom2.shadow.mapSize.height = 256
-lightLeftBackBottom2.shadow.camera.far = 7
-
-lightLeftFrontBottom3.shadow.mapSize.width = 256
-lightLeftFrontBottom3.shadow.mapSize.height = 256
-lightLeftFrontBottom3.shadow.camera.far = 7
-
-lightLeftBackBottom3.shadow.mapSize.width = 256
-lightLeftBackBottom3.shadow.mapSize.height = 256
-lightLeftBackBottom3.shadow.camera.far = 7
-
-lightLeftFrontBottom4.shadow.mapSize.width = 256
-lightLeftFrontBottom4.shadow.mapSize.height = 256
-lightLeftFrontBottom4.shadow.camera.far = 7
-
-lightLeftBackBottom4.shadow.mapSize.width = 256
-lightLeftBackBottom4.shadow.mapSize.height = 256
-lightLeftBackBottom4.shadow.camera.far = 7
-
-lightLeftFrontBottom5.shadow.mapSize.width = 256
-lightLeftFrontBottom5.shadow.mapSize.height = 256
-lightLeftFrontBottom5.shadow.camera.far = 7
-
-lightLeftBackBottom5.shadow.mapSize.width = 256
-lightLeftBackBottom5.shadow.mapSize.height = 256
-lightLeftBackBottom5.shadow.camera.far = 7
-
-lightLeftFrontBottom6.shadow.mapSize.width = 256
-lightLeftFrontBottom6.shadow.mapSize.height = 256
-lightLeftFrontBottom6.shadow.camera.far = 7
-
-lightLeftBackBottom6.shadow.mapSize.width = 256
-lightLeftBackBottom6.shadow.mapSize.height = 256
-lightLeftBackBottom6.shadow.camera.far = 7
-
-lightLeftFrontBottom7.shadow.mapSize.width = 256
-lightLeftFrontBottom7.shadow.mapSize.height = 256
-lightLeftFrontBottom7.shadow.camera.far = 7
-
-lightLeftBackBottom7.shadow.mapSize.width = 256
-lightLeftBackBottom7.shadow.mapSize.height = 256
-lightLeftBackBottom7.shadow.camera.far = 7
-
-lightLeftFrontBottom8.shadow.mapSize.width = 256
-lightLeftFrontBottom8.shadow.mapSize.height = 256
-lightLeftFrontBottom8.shadow.camera.far = 7
-
-lightLeftBackBottom8.shadow.mapSize.width = 256
-lightLeftBackBottom8.shadow.mapSize.height = 256
-lightLeftBackBottom8.shadow.camera.far = 7
-
-lightLeftFrontBottom9.shadow.mapSize.width = 256
-lightLeftFrontBottom9.shadow.mapSize.height = 256
-lightLeftFrontBottom9.shadow.camera.far = 7
-
-lightLeftBackBottom9.shadow.mapSize.width = 256
-lightLeftBackBottom9.shadow.mapSize.height = 256
-lightLeftBackBottom9.shadow.camera.far = 7
-
-lightLeftFrontBottom10.shadow.mapSize.width = 256
-lightLeftFrontBottom10.shadow.mapSize.height = 256
-lightLeftFrontBottom10.shadow.camera.far = 7
-
-lightLeftBackBottom10.shadow.mapSize.width = 256
-lightLeftBackBottom10.shadow.mapSize.height = 256
-lightLeftBackBottom10.shadow.camera.far = 7
-
-lightLeftFrontBottom11.shadow.mapSize.width = 256
-lightLeftFrontBottom11.shadow.mapSize.height = 256
-lightLeftFrontBottom11.shadow.camera.far = 7
-
-lightLeftBackBottom11.shadow.mapSize.width = 256
-lightLeftBackBottom11.shadow.mapSize.height = 256
-lightLeftBackBottom11.shadow.camera.far = 7
-
-lightLeftFrontBottom12.shadow.mapSize.width = 256
-lightLeftFrontBottom12.shadow.mapSize.height = 256
-lightLeftFrontBottom12.shadow.camera.far = 7
-
-lightLeftBackBottom12.shadow.mapSize.width = 256
-lightLeftBackBottom12.shadow.mapSize.height = 256
-lightLeftBackBottom12.shadow.camera.far = 7
-
-
-//const clock = new THREE.Clock()
-//const elapsedTime = clock.getElapsedTime()
-
-// Update ghost
-
-gui.add(lightEntranceLeft4, 'intensity').min(0).max(100).step(0.001)
-gui.add(lightEntranceLeft4.position, 'x').min(-100).max(100).step(0.001)
-gui.add(lightEntranceLeft4.position, 'y').min(-100).max(100).step(0.001)
-gui.add(lightEntranceLeft4.position, 'z').min(-100).max(100).step(0.001)
-
-gui.add(lightEntranceRight4, 'intensity').min(0).max(100).step(0.001)
-gui.add(lightEntranceRight4.position, 'x').min(-100).max(100).step(0.001)
-gui.add(lightEntranceRight4.position, 'y').min(-100).max(100).step(0.001)
-gui.add(lightEntranceRight4.position, 'z').min(-100).max(100).step(0.001)
-
+*/
 
 // ENTRANCE LIGHTS
-lightEntranceLeft1.position.set(-54.868, 18.878, 77.876)
+/*lightEntranceLeft1.position.set(-54.868, 18.878, 77.876)
 lightEntranceLeft2.position.set(-49.952, 18.878, 65.585)
 lightEntranceLeft3.position.set(-45.036, 20, 53.294)
 lightEntranceLeft4.position.set(-45.036, 20, 53.294)
 lightEntranceRight1.position.set(-47.494, 18.878, 82.792)
 lightEntranceRight2.position.set(-42.577, 18.878, 70.501)
 lightEntranceRight3.position.set(-35.203, 20, 60.668)
-lightEntranceRight4.position.set(-35.203, 20, 60.668)
+lightEntranceRight4.position.set(-35.203, 20, 60.668)*/
 
-//const ghost1Angle = elapsedTime * 0.5
-// MIDDLE LANTERN
-lightMiddleFront.position.set(-22.923, 17.234, 31.163)
-lightMiddleBack.position.set(-18.006, 16.412, 23.788)
+// RIGHT SIDE LATERNS
+lightRightFront1.position.set(-13.089, 16.415, 40.999)
+lightRightBack1.position.set(-8.169, 18.873, 23.79)
 
-// RIGHT SIDE LATERNS TOP
-lightRightFront1.position.set(-13.089, 18.871, 36.08)
-lightRightBack1.position.set(-8.172, 18.871, 31.163)
-
-lightRightFront2.position.set(-8.172, 18.871, 40.997)
-lightRightBack2.position.set(-3.256, 18.871, 33.621)
-
-lightRightFront3.position.set(-3.256, 18.871, 43.455)
-lightRightBack3.position.set(3.2, 18.871, 38.538)
-
-lightRightFront4.position.set(4.12, 18.871, 48.372)
-lightRightBack4.position.set(11.495, 18.871, 40.997)
-
-lightRightFront5.position.set(11.495, 18.871, 52.289)
-lightRightBack5.position.set(17.6, 18.871, 45.914)
+lightRightFront2.position.set(6.581, 18.871, 50.832)
+lightRightBack2.position.set(11.498, 18.871, 36.082)
 
 
-// RIGHT SIDE LATERNS BOTTOM
-lightRightFrontBottom1.position.set(-13.089, 11.495, 36.08)
-lightRightBackBottom1.position.set(-8.172, 11.495, 31.163)
+// LEFT SIDE LATERNS
+lightLeftFront1.position.set(-37.67, 18.871, 26.248)
+lightLeftBack1.position.set(-27.836, 16.415, 13.956)
 
-lightRightFrontBottom2.position.set(-8.172, 11.495, 40.997)
-lightRightBackBottom2.position.set(-3.256, 11.495, 33.621)
+lightLeftFront2.position.set(-54.878, 16.415, 13.956)
+lightLeftBack2.position.set(-45.045, 18.871, 1.664)
 
-lightRightFrontBottom3.position.set(-3.256, 11.495, 43.455)
-lightRightBackBottom3.position.set(3.2, 11.495, 38.538)
+lightLeftFront3.position.set(-67.17, 16.415, 4.123)
+lightLeftBack3.position.set(-57.337, 18.871, -10.628)
 
-lightRightFrontBottom4.position.set(4.12, 11.495, 48.372)
-lightRightBackBottom4.position.set(11.495, 11.495, 40.997)
+lightLeftFront4.position.set(-81.921, 16.415, -3.252)
+lightLeftBack4.position.set(-77.004, 18.871, -18.003)
 
-lightRightFrontBottom5.position.set(11.495, 11.495, 52.289)
-lightRightBackBottom5.position.set(17.6, 11.495, 45.914)
+// LIGHTS STANDS
+lightLeftStand1.position.set(-25.378, 16.415, -3.252)
+lightLeftStand2.position.set(-47.503, 11.498, -15.544)
+lightLeftStand3.position.set(-67.17, 11.498, -25.378)
 
+lightRightStand1.position.set(9.04, 16.415, 13.956)
+lightRightStand2.position.set(26.248, 16.415, 28.707)
 
-// LEFT SIDE LATERNS TOP
-lightLeftFront1.position.set(-30.286, 18.871, 30.286)
-lightLeftBack1.position.set(-25.37, 18.871, 21.337)
+// LIGHTS STONES
+lightRightStone1.position.set(38.54, 11.498, -27.836);
+lightRightStone2.position.set(48.374, 11.498, -20.461);
 
-lightLeftFront2.position.set(-35.203, 18.871, 23.795)
-lightLeftBack2.position.set(-32.744, 18.871, 16.42)
+lightLeftStone1.position.set(-22.919, 11.498, -64.712);
+lightLeftStone2.position.set(-32.753, 11.498, -72.087);
 
-lightLeftFront3.position.set(-41, 18.871, 18.878)
-lightLeftBack3.position.set(-35.203, 18.871, 9.046)
-
-lightLeftFront4.position.set(-45.036, 18.871, 16.42)
-lightLeftBack4.position.set(-45.036, 18.871, 6.587)
-
-lightLeftFront5.position.set(-52.41, 18.871, 11.504)
-lightLeftBack5.position.set(-47.494, 18.871, 4.129)
-
-lightLeftFront6.position.set(-57.327, 18.871, 9.046)
-lightLeftBack6.position.set(-49.952, 18.871, 1.671)
-
-lightLeftFront7.position.set(-62.243, 18.871, 4.8)
-lightLeftBack7.position.set(-57.327, 18.871, -3.246)
-
-lightLeftFront8.position.set(-64.701, 18.871, 4.129)
-lightLeftBack8.position.set(-62.243, 18.871, -5.704)
-
-lightLeftFront9.position.set(-69.618, 18.871, 0.8)
-lightLeftBack9.position.set(-67.16, 18.871, -8.162)
-
-lightLeftFront10.position.set(-76.993, 18.871, -3.246)
-lightLeftBack10.position.set(-69.618, 18.871, -10.62)
-
-lightLeftFront11.position.set(-81.909, 18.871, -5.704)
-lightLeftBack11.position.set(-76.993, 18.871, -13.079)
-
-lightLeftFront12.position.set(-84.367, 18.871,-8.162)
-lightLeftBack12.position.set(-17.995, 18.871, -17.995)
-
-
-// LEFT SIDE LATERNS BOTTOM
-lightLeftFrontBottom1.position.set(-30.286, 11.495, 30.286)
-lightLeftBackBottom1.position.set(-25.37, 11.495, 21.337)
-
-lightLeftFrontBottom2.position.set(-35.203, 11.495, 23.795)
-lightLeftBackBottom2.position.set(-32.744, 11.495, 16.42)
-
-lightLeftFrontBottom3.position.set(-41, 11.495, 18.878)
-lightLeftBackBottom3.position.set(-35.203, 11.495, 9.046)
-
-lightLeftFrontBottom4.position.set(-45.036, 11.495, 16.42)
-lightLeftBackBottom4.position.set(-45.036, 11.495, 6.587)
-
-lightLeftFrontBottom5.position.set(-52.41, 11.495, 11.504)
-lightLeftBackBottom5.position.set(-47.494, 11.495, 4.129)
-
-lightLeftFrontBottom6.position.set(-57.327, 11.495, 9.046)                                       
-lightLeftBackBottom6.position.set(-49.952, 11.495, 1.671)
-
-lightLeftFrontBottom7.position.set(-62.243, 11.495, 4.8)
-lightLeftBackBottom7.position.set(-57.327, 11.495, -3.246)
-
-lightLeftFrontBottom8.position.set(-64.701, 11.495, 4.129)
-lightLeftBackBottom8.position.set(-62.243, 11.495, -5.704)
-
-lightLeftFrontBottom9.position.set(-69.618, 11.495, 0.8)
-lightLeftBackBottom9.position.set(-67.16, 11.495, -8.162)
-
-lightLeftFrontBottom10.position.set(-76.993, 11.495, -3.246)
-lightLeftBackBottom10.position.set(-69.618, 11.495, -10.62)
-
-lightLeftFrontBottom11.position.set(-81.909, 11.495, -5.704)
-lightLeftBackBottom11.position.set(-76.993, 11.495, -13.079)
-
-lightLeftFrontBottom12.position.set(-84.367, 11.495,-8.162)
-lightLeftBackBottom12.position.set(-17.995, 11.495, -17.995)
+lightMiddleStone1.position.set(28.707, 13.956, -74.546); 
 
 
 let fog = new THREE.FogExp2("#05081c", 0.01)
@@ -879,6 +334,34 @@ dracoLoader.setDecoderPath( cdn + 'examples/jsm/libs/draco/' );
 loader.setDRACOLoader( dracoLoader );
 
 
+/*let loadTime = ref(0);
+let interval = ref(null);
+let loadingPercent = ref(0);
+
+onBeforeMount(() => {
+  let perfData = window.performance.timing;
+  let estimatedTime = Math.abs(perfData.loadEventEnd - perfData.navigationStart);
+  loadTime = parseInt((estimatedTime / 1000) % 60) * 100;
+  doProgress();
+});
+
+const loaded = computed(() => {
+    return loadingPercent + '%'
+});
+
+watch(loadingPercent, (newVal, oldVal) => {
+  if (newVal >= 100) {
+    console.log('complete');
+    clearInterval(interval)
+  }
+}) 
+
+function doProgress() {
+  let step = loadTime / 100;
+  interval = setInterval(() => {
+    loadingPercent++
+  }, step);
+}*/
 
 onMounted(() => {
 
@@ -927,6 +410,180 @@ function animate() {
     renderer.render( scene, camera );
 }
 
+let sprite1, sprite2, sprite3, sprite4, sprite5, sprite6, sprite7, sprite8, sprite9, sprite10, sprite11, sprite12, sprite13, sprite14
+let spriteRight1, spriteRight2, spriteRight3, spriteRight4, spriteRight5, spriteRight6, spriteRight7;  
+let spriteStone1, spriteStone2, spriteStone3, spriteStone4, spriteStone5;
+
+function createClickStandsLeftSide() {
+  let  map = new THREE.TextureLoader().load( cdn + "click-left.png" );
+  let material = new THREE.SpriteMaterial( { map: map, color: 0xffffff });
+ 
+  sprite1 = new THREE.Sprite( material );
+  sprite1.position.set(-22.919, 9.04, 9.04);
+  sprite1.scale.set(3, 3, 3);
+
+  scene.add( sprite1 );
+
+  sprite2 = new THREE.Sprite( material );
+  sprite2.position.set(-31.114, 9.04, 6);
+  sprite2.scale.set(3, 3, 3);
+
+  scene.add( sprite2 );
+
+  sprite3 = new THREE.Sprite( material );
+  sprite3.position.set(-38.489, 9.04, 0.845);
+  sprite3.scale.set(3, 3, 3);
+
+  scene.add( sprite3 );
+
+  sprite4 = new THREE.Sprite( material );
+  sprite4.position.set(-45.864, 9.04, -4.072);
+  sprite4.scale.set(3, 3, 3);
+
+  scene.add( sprite4 );
+
+  sprite5 = new THREE.Sprite( material );
+  sprite5.position.set(-53.24, 9.04, -8.989);
+  sprite5.scale.set(3, 3, 3);
+
+  scene.add( sprite5 );
+
+  sprite6 = new THREE.Sprite( material );
+  sprite6.position.set(-60.615, 9.04, -16.364);
+  sprite6.scale.set(3, 3, 3);
+
+  scene.add( sprite6 );
+
+  sprite7 = new THREE.Sprite( material );
+  sprite7.position.set(-67.99, 9.04, -18.822);
+  sprite7.scale.set(3, 3, 3);
+
+  scene.add( sprite7 );
+
+  sprite8 = new THREE.Sprite( material );
+  sprite8.position.set(-13.905, 9.04, -6.53);
+  sprite8.scale.set(3, 3, 3);
+
+  scene.add( sprite8 );
+
+  sprite9 = new THREE.Sprite( material );
+  sprite9.position.set(-21.5, 9.04, -11.447);
+  sprite9.scale.set(3, 3, 3);
+
+  scene.add( sprite9 );
+
+  sprite10 = new THREE.Sprite( material );
+  sprite10.position.set(-28.656, 9.04, -16.364);
+  sprite10.scale.set(3, 3, 3);
+
+  scene.add( sprite10 );
+
+  sprite11 = new THREE.Sprite( material );
+  sprite11.position.set(-36.031, 9.04, -21.281);
+  sprite11.scale.set(3, 3, 3);
+
+  scene.add( sprite11 );
+
+  sprite12 = new THREE.Sprite( material );
+  sprite12.position.set(-43.406, 9.04, -26.197);
+  sprite12.scale.set(3, 3, 3);
+
+  scene.add( sprite12 );
+
+  sprite13 = new THREE.Sprite( material );
+  sprite13.position.set(-50.781, 9.04, -31.114);
+  sprite13.scale.set(3, 3, 3);
+
+  scene.add( sprite13 );
+
+  sprite14 = new THREE.Sprite( material );
+  sprite14.position.set(-58.156, 9.04, -36.031);
+  sprite14.scale.set(3, 3, 3);
+
+  scene.add( sprite14 );
+}
+
+function createClickStandsRightSide() {
+  let  map = new THREE.TextureLoader().load( cdn + "click-left.png" );
+  let material = new THREE.SpriteMaterial( { map: map, color: 0xffffff });
+ 
+  spriteRight1 = new THREE.Sprite( material );
+  spriteRight1.position.set(0.3, 9.04, 20.512);
+  spriteRight1.scale.set(3, 3, 3);
+
+  scene.add( spriteRight1 );
+
+  spriteRight2 = new THREE.Sprite( material );
+  spriteRight2.position.set(8.2, 9.04, 8.22);
+  spriteRight2.scale.set(3, 3, 3);
+
+  scene.add( spriteRight2 );
+
+  spriteRight3 = new THREE.Sprite( material );
+  spriteRight3.position.set(8.22, 9.04, 25.429);
+  spriteRight3.scale.set(3, 3, 3);
+
+  scene.add( spriteRight3 );
+
+  spriteRight4 = new THREE.Sprite( material );
+  spriteRight4.position.set(17, 9.04, 13.137);
+  spriteRight4.scale.set(3, 3, 3);
+
+  scene.add( spriteRight4 );
+
+  spriteRight5 = new THREE.Sprite( material );
+  spriteRight5.position.set(25.429, 9.04, 18.054);
+  spriteRight5.scale.set(3, 3, 3);
+
+  scene.add( spriteRight5 );
+
+  spriteRight6 = new THREE.Sprite( material );
+  spriteRight6.position.set(17, 9.04, 31.2);
+  spriteRight6.scale.set(3, 3, 3);
+
+  scene.add( spriteRight6 );
+
+  spriteRight7 = new THREE.Sprite( material );
+  spriteRight7.position.set(25.429, 9.04, 35.262);
+  spriteRight7.scale.set(3, 3, 3);
+
+  scene.add( spriteRight7 );
+}
+
+function createClickStones() {
+  let  map = new THREE.TextureLoader().load( cdn + "click-left.png" );
+  let material = new THREE.SpriteMaterial( { map: map, color: 0xffffff });
+ 
+  spriteStone1 = new THREE.Sprite( material );
+  spriteStone1.position.set(40, 9.56, -27.5);
+  spriteStone1.scale.set(3, 3, 3);
+
+  scene.add( spriteStone1 );
+
+  spriteStone2 = new THREE.Sprite( material );
+  spriteStone2.position.set(50.013, 9.56, -21.281);
+  spriteStone2.scale.set(3, 3, 3);
+
+  scene.add( spriteStone2 );
+
+  spriteStone3 = new THREE.Sprite( material );
+  spriteStone3.position.set(30.346, 13.137, -77.824);
+  spriteStone3.scale.set(3, 3, 3);
+
+  scene.add( spriteStone3 );
+
+  spriteStone4 = new THREE.Sprite( material );
+  spriteStone4.position.set(-21.281, 9.56, -65.532);
+  spriteStone4.scale.set(3, 3, 3);
+
+  scene.add( spriteStone4 );
+
+  spriteStone5 = new THREE.Sprite( material );
+  spriteStone5.position.set(-32, 9.56, -72);
+  spriteStone5.scale.set(3, 3, 3);
+
+  scene.add( spriteStone5 );
+}
 
 function createTextStandsLeftSide() {
   const loader = new FontLoader();
@@ -987,7 +644,7 @@ function createTextStandsLeftSide() {
       height: 0.7
     })
 
-    textRight2Mesh = new THREE.Mesh(standRight2Geometry, new THREE.MeshPhongMaterial({color: 0x000000}), new THREE.MeshPhongMaterial({color: 0x000000}));
+    textRight2Mesh = new THREE.Mesh(standRight2Geometry, new THREE.MeshPhongMaterial({color: 0xFFFFFF}), new THREE.MeshPhongMaterial({color: 0xFFFFFF}));
 
     textRight2Mesh.castShadow = true;
     textRight2Mesh.position.set(-21.5, 12.6, -15.2);
@@ -1060,7 +717,7 @@ function createTextStandsLeftSide() {
       height: 0.6
     })
 
-    textLeft5Mesh = new THREE.Mesh(standLeft5Geometry, new THREE.MeshPhongMaterial({color: 0x000000}), new THREE.MeshPhongMaterial({color: 0x000000}));
+    textLeft5Mesh = new THREE.Mesh(standLeft5Geometry, new THREE.MeshPhongMaterial({color: 0xFFFFFF}), new THREE.MeshPhongMaterial({color: 0xFFFFFF}));
 
     textLeft5Mesh.castShadow = true;
     textLeft5Mesh.position.set(-50.4, 12.8, -7.6);
@@ -1074,7 +731,7 @@ function createTextStandsLeftSide() {
       height: 0.6
     })
 
-    textRight5Mesh = new THREE.Mesh(standRight5Geometry, new THREE.MeshPhongMaterial({color: 0x000000}), new THREE.MeshPhongMaterial({color: 0x000000}));
+    textRight5Mesh = new THREE.Mesh(standRight5Geometry, new THREE.MeshPhongMaterial({color: 0xFFFFFF}), new THREE.MeshPhongMaterial({color: 0xFFFFFF}));
 
     textRight5Mesh.castShadow = true;
     textRight5Mesh.position.set(-44.7, 12.6, -30.6);
@@ -1118,7 +775,7 @@ function createTextStandsLeftSide() {
       height: 0.65
     })
 
-    textLeft7Mesh = new THREE.Mesh(standLeft7Geometry, new THREE.MeshPhongMaterial({color: 0x000000}), new THREE.MeshPhongMaterial({color: 0x000000}));
+    textLeft7Mesh = new THREE.Mesh(standLeft7Geometry, new THREE.MeshPhongMaterial({color: 0xFFFFFF}), new THREE.MeshPhongMaterial({color: 0xFFFFFF}));
 
     textLeft7Mesh.castShadow = true;
     textLeft7Mesh.position.set(-65.5, 12.6, -17.5);
@@ -1158,7 +815,7 @@ function createTextStandsRightSide() {
       height: 0.7
     })
 
-    textLeft1Mesh = new THREE.Mesh(standLeft1Geometry, new THREE.MeshPhongMaterial({color: 0x000000}), new THREE.MeshPhongMaterial({color: 0x000000}));
+    textLeft1Mesh = new THREE.Mesh(standLeft1Geometry, new THREE.MeshPhongMaterial({color: 0xFFFFFF}), new THREE.MeshPhongMaterial({color: 0xFFFFFF}));
 
     textLeft1Mesh.castShadow = true;
     textLeft1Mesh.position.set(0.4, 12.4, 24.2);
@@ -1230,7 +887,7 @@ function createTextStandsRightSide() {
       height: 0.5
     })
 
-    textRight3Mesh = new THREE.Mesh(standRight3Geometry, new THREE.MeshPhongMaterial({color: 0x000000}), new THREE.MeshPhongMaterial({color: 0x000000}));
+    textRight3Mesh = new THREE.Mesh(standRight3Geometry, new THREE.MeshPhongMaterial({color: 0xFFFFFF}), new THREE.MeshPhongMaterial({color: 0xFFFFFF}));
 
     textRight3Mesh.castShadow = true;
     textRight3Mesh.position.set(23.9, 12.4,  14.7);
@@ -1252,20 +909,6 @@ function createTextStandsRightSide() {
     textLeft4Mesh.rotation.set(0, 2.6, 0);
 
     scene.add(textLeft4Mesh)
-
-    /*standRight4Geometry = new TextGeometry( "Beehoneyst", {
-      font: font,
-      size: 0.9,
-      height: 0.7
-    })
-
-    textRight4Mesh = new THREE.Mesh(standRight4Geometry, new THREE.MeshPhongMaterial({color: 0x000000}), new THREE.MeshPhongMaterial({color: 0x000000}));
-
-    textRight4Mesh.castShadow = true;
-    textRight4Mesh.position.set(-37, 12.6, -25.7);
-    textRight4Mesh.rotation.set(0, -0.6, 0);
-
-    scene.add(textRight4Mesh)*/
   })
 }
 
@@ -1283,7 +926,7 @@ function createTextCategory() {
       height: 1.9
     })
 
-    textLeftMesh = new THREE.Mesh(standLeftGeometry, new THREE.MeshPhongMaterial({color: 0xFFD700}), new THREE.MeshPhongMaterial({color: 0xFFD700}));
+    textLeftMesh = new THREE.Mesh(standLeftGeometry, new THREE.MeshPhongMaterial({color: 0xFF7F00}), new THREE.MeshPhongMaterial({color: 0xFF7F00}));
 
     textLeftMesh.castShadow = true;
     textLeftMesh.position.set(-17, 16, 8.2);
@@ -1298,7 +941,7 @@ function createTextCategory() {
       height: 1.9
     })
 
-    textRightMesh = new THREE.Mesh(standRightGeometry, new THREE.MeshPhongMaterial({color: 0xFFD700}), new THREE.MeshPhongMaterial({color: 0xFFD700}));
+    textRightMesh = new THREE.Mesh(standRightGeometry, new THREE.MeshPhongMaterial({color: 0xFF7F00}), new THREE.MeshPhongMaterial({color: 0xFF7F00}));
 
     textRightMesh.castShadow = true;
     textRightMesh.position.set(0.4, 16, 9.2);
@@ -1313,7 +956,7 @@ function createTextCategory() {
       height: 0.55
     })
 
-    textProfessionalMesh = new THREE.Mesh(professionalGeometry, new THREE.MeshPhongMaterial({color: 0xFFD700}), new THREE.MeshPhongMaterial({color: 0xFFD700}));
+    textProfessionalMesh = new THREE.Mesh(professionalGeometry, new THREE.MeshPhongMaterial({color: 0xFF7F00}), new THREE.MeshPhongMaterial({color: 0xFF7F00}));
 
     textProfessionalMesh.castShadow = true;
     textProfessionalMesh.position.set(39, 14, -31.2);
@@ -1327,7 +970,7 @@ function createTextCategory() {
       height: 0.55
     })
 
-    textExperienceMesh = new THREE.Mesh(experienceGeometry, new THREE.MeshPhongMaterial({color: 0xFFD700}), new THREE.MeshPhongMaterial({color: 0xFFD700}));
+    textExperienceMesh = new THREE.Mesh(experienceGeometry, new THREE.MeshPhongMaterial({color: 0xFF7F00}), new THREE.MeshPhongMaterial({color: 0xFF7F00}));
 
     textExperienceMesh.castShadow = true;
     textExperienceMesh.position.set(39, 13, -31.2);
@@ -1342,7 +985,7 @@ function createTextCategory() {
       height: 1.9
     })
 
-    textAboutMesh = new THREE.Mesh(aboutGeometry, new THREE.MeshPhongMaterial({color: 0xFFD700}), new THREE.MeshPhongMaterial({color: 0xFFD700}));
+    textAboutMesh = new THREE.Mesh(aboutGeometry, new THREE.MeshPhongMaterial({color: 0xFF7F00}), new THREE.MeshPhongMaterial({color: 0xFF7F00}));
 
     textAboutMesh.castShadow = true;
     textAboutMesh.position.set(29, 14, -88.2);
@@ -1357,7 +1000,7 @@ function createTextCategory() {
       height: 0.55
     })
 
-    textSkillMesh = new THREE.Mesh(skillGeometry, new THREE.MeshPhongMaterial({color: 0xFFD700}), new THREE.MeshPhongMaterial({color: 0xFFD700}));
+    textSkillMesh = new THREE.Mesh(skillGeometry, new THREE.MeshPhongMaterial({color: 0xFF7F00}), new THREE.MeshPhongMaterial({color: 0xFF7F00}));
 
     textSkillMesh.castShadow = true;
     textSkillMesh.position.set(48, 13, -25.2);
@@ -1372,7 +1015,7 @@ function createTextCategory() {
       height: 0.55
     })
 
-    textEducationMesh = new THREE.Mesh(educationGeometry, new THREE.MeshPhongMaterial({color: 0xFFD700}), new THREE.MeshPhongMaterial({color: 0xFFD700}));
+    textEducationMesh = new THREE.Mesh(educationGeometry, new THREE.MeshPhongMaterial({color: 0xFF7F00}), new THREE.MeshPhongMaterial({color: 0xFF7F00}));
 
     textEducationMesh.castShadow = true;
     textEducationMesh.position.set(-20.3, 13, -69.2);
@@ -1381,13 +1024,13 @@ function createTextCategory() {
     scene.add(textEducationMesh)
 
     // SOCIAL MEDIAS
-    socmedGeometry = new TextGeometry( "SOCIAL MEDIAS", {
+    socmedGeometry = new TextGeometry( "CONTACT & LINKS", {
       font: font,
       size: 0.6,
       height: 0.55
     })
 
-    textSocmedMesh = new THREE.Mesh(socmedGeometry, new THREE.MeshPhongMaterial({color: 0xFFD700}), new THREE.MeshPhongMaterial({color: 0x000000}));
+    textSocmedMesh = new THREE.Mesh(socmedGeometry, new THREE.MeshPhongMaterial({color: 0xFF7F00}), new THREE.MeshPhongMaterial({color: 0xFF7F00}));
 
     textSocmedMesh.castShadow = true;
     textSocmedMesh.position.set(-31.8, 13, -77.2);
@@ -1509,6 +1152,9 @@ function createModels() {
         createTextStandsLeftSide();
         createTextStandsRightSide();
         createTextCategory();
+        createClickStandsLeftSide();
+        createClickStandsRightSide();
+        createClickStones();
     });
 }
 
@@ -1531,6 +1177,38 @@ function detectCollision(modelMesh, otherMesh, distanceThreshold) {
         return false;
     }
 }
+
+function detectClickCollision(modelMesh, otherMesh) {
+    // Set up the bounding boxes for both meshes
+    const modelBox = new THREE.Box3().setFromObject(modelMesh);
+    const otherBox = new THREE.Box3().setFromObject(otherMesh);
+
+    // Calculate the distance between the centers of the two bounding boxes
+    const modelCenter = modelBox.getCenter(new THREE.Vector3());
+    const otherCenter = otherBox.getCenter(new THREE.Vector3());
+    const distance = modelCenter.distanceTo(otherCenter);
+
+    // Adjust the actual distance by considering the extent of the bounding boxes
+    // We subtract half the size of each box along each axis to account for the actual closest surfaces
+    const sizeModel = new THREE.Vector3();
+    const sizeOther = new THREE.Vector3();
+    modelBox.getSize(sizeModel);
+    otherBox.getSize(sizeOther);
+
+    let distanceThreshold = 1;
+    // Calculate adjusted distance
+    let adjustedDistance = distance;
+    adjustedDistance -= sizeModel.length() / 2;
+    adjustedDistance -= sizeOther.length() / 2;
+
+    // Check if the adjusted distance is less than or equal to the threshold
+    if (adjustedDistance <= distanceThreshold) {
+        return true;
+    } else {
+        return false;
+    }
+}
+
 
 function updatePlayer(){
     const angle = controls.getAzimuthalAngle();
@@ -1582,7 +1260,6 @@ function updatePlayer(){
 
 };
 
-let collision;
   
 function updatePlayerDesktop() {
  
@@ -1607,35 +1284,6 @@ function updatePlayerDesktop() {
         }
 
         walk.play();
-
-        /*if (detectCollision(walkModel, bridgeHandleR1) === true
-          && walkModel.position.x >= (bridgeHandleR1.position.x + bridgeHandleR1.geometry.boundingBox.max.x) / 4
-        ) {
-          console.log("collide 1")
-        }
-        else if (detectCollision(walkModel, bridgeHandleR2) === true
-          && walkModel.position.x >= (bridgeHandleR2.position.x + bridgeHandleR2.geometry.boundingBox.max.x) / 4
-        ) {
-          console.log("collide 2")
-
-        }
-        else if (detectCollision(walkModel, bridgeHandleR3) === true
-          && walkModel.position.x >= (bridgeHandleR3.position.x + bridgeHandleR3.geometry.boundingBox.max.x) / 4
-        ) {
-          console.log("collide 3")
-
-        }
-        else if (detectCollision(walkModel, bridgeHandleR4) === true
-          && walkModel.position.x >= (bridgeHandleR4.position.x + bridgeHandleR4.geometry.boundingBox.max.x) / 4
-        ) {
-          console.log("collide 4")
-
-        }
-        else {
-         console.log("no collision")
-          walkModel.translateZ(0.6);
-          walkModel.translateX(-0.1);         
-        }*/
 
         if (detectCollision(walkModel, bridgeHandleL1) === true && walkModel.position.x <= (bridgeHandleL1.position.x + bridgeHandleL1.geometry.boundingBox.max.x) / 3.6
         ) {
@@ -1774,12 +1422,111 @@ function updatePlayerDesktop() {
         }
       }
       else {        
+        pointingModel.position.copy(walkModel.position);
         point.play();
 
         walkModel.visible = false;
         pointingModel.visible = true;
 
-        pointingModel.position.copy(walkModel.position)
+        if(detectClickCollision(walkModel, sprite1) == true) {
+          showPopin.value = true;
+          openPopin.value = 0;
+        }
+        else if(detectClickCollision(walkModel, sprite2) == true) {
+          showPopin.value = true;
+          openPopin.value = 1;
+        }
+        else if(detectClickCollision(walkModel, sprite3) == true) {
+          showPopin.value = true;
+          openPopin.value = 2;
+        }
+        else if(detectClickCollision(walkModel, sprite4) == true) {
+          showPopin.value = true;
+          openPopin.value = 3;
+        }
+        else if(detectClickCollision(walkModel, sprite5) == true) {
+          showPopin.value = true;
+          openPopin.value = 4;
+        }
+        else if(detectClickCollision(walkModel, sprite6) == true) {
+          showPopin.value = true;
+          openPopin.value = 6;
+        }
+        else if(detectClickCollision(walkModel, sprite7) == true) {
+          showPopin.value = true;
+          openPopin.value = 5;
+        }
+        else if(detectClickCollision(walkModel, sprite8) == true) {
+          showPopin.value = true;
+          openPopin.value = 9;
+        }
+        else if(detectClickCollision(walkModel, sprite9) == true) {
+          showPopin.value = true;
+          openPopin.value = 7;
+        }
+        else if(detectClickCollision(walkModel, sprite10) == true) {
+          showPopin.value = true;
+          openPopin.value = 10;
+        }
+        else if(detectClickCollision(walkModel, sprite11) == true) {
+          showPopin.value = true;
+          openPopin.value = 8;
+        }
+        else if(detectClickCollision(walkModel, sprite12) == true) {
+          showPopin.value = true;
+          openPopin.value = 11;
+        }
+        else if(detectClickCollision(walkModel, sprite13) == true) {
+          showPopin.value = true;
+          openPopin.value = 12;
+        }
+        else if(detectClickCollision(walkModel, sprite14) == true) {
+          showPopin.value = true;
+          openPopin.value = 13;
+        }
+        else if(detectClickCollision(walkModel, spriteRight1) == true) {
+          showPopinRD.value = true;
+          openPopin.value = 0;
+        }
+        else if(detectClickCollision(walkModel, spriteRight2) == true) {
+          showPopinRD.value = true;
+          openPopin.value = 1;
+        }
+        else if(detectClickCollision(walkModel, spriteRight3) == true) {
+          showPopinRD.value = true;
+          openPopin.value = 5;
+        }
+        else if(detectClickCollision(walkModel, spriteRight4) == true) {
+          showPopinRD.value = true;
+          openPopin.value = 4;
+        }
+        else if(detectClickCollision(walkModel, spriteRight5) == true) {
+          showPopinRD.value = true;
+          openPopin.value = 6;
+        }
+        else if(detectClickCollision(walkModel, spriteRight6) == true) {
+          showPopinRD.value = true;
+          openPopin.value = 3;
+        }
+        else if(detectClickCollision(walkModel, spriteRight7) == true) {
+          showPopinRD.value = true;
+          openPopin.value = 2;
+        }
+        else if(detectClickCollision(walkModel, spriteStone1) == true) {
+          showPopinExperience.value = true;
+        }
+        else if(detectClickCollision(walkModel, spriteStone2) == true) {
+          showPopinSkill.value = true;
+        }
+        else if(detectClickCollision(walkModel, spriteStone3) == true) {
+          showPopinAboutMe.value = true;
+        }
+        else if(detectClickCollision(walkModel, spriteStone4) == true) {
+          showPopinEducation.value = true;
+        }
+        else if(detectClickCollision(walkModel, spriteStone5) == true) {
+          showPopinMedSoc.value = true;
+        }
       }
     })
 
@@ -1870,6 +1617,16 @@ function changeCharacterDirection() {
 
       walkModel.rotation.y = angle;
     });
+}
+
+function close() {
+  showPopin.value = false;
+  showPopinRD.value = false;
+  showPopinAboutMe.value = false;
+  showPopinEducation.value = false;
+  showPopinExperience.value = false;
+  showPopinMedSoc.value = false;
+  showPopinSkill.value = false;
 }
 
 </script>
