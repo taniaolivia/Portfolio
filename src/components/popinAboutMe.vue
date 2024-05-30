@@ -9,12 +9,22 @@
 
     <h1 class="popin--title">{{ aboutMe.name }}</h1>
 
-    <label class="popin--label">Description</label>
-    <p class="popin--description" v-html="aboutMe.description"></p>
+    <div class="popin--aboutme">
+      <div class="popin--aboutme-content1">  
+        <img :src="aboutMe.image" class="profile"/>
+        <p class="popin--aboutme-description" v-html="aboutMe.description"></p>
+      </div>
+    
+      <div class="popin--aboutme-content2">
+        <label class="popin--label">CV</label>
 
-    <label class="popin--label">CV</label><br><br>
-    <button @click="download(aboutMe.cv)" class="download">Download CV</button>
-
+        <div class="download-cv">
+          <button @click="download(aboutMe.cv)" class="download">Download CV (English version)</button>
+          <button @click="download(aboutMe.cvFrench)" class="download">Download CV (French version)</button>
+        </div>
+      </div>
+    </div>
+    
   </div>
 </template>
 

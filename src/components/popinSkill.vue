@@ -7,19 +7,23 @@
         </svg>
     </div>
 
-    <h1 class="popin--title">{{ skill.name }}</h1>
+    <div class="popin--header">
+      <img :src="cdn + 'datas/competence/competence.png'" class="popin--icon"/>
+      <h1 class="popin--title">{{ skill.name }}</h1>
+    </div>
     
-    <li class="popin--list" v-html="skill.programming"></li>
-    <li class="popin--list" v-html="skill.framework"></li>
-    <li class="popin--list" v-html="skill.orm"></li>
-    <li class="popin--list" v-html="skill.other"></li>
-    <li class="popin--list" v-html="skill.softwares"></li>
-    <li class="popin--list" v-html="skill.otherSoftwares"></li>
-    <li class="popin--list" v-html="skill.languages"></li>
+    <div class="popin--edus">
+      <div class="popin--edu" v-for="s in skill.skills">
+        <p v-html="s.name" class="popin--edu-description"></p><br>
+        <p v-html="s.skill" class="popin--edu-description-2"></p><br>
+      </div>
+    </div>
   </div>
 </template>
 
 <script setup>
+let cdn = import.meta.env.VITE_CDN_URL;
+
 const props = defineProps({
     skill: Object  
 })

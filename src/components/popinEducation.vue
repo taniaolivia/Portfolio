@@ -7,41 +7,26 @@
         </svg>
     </div>
 
-    <h1 class="popin--title">{{ education.name }}</h1>
+    <div class="popin--header">
+      <img :src="cdn + 'datas/education/education.png'" class="popin--icon"/>
+      <h1 class="popin--title">{{ education.name }}</h1>
+    </div>
+   
     
-    <li class="popin--list">
-      <span class="popin--edu-description" v-html="education.master.degree"></span>
-      <span class="popin--edu-description-2" v-html="education.master.year"></span>
-      <span class="popin--edu-description-2" v-html="education.master.location"></span>
-    </li>
-
-    <li class="popin--list">
-      <span class="popin--edu-description" v-html="education.bachelor.degree"></span>
-      <span class="popin--edu-description-2" v-html="education.bachelor.year"></span>
-      <span class="popin--edu-description-2" v-html="education.bachelor.location"></span>
-    </li>
-
-    <li class="popin--list">
-      <span class="popin--edu-description" v-html="education.undergraduate.degree"></span>
-      <span class="popin--edu-description-2" v-html="education.undergraduate.year"></span>
-      <span class="popin--edu-description-2" v-html="education.undergraduate.location"></span>
-    </li>
-
-    <li class="popin--list">
-      <span class="popin--edu-description" v-html="education.course.degree"></span>
-      <span class="popin--edu-description-2" v-html="education.course.year"></span>
-      <span class="popin--edu-description-2" v-html="education.course.location"></span>
-    </li>
-
-    <li class="popin--list">
-      <span class="popin--edu-description" v-html="education.highSchool.degree"></span>
-      <span class="popin--edu-description-2" v-html="education.highSchool.year"></span>
-      <span class="popin--edu-description-2" v-html="education.highSchool.location"></span>
-    </li>
+    <div class="popin--edus">
+      <div class="popin--edu" v-for="edu in education.school">
+        <img class="popin--edu-logo" :src="edu.logo" draggable="false"/>
+        <span class="popin--edu-description" v-html="edu.degree"></span>
+        <span class="popin--edu-description-2" v-html="edu.year"></span>
+        <span class="popin--edu-description-2" v-html="edu.location"></span>
+      </div>
+    </div>
   </div>
 </template>
 
 <script setup>
+let cdn = import.meta.env.VITE_CDN_URL;
+
 const props = defineProps({
     education: Object  
 })

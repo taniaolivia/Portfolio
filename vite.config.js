@@ -12,7 +12,7 @@ export default defineConfig({
             '@models': new URL('./src/assets/models/', import.meta.url).pathname,
             '@examples': new URL('./src/assets/examples/', import.meta.url).pathname,
             '@fonts': new URL('./src/assets/fonts/', import.meta.url).pathname,
-            '@img': new URL('./src/assets/', import.meta.url).pathname,
+            '@img': new URL('./src/assets/datas/', import.meta.url).pathname,
         },
     }
 });

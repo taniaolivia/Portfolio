@@ -7,29 +7,41 @@
         </svg>
     </div>
 
-    <h1 class="popin--title">{{ mediaSocial.name }}</h1>
+    <div class="popin--header">
+      <img :src="cdn + 'datas/medsoc/medsoc.png'" class="popin--icon"/>
+      <h1 class="popin--title">{{ mediaSocial.name }}</h1>
+    </div>
     
-    <label class="popin--label">Email address</label>
-    <a href="mailto:taniaoliviaa@yahoo.com" target="_blank">
-      <p class="popin--description" v-html="mediaSocial.email"></p>
-    </a>
+    <div class="popin--medsocs">
+      <div class="popin--medsoc-info">
+        <img class="popin--medsoc-logo" :src="mediaSocial.links[3].logo" draggable="false"/>
+        <label class="popin--medsoc-description" v-html="mediaSocial.links[3].name"></label>
 
-    <label class="popin--label">LinkedIn</label>
-    <a :href="mediaSocial.linkedin" target="_blank">
-      <p class="popin--description" v-html="mediaSocial.linkedin"></p>
-    </a>
+        <p class="popin--medsoc-description-2" v-html="mediaSocial.links[3].description"></p>
+      </div>
+    </div>
 
-    <label class="popin--label">Github</label>
-    <a :href="mediaSocial.github" target="_blank">
-      <p class="popin--description" v-html="mediaSocial.github"></p>
-    </a>
+    <div class="popin--medsocs">
+      <div class="popin--medsoc" v-for="med in 3">
+        <img class="popin--medsoc-logo" :class="mediaSocial.links[med - 1].name === 'Github' ? 'github' : ''" :src="mediaSocial.links[med - 1].logo" draggable="false"/>
+        <label class="popin--medsoc-description" v-html="mediaSocial.links[med - 1].name"></label>
 
-    <label class="popin--label">Information</label>
-    <p class="popin--description" v-html="mediaSocial.information"></p>
+        <a href="mailto:taniaoliviaa@yahoo.com" target="_blank" v-if="mediaSocial.links[med - 1].name === 'Email Address'">
+          <p class="popin--medsoc-description-2" v-html="mediaSocial.links[med - 1].link"></p>
+        </a>
+
+        <a :href="mediaSocial.links[med - 1].link" target="_blank" v-else>
+          <p class="popin--medsoc-description-2" v-html="mediaSocial.links[med - 1].link"></p>
+        </a>
+      </div>
+    </div>
+ 
   </div>
 </template>
 
 <script setup>
+let cdn = import.meta.env.VITE_CDN_URL;
+
 const props = defineProps({
     mediaSocial: Object  
 })

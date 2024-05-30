@@ -9,23 +9,24 @@
 
     <h1 class="popin--title">{{ rd.name }}</h1>
     
-    <label class="popin--label">Year</label>
-    <p class="popin--description" v-html="rd.year"></p>
+    <div class="popin--rd">
+      <div class="popin--rd-content">
+        <span class="popin--description" v-html="'<strong>Year : </strong>' + rd.year"></span>
+        <span class="popin--description" v-html="'<strong>Genre : </strong>' + rd.genre"></span>
+        <span class="popin--description" v-html="'<strong>Status : </strong>' + rd.status"></span>
+        <span class="popin--description" v-html="'<strong>Programming languages : </strong>' + rd.languages"></span>
+        <span class="popin--description" v-html="'<strong>Description : </strong>' + rd.description"></span>
+        <div class="popin--description">
+          <span  v-html="'<br><strong>Project link(s) : </strong>'"></span>
 
-    <label class="popin--label">Genre</label>
-    <p class="popin--description" v-html="rd.genre"></p>
-
-    <label class="popin--label">Status</label>
-    <p class="popin--description" v-html="rd.status"></p>
-
-    <label class="popin--label">Programming languages</label>
-    <p class="popin--description" v-html="rd.languages"></p>
-
-    <label class="popin--label">Description</label>
-    <p class="popin--description" v-html="rd.description"></p>
-
-    <label class="popin--label">Project Links</label>
-    <li class="popin--list" v-html="rd.links"></li>
+          <ul>
+            <a :href="link" v-for="link in rd.links" target="_blank">
+              <li class="popin--list" v-html="link"></li>
+            </a>
+          </ul>
+        </div>
+      </div>
+    </div>
 
   </div>
 </template>

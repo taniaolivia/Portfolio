@@ -1,8 +1,63 @@
 <template>
   <div id="map"></div>
 
-  <div id="mobileInterface" class="noSelect">
+  <img :src="cdn + 'info.png'" class="info" @click="openInformation()" draggable="false"/>
+
+  <div id="mobileInterface" class="noSelect" v-if="deviceName = 'mobile'">
     <div id="joystick-wrapper"></div> 
+  </div>
+
+  <img :src="cdn + 'left-click.png'" class="click-btn" draggable="false" @click="click()"/>
+
+  <div class="popin" v-if="showPopinHow">
+    <div class="popin--close" @click="close()">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-x">
+            <line x1="18" y1="6" x2="6" y2="18"></line>
+            <line x1="6" y1="6" x2="18" y2="18"></line>
+        </svg>
+    </div>
+
+    <h1 class="popin--title">Welcom to Tania's World</h1>
+
+    <div class="popin--how">
+        <p class="popin--description1">
+          Explore Tania's World by moving the character like a game to see all the projects that I've done, experiences and other informations of me.
+        </p>
+      
+    
+      <div class="popin--aboutme-content2">
+        <label class="popin--label">How to play ?</label>
+        <div class="popin--description1">  
+          Keys to move the character in desktop :<br>
+          <ul>
+            <li class="popin--list">Z : Move forward (If you are using QWERTY KEYBOARD, the key to move forward is W)</li>
+            <li class="popin--list">S : Move backward</li>
+            <li class="popin--list">D : Move to the right</li>
+            <li class="popin--list">Q : Move to the left (If you are using QWERTY KEYBOARD, the key to move to the left is A)</li>
+            <li class="popin--list">SPACE : To do the click movement, it'll be use to open the information where there's this image <img :src="cdn + 'click-left.png'" class="click"/> and move close to it .</li>
+          </ul>
+
+          <br>The keyboard by default is the EU keyboard. You can change the keyboard to EU or US by clicking one of these buttons :
+          <br>
+          <div class="popin--buttons">
+            <button @click="changeKeyboard('EU')">EU</button>
+            <button @click="changeKeyboard('US')">US</button>    
+          </div>
+          
+          <br>To move the direction of the character, you need to use your trackpad or mouse. I recommend you to use mouse to have a more fluid experience.
+        </div>
+        <br>
+        <div class="popin--description1">  
+          To move the character (forward, backward, left, right) in mobile, use the trackball on the left side.<br>
+           
+          <br>To move the direction of the character, you need to need to click and drag the screen to the direction that you want.
+        </div>
+        <br>
+        <div class="popin--description1">  
+          If you are in mobile, to see the informations of each stand, you need to move closer to this image <img :src="cdn + 'click-left.png'" class="click"/> and click this button <img :src="cdn + 'left-click.png'" class="click"/> to open it.
+        </div>
+      </div>
+    </div>
   </div>
 
   <popinProject v-if="showPopin" :project="data.data.projects[openPopin]" @close="close"></popinProject>
@@ -34,6 +89,11 @@ import popinMedSoc from './components/popinMedSoc.vue';
 import popinExperience from './components/popinExperience.vue';
 import popinSkill from './components/popinSkill.vue';
 
+let keyboard = ref("EU");
+let deviceName = ref("");
+let forwardKey = ref(90);
+let leftKey = ref(81);
+
 let showPopin = ref(false);
 let showPopinRD = ref(false);
 let showPopinExperience = ref(false);
@@ -41,7 +101,9 @@ let showPopinSkill = ref(false);
 let showPopinMedSoc = ref(false);
 let showPopinEducation = ref(false);
 let showPopinAboutMe = ref(false);
-let openPopin = ref(0);
+let showPopinHow = ref(true);
+let openPopin = ref(4);
+
 
 let pointingMixer, pointingModel, point;
 let mixer, walkModel, walk;
@@ -55,7 +117,7 @@ let cdn = import.meta.env.VITE_CDN_URL;
 let width = window.innerWidth, height = window.innerHeight;
 let camera = new THREE.PerspectiveCamera( 70, width / height, 0.1, 1000 );
 
-let gui = new GUI();
+//let gui = new GUI();
 let scene = new THREE.Scene();
 scene.background = new THREE.Color(0x05081c);
 
@@ -90,7 +152,7 @@ directionalLight4.position.set(0, 0, -1);
 scene.add(directionalLight4);*/
 
 const ambientLight = new THREE.AmbientLight('#b9d5ff', 0.324)
-gui.add(ambientLight, 'intensity').min(0).max(1).step(0.001)
+//gui.add(ambientLight, 'intensity').min(0).max(1).step(0.001)
 scene.add(ambientLight)
 
 // Directional light
@@ -364,6 +426,11 @@ function doProgress() {
 }*/
 
 onMounted(() => {
+    if (/Android|webOS|iPhone|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
+        deviceName.value = 'mobile';
+    } else {
+        deviceName.value = 'desktop';
+    }
 
     document.getElementById("map").appendChild(renderer.domElement);
     window.addEventListener('resize', resize);
@@ -375,13 +442,40 @@ onMounted(() => {
 
     animate();
 
+    let clickBtn = document.querySelector('.click-btn');
+
+    if(clickBtn !== undefined) {
+
+      clickBtn.addEventListener('touchend', function(e) {
+        point.stop();
+
+        walkModel.visible = true;
+        pointingModel.visible = false;
+
+        pointingModel.position.copy(walkModel.position)
+      });
+    }
+  
 })
+
+function changeKeyboard(type) {
+  keyboard.value = type;
+  
+  if(type === 'EU') {
+    forwardKey.value = 90;
+    leftKey.value = 81;
+  }
+  else {
+    forwardKey.value = 87;
+    leftKey.value = 65;
+  }
+}
 
 function animate() {
     requestAnimationFrame(animate);
     
     if(walkModel !== undefined) {
-      //updatePlayer();
+      updatePlayer();
       updatePlayerDesktop() 
     }
 
@@ -1195,7 +1289,7 @@ function detectClickCollision(modelMesh, otherMesh) {
     modelBox.getSize(sizeModel);
     otherBox.getSize(sizeOther);
 
-    let distanceThreshold = 1;
+    let distanceThreshold = 1.2;
     // Calculate adjusted distance
     let adjustedDistance = distance;
     adjustedDistance -= sizeModel.length() / 2;
@@ -1231,27 +1325,134 @@ function updatePlayer(){
     }
     
     if (forwardValue > 0) {
-        tempVector.set(0, 0, -forwardValue).applyAxisAngle(upVector, angle)
-        walkModel.position.addScaledVector(tempVector, 0.5) 
-        walk.play()
+      if (detectCollision(walkModel, bridgeHandleL1) === true && walkModel.position.x <= (bridgeHandleL1.position.x + bridgeHandleL1.geometry.boundingBox.max.x) / 3.6) {
+          tempVector.set(0, 0, -forwardValue).applyAxisAngle(upVector, angle)
+          walkModel.position.addScaledVector(tempVector, 0.3)
+          walk.play()
+        }
+        else if(detectCollision(walkModel, bridgeHandleL3) === true && walkModel.position.x <= (bridgeHandleL3.position.x + bridgeHandleL3.geometry.boundingBox.max.x) /3.6
+        ) {
+          tempVector.set(0, 0, -forwardValue).applyAxisAngle(upVector, angle)
+          walkModel.position.addScaledVector(tempVector, 0.3)
+          walk.play()
+        }
+          else if(detectCollision(walkModel, bridgeHandleL2) === true && walkModel.position.x <= (bridgeHandleL2.position.x + bridgeHandleL2.geometry.boundingBox.max.x) / 3.6
+        ) {
+          tempVector.set(0, 0, -forwardValue).applyAxisAngle(upVector, angle)
+          walkModel.position.addScaledVector(tempVector, 0.3)
+          walk.play()
+        }
+        else if(detectCollision(walkModel, bridgeHandleL4) === true && walkModel.position.x <= (bridgeHandleL4.position.x + bridgeHandleL4.geometry.boundingBox.max.x) / 3.6
+        ) {
+          tempVector.set(0, 0, -forwardValue).applyAxisAngle(upVector, angle)
+          walkModel.position.addScaledVector(tempVector, 0.3)
+          walk.play()
+        }
+        else {
+          tempVector.set(0, 0, -forwardValue).applyAxisAngle(upVector, angle)
+          walkModel.position.addScaledVector(tempVector, 0.3)
+          walk.play()
+        }
     }
   
     if (backwardValue > 0) {
-      tempVector.set(0, 0, backwardValue).applyAxisAngle(upVector, angle)
-      walkModel.position.addScaledVector(tempVector, 0.5)
-      walk.play()
+      if (detectCollision(walkModel, bridgeHandleL1) === true && walkModel.position.x <= (bridgeHandleL1.position.x + bridgeHandleL1.geometry.boundingBox.max.x) / 3.47
+        ) {
+          tempVector.set(0, 0, backwardValue).applyAxisAngle(upVector, angle)
+          walkModel.position.addScaledVector(tempVector, 0.3)
+          walk.play()
+        }
+        else if(detectCollision(walkModel, bridgeHandleL3) === true && walkModel.position.x <= (bridgeHandleL3.position.x + bridgeHandleL3.geometry.boundingBox.max.x) / 3.5
+        ) {
+          tempVector.set(0, 0, backwardValue).applyAxisAngle(upVector, angle)
+          walkModel.position.addScaledVector(tempVector, 0.3)
+          walk.play()
+        }
+          else if(detectCollision(walkModel, bridgeHandleL2) === true && walkModel.position.x <= (bridgeHandleL2.position.x + bridgeHandleL2.geometry.boundingBox.max.x) / 3.47
+        ) {
+          tempVector.set(0, 0, backwardValue).applyAxisAngle(upVector, angle)
+          walkModel.position.addScaledVector(tempVector, 0.3)
+          walk.play()
+        }
+        else if(detectCollision(walkModel, bridgeHandleL4) === true && walkModel.position.x <= (bridgeHandleL4.position.x + bridgeHandleL4.geometry.boundingBox.max.x) / 3.45
+        ) {
+          tempVector.set(0, 0, backwardValue).applyAxisAngle(upVector, angle)
+          walkModel.position.addScaledVector(tempVector, 0.3)
+          walk.play()
+        }
+        else 
+        {
+          tempVector.set(0, 0, backwardValue).applyAxisAngle(upVector, angle)
+          walkModel.position.addScaledVector(tempVector, 0.3)
+          walk.play()
+        }
     }
 
     if (leftValue > 0) {
-      tempVector.set(-leftValue, 0, 0).applyAxisAngle(upVector, angle)
-      walkModel.position.addScaledVector(tempVector, 0.5)
-      walk.play()
+
+      if (detectCollision(walkModel, bridgeHandleL1) === true && walkModel.position.x <= (bridgeHandleL1.position.x + bridgeHandleL1.geometry.boundingBox.max.x) / 3.65) {
+          tempVector.set(-leftValue, 0, 0).applyAxisAngle(upVector, angle)
+          walkModel.position.addScaledVector(tempVector, 0.3)
+          walk.play()  
+        }
+        else if(detectCollision(walkModel, bridgeHandleL3) === true && walkModel.position.x <= (bridgeHandleL3.position.x + bridgeHandleL3.geometry.boundingBox.max.x) / 3.65) {
+          tempVector.set(-leftValue, 0, 0).applyAxisAngle(upVector, angle)
+          walkModel.position.addScaledVector(tempVector, 0.3)
+          walk.play()  
+        }
+          else if(detectCollision(walkModel, bridgeHandleL2) === true && walkModel.position.x <= (bridgeHandleL2.position.x + bridgeHandleL2.geometry.boundingBox.max.x) / 3.65) {
+          tempVector.set(-leftValue, 0, 0).applyAxisAngle(upVector, angle)
+          walkModel.position.addScaledVector(tempVector, 0.3)
+          walk.play()  
+        }
+        else if(detectCollision(walkModel, bridgeHandleL4) === true && walkModel.position.x <= (bridgeHandleL4.position.x + bridgeHandleL4.geometry.boundingBox.max.x) / 3.65) {
+          tempVector.set(-leftValue, 0, 0).applyAxisAngle(upVector, angle)
+          walkModel.position.addScaledVector(tempVector, 0.3)
+          walk.play()  
+        }
+        else {
+          tempVector.set(-leftValue, 0, 0).applyAxisAngle(upVector, angle)
+          walkModel.position.addScaledVector(tempVector, 0.3)
+          walk.play()        
+        }
+
     }
 
     if (rightValue > 0) {
-      tempVector.set(rightValue, 0, 0).applyAxisAngle(upVector, angle)
-      walkModel.position.addScaledVector(tempVector, 0.5)
-      walk.play()
+
+      if (detectCollision(walkModel, bridgeHandleR1) === true
+          && walkModel.position.x <= (bridgeHandleR1.position.x + bridgeHandleR1.geometry.boundingBox.max.x) / 3.87
+        ) {
+          tempVector.set(rightValue, 0, 0).applyAxisAngle(upVector, angle)
+          walkModel.position.addScaledVector(tempVector, 0.3)
+          walk.play()
+        }
+        else if (detectCollision(walkModel, bridgeHandleR2) === true
+          && walkModel.position.x <= (bridgeHandleR2.position.x + bridgeHandleR2.geometry.boundingBox.max.x) / 3.87
+        ) {
+          tempVector.set(rightValue, 0, 0).applyAxisAngle(upVector, angle)
+          walkModel.position.addScaledVector(tempVector, 0.3)
+          walk.play()
+        }
+        else if (detectCollision(walkModel, bridgeHandleR3) === true
+          && walkModel.position.x <= (bridgeHandleR3.position.x + bridgeHandleR3.geometry.boundingBox.max.x) / 3.87
+        ) {
+          tempVector.set(rightValue, 0, 0).applyAxisAngle(upVector, angle)
+          walkModel.position.addScaledVector(tempVector, 0.3)
+          walk.play()
+        }
+        else if (detectCollision(walkModel, bridgeHandleR4) === true
+          && walkModel.position.x <= (bridgeHandleR4.position.x + bridgeHandleR4.geometry.boundingBox.max.x) / 3.87
+        ) {
+          tempVector.set(rightValue, 0, 0).applyAxisAngle(upVector, angle)
+          walkModel.position.addScaledVector(tempVector, 0.3)
+          walk.play()
+        }
+        else {
+          tempVector.set(rightValue, 0, 0).applyAxisAngle(upVector, angle)
+          walkModel.position.addScaledVector(tempVector, 0.3)
+          walk.play()        
+        }
     }
   
     camera.position.sub(controls.target)
@@ -1264,7 +1465,8 @@ function updatePlayer(){
 function updatePlayerDesktop() {
  
   document.onkeydown = ((event) => {
-      if(event.keyCode === 90) {
+      // Move forward
+      if(event.keyCode === forwardKey.value) {
         if (detectCollision(walkModel, bridge1) === true && walkModel.position.y <= (bridge1.position.y + bridge1.geometry.boundingBox.max.y) / 2.3) {
           walkModel.position.y = walkModel.position.y + (bridge1.position.y + bridge1.geometry.boundingBox.max.y) / 100; 
         }
@@ -1314,6 +1516,7 @@ function updatePlayerDesktop() {
         }
         
       }
+      // Move to the right
       else if(event.keyCode === 68) {
         if (detectCollision(walkModel, bridge1) === true && walkModel.position.y <= (bridge1.position.y + bridge1.geometry.boundingBox.max.y) / 2.3) {
           walkModel.position.y = walkModel.position.y + (bridge1.position.y + bridge1.geometry.boundingBox.max.y) / 100; 
@@ -1352,7 +1555,8 @@ function updatePlayerDesktop() {
         }
 
       }
-      else if(event.keyCode === 81) {
+      // Move to the left
+      else if(event.keyCode === leftKey.value) {
         if (detectCollision(walkModel, bridge1) === true && walkModel.position.y <= (bridge1.position.y + bridge1.geometry.boundingBox.max.y) / 2.3) {
           walkModel.position.y = walkModel.position.y + (bridge1.position.y + bridge1.geometry.boundingBox.max.y) / 100; 
         }
@@ -1386,6 +1590,7 @@ function updatePlayerDesktop() {
           walkModel.translateX(0.5);
         }
       }
+      // Move backward
       else if(event.keyCode === 83) {
           walk.play();
 
@@ -1421,7 +1626,8 @@ function updatePlayerDesktop() {
           walkModel.position.y = walkModel.position.y - (bridge1.position.y + bridge1.geometry.boundingBox.max.y) / 50;
         }
       }
-      else {        
+      // Click the object
+      else if(event.keyCode = 32){        
         pointingModel.position.copy(walkModel.position);
         point.play();
 
@@ -1429,56 +1635,63 @@ function updatePlayerDesktop() {
         pointingModel.visible = true;
 
         if(detectClickCollision(walkModel, sprite1) == true) {
+          // Viami
           showPopin.value = true;
           openPopin.value = 0;
         }
         else if(detectClickCollision(walkModel, sprite2) == true) {
-          showPopin.value = true;
-          openPopin.value = 1;
-        }
-        else if(detectClickCollision(walkModel, sprite3) == true) {
+          // Timer
           showPopin.value = true;
           openPopin.value = 2;
         }
-        else if(detectClickCollision(walkModel, sprite4) == true) {
-          showPopin.value = true;
-          openPopin.value = 3;
-        }
-        else if(detectClickCollision(walkModel, sprite5) == true) {
+        else if(detectClickCollision(walkModel, sprite3) == true) {
+          // Reuninou
           showPopin.value = true;
           openPopin.value = 4;
         }
-        else if(detectClickCollision(walkModel, sprite6) == true) {
-          showPopin.value = true;
-          openPopin.value = 6;
-        }
-        else if(detectClickCollision(walkModel, sprite7) == true) {
+        else if(detectClickCollision(walkModel, sprite4) == true) {
+          // Bicycle
           showPopin.value = true;
           openPopin.value = 5;
         }
-        else if(detectClickCollision(walkModel, sprite8) == true) {
-          showPopin.value = true;
-          openPopin.value = 9;
-        }
-        else if(detectClickCollision(walkModel, sprite9) == true) {
+        else if(detectClickCollision(walkModel, sprite5) == true) {
+          // Covid
           showPopin.value = true;
           openPopin.value = 7;
         }
-        else if(detectClickCollision(walkModel, sprite10) == true) {
-          showPopin.value = true;
-          openPopin.value = 10;
-        }
-        else if(detectClickCollision(walkModel, sprite11) == true) {
+        else if(detectClickCollision(walkModel, sprite6) == true) {
+          // Museum maritime
           showPopin.value = true;
           openPopin.value = 8;
         }
+        else if(detectClickCollision(walkModel, sprite7) == true) {
+          // Lehangar.local
+          showPopin.value = true;
+          openPopin.value = 12;
+        }
+        else if(detectClickCollision(walkModel, sprite8) == true) {
+          showPopin.value = true;
+          openPopin.value = 1;
+        }
+        else if(detectClickCollision(walkModel, sprite9) == true) {
+          showPopin.value = true;
+          openPopin.value = 3;
+        }
+        else if(detectClickCollision(walkModel, sprite10) == true) {
+          showPopin.value = true;
+          openPopin.value = 6;
+        }
+        else if(detectClickCollision(walkModel, sprite11) == true) {
+          showPopin.value = true;
+          openPopin.value = 9;
+        }
         else if(detectClickCollision(walkModel, sprite12) == true) {
           showPopin.value = true;
-          openPopin.value = 11;
+          openPopin.value = 10;
         }
         else if(detectClickCollision(walkModel, sprite13) == true) {
           showPopin.value = true;
-          openPopin.value = 12;
+          openPopin.value = 11;
         }
         else if(detectClickCollision(walkModel, sprite14) == true) {
           showPopin.value = true;
@@ -1502,11 +1715,11 @@ function updatePlayerDesktop() {
         }
         else if(detectClickCollision(walkModel, spriteRight5) == true) {
           showPopinRD.value = true;
-          openPopin.value = 6;
+          openPopin.value = 3;
         }
         else if(detectClickCollision(walkModel, spriteRight6) == true) {
           showPopinRD.value = true;
-          openPopin.value = 3;
+          openPopin.value = 6;
         }
         else if(detectClickCollision(walkModel, spriteRight7) == true) {
           showPopinRD.value = true;
@@ -1531,10 +1744,10 @@ function updatePlayerDesktop() {
     })
 
     document.onkeyup = ((event) => {
-      if(event.keyCode === 90) {
+      if(event.keyCode === forwardKey.value) {
         walk.stop();
       }
-      else if(event.keyCode === 81) {
+      else if(event.keyCode === leftKey.value) {
         walk.stop();
       }
       else if(event.keyCode === 68) {
@@ -1543,7 +1756,7 @@ function updatePlayerDesktop() {
       else if(event.keyCode === 83) {
         walk.stop();
       }
-      else {
+      else if(event.keyCode === 32){
         point.stop();
 
         walkModel.visible = true;
@@ -1561,7 +1774,7 @@ function updatePlayerDesktop() {
 function addMobileJoystick(){
    const options = {
       zone: document.getElementById('joystick-wrapper'),
-      size: 120,
+      size: window.innerWidth > 500 ? 200 : 130,
       multitouch: true,
       maxNumberOfNipples: 2,
       mode: 'static',
@@ -1569,7 +1782,7 @@ function addMobileJoystick(){
       shape: 'circle',
       position: { top: '60px', left: '60px' },
       dynamicPage: true,
-      color: "black"
+      color: "orange"
     }
    
     joystick = nipplejs.create(options);
@@ -1627,6 +1840,131 @@ function close() {
   showPopinExperience.value = false;
   showPopinMedSoc.value = false;
   showPopinSkill.value = false;
+  showPopinHow.value = false;
+}
+
+function openInformation() {
+  showPopinHow.value === true ? showPopinHow.value = false : showPopinHow.value = true;
+}
+
+function click() {
+
+  const clickBtn = document.querySelector('.click-btn');
+
+  clickBtn.addEventListener('touchstart', function(e) {
+    pointingModel.position.copy(walkModel.position);
+    point.play();
+
+    walkModel.visible = false;
+    pointingModel.visible = true;
+
+    if(detectClickCollision(walkModel, sprite1) == true) {
+      // Viami
+      showPopin.value = true;
+      openPopin.value = 0;
+    }
+    else if(detectClickCollision(walkModel, sprite2) == true) {
+      // Timer
+      showPopin.value = true;
+      openPopin.value = 2;
+    }
+    else if(detectClickCollision(walkModel, sprite3) == true) {
+      // Reuninou
+      showPopin.value = true;
+      openPopin.value = 4;
+    }
+    else if(detectClickCollision(walkModel, sprite4) == true) {
+      // Bicycle
+      showPopin.value = true;
+      openPopin.value = 5;
+    }
+    else if(detectClickCollision(walkModel, sprite5) == true) {
+      // Covid
+      showPopin.value = true;
+      openPopin.value = 7;
+    }
+    else if(detectClickCollision(walkModel, sprite6) == true) {
+      // Museum maritime
+      showPopin.value = true;
+      openPopin.value = 8;
+    }
+    else if(detectClickCollision(walkModel, sprite7) == true) {
+      // Lehangar.local
+      showPopin.value = true;
+      openPopin.value = 12;
+    }
+    else if(detectClickCollision(walkModel, sprite8) == true) {
+      showPopin.value = true;
+      openPopin.value = 1;
+    }
+    else if(detectClickCollision(walkModel, sprite9) == true) {
+      showPopin.value = true;
+      openPopin.value = 3;
+    }
+    else if(detectClickCollision(walkModel, sprite10) == true) {
+      showPopin.value = true;
+      openPopin.value = 6;
+    }
+    else if(detectClickCollision(walkModel, sprite11) == true) {
+      showPopin.value = true;
+      openPopin.value = 9;
+    }
+    else if(detectClickCollision(walkModel, sprite12) == true) {
+      showPopin.value = true;
+      openPopin.value = 10;
+    }
+    else if(detectClickCollision(walkModel, sprite13) == true) {
+      showPopin.value = true;
+      openPopin.value = 11;
+    }
+    else if(detectClickCollision(walkModel, sprite14) == true) {
+      showPopin.value = true;
+      openPopin.value = 13;
+    }
+    else if(detectClickCollision(walkModel, spriteRight1) == true) {
+      showPopinRD.value = true;
+      openPopin.value = 0;
+    }
+    else if(detectClickCollision(walkModel, spriteRight2) == true) {
+      showPopinRD.value = true;
+      openPopin.value = 1;
+    }
+    else if(detectClickCollision(walkModel, spriteRight3) == true) {
+      showPopinRD.value = true;
+      openPopin.value = 5;
+    }
+    else if(detectClickCollision(walkModel, spriteRight4) == true) {
+      showPopinRD.value = true;
+      openPopin.value = 4;
+    }
+    else if(detectClickCollision(walkModel, spriteRight5) == true) {
+      showPopinRD.value = true;
+      openPopin.value = 3;
+    }
+    else if(detectClickCollision(walkModel, spriteRight6) == true) {
+      showPopinRD.value = true;
+      openPopin.value = 6;
+    }
+    else if(detectClickCollision(walkModel, spriteRight7) == true) {
+      showPopinRD.value = true;
+      openPopin.value = 2;
+    }
+    else if(detectClickCollision(walkModel, spriteStone1) == true) {
+      showPopinExperience.value = true;
+    }
+    else if(detectClickCollision(walkModel, spriteStone2) == true) {
+      showPopinSkill.value = true;
+    }
+    else if(detectClickCollision(walkModel, spriteStone3) == true) {
+      showPopinAboutMe.value = true;
+    }
+    else if(detectClickCollision(walkModel, spriteStone4) == true) {
+      showPopinEducation.value = true;
+    }
+    else if(detectClickCollision(walkModel, spriteStone5) == true) {
+      showPopinMedSoc.value = true;
+    }
+  });
 }
 
 </script>
