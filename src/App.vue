@@ -17,7 +17,7 @@
         </svg>
     </div>
 
-    <h1 class="popin--title">Welcom to Tania's World</h1>
+    <h1 class="popin--title">Welcome to Tania's World</h1>
 
     <div class="popin--how">
         <p class="popin--description1">
@@ -32,7 +32,7 @@
           IT'S RECOMMENDED TO HAVE A GOOD CONNECTION TO HAVE A FLUID EXPERIENCE&nbsp;!
         </div>
         <br>
-        <div class="popin--description1">  
+        <div class="popin--description1" v-if="deviceName === 'desktop'">  
           Keys to move the character in desktop :<br>
           <ul>
             <li class="popin--list">Z : Move forward (If you are using QWERTY KEYBOARD, the key to move forward is W)</li>
@@ -49,23 +49,30 @@
             <button @click="changeKeyboard('US')">US</button>    
           </div>
           
-          <br>To move the direction of the character, you need to use your trackpad or mouse. I recommend you to use mouse to have a more fluid experience.
+          <br>To move the direction of the character, you need to click and drag the screen by using your trackpad or mouse. I recommend you to use mouse to have a more fluid experience.
         </div>
-        <br>
-        <div class="popin--description1">  
-          To move the character (forward, backward, left, right) in mobile, use the trackball on the left side.<br>
+        <br v-if="deviceName === 'mobile'">
+        <div class="popin--description1" v-if="deviceName === 'mobile'">  
+          To move the character (forward, backward, left, right) on your mobile phone, use the trackball on the left side.<br>
            
           <br>To move the direction of the character, you need to need to click and drag the screen to the direction that you want.
         </div>
-        <br>
-        <div class="popin--description1">  
-          If you are in mobile, to see the informations of each stand, you need to move closer to this image <img :src="cdn + 'click-left.png'" class="click"/> and click this button <img :src="cdn + 'left-click.png'" class="click"/> to open it.
+        <br v-if="deviceName === 'mobile'">
+        <div class="popin--description1" v-if="deviceName === 'mobile'">  
+          To see the informations of each stand, you need to move closer to this image <img :src="cdn + 'click-left.png'" class="click"/> and click this button <img :src="cdn + 'left-click.png'" class="click"/> to open it.
         </div>
-        <br>
+        <br><br>
         <div class="popin--description1 txt--bold">  
           ENJOY&nbsp;!
         </div>
       </div>
+    </div>
+  </div>
+
+  <div class="launchScreen" v-if="showLaunchScreen">
+    <p class="txt--bold">Loading</p>
+    <div class="progressBar">
+      <div class="progress"></div>
     </div>
   </div>
 
@@ -110,8 +117,9 @@ let showPopinSkill = ref(false);
 let showPopinMedSoc = ref(false);
 let showPopinEducation = ref(false);
 let showPopinAboutMe = ref(false);
-let showPopinHow = ref(true);
+let showPopinHow = ref(false);
 let openPopin = ref(4);
+let showLaunchScreen = ref(true);
 
 
 let pointingMixer, pointingModel, point;
@@ -135,7 +143,7 @@ let renderer = new THREE.WebGLRenderer( { antialias: true } );
 renderer.setSize( width, height );
 renderer.gammaOutput = true;
 
-camera.position.set(-25, 30, 40);
+camera.position.set(-25, 20, 40);
 
 const ambientLight = new THREE.AmbientLight('#b9d5ff', 0.324)
 //gui.add(ambientLight, 'intensity').min(0).max(1).step(0.001)
@@ -353,7 +361,7 @@ let tempVector = new THREE.Vector3();
 let upVector = new THREE.Vector3(0, 1, 0);
 let joystick;
 
-controls.maxDistance = 10;
+controls.maxDistance = 12;
 controls.minDistance = 6;
 controls.maxPolarAngle = Math.PI / 2;
 controls.minPolarAngle = 0;
@@ -369,41 +377,33 @@ controls.maxAzimuthAngle = Infinity;
 
 controls.update();
 
-let loader = new GLTFLoader();
+const loadingManager = new THREE.LoadingManager();
+
+loadingManager.onStart = function(url, itemsLoaded, itemsTotal) {
+    showLaunchScreen.value = true;
+};
+
+loadingManager.onProgress = function(url, itemsLoaded, itemsTotal) {
+    const progress = (itemsLoaded / itemsTotal) * 100;
+
+    document.querySelector('.progress').innerText = `${progress.toFixed(2)}%`;
+    document.querySelector('.progress').style.width = `${progress.toFixed(2)}%`;
+};
+
+loadingManager.onLoad = function() {
+  showLaunchScreen.value = false;
+
+  setTimeout(() => {
+    showPopinHow.value = true;
+  }, 500)
+};
+
+let loader = new GLTFLoader(loadingManager);
 
 let dracoLoader = new DRACOLoader();
 dracoLoader.setDecoderPath( cdn + 'examples/jsm/libs/draco/' );
 loader.setDRACOLoader( dracoLoader );
 
-
-/*let loadTime = ref(0);
-let interval = ref(null);
-let loadingPercent = ref(0);
-
-onBeforeMount(() => {
-  let perfData = window.performance.timing;
-  let estimatedTime = Math.abs(perfData.loadEventEnd - perfData.navigationStart);
-  loadTime = parseInt((estimatedTime / 1000) % 60) * 100;
-  doProgress();
-});
-
-const loaded = computed(() => {
-    return loadingPercent + '%'
-});
-
-watch(loadingPercent, (newVal, oldVal) => {
-  if (newVal >= 100) {
-    console.log('complete');
-    clearInterval(interval)
-  }
-}) 
-
-function doProgress() {
-  let step = loadTime / 100;
-  interval = setInterval(() => {
-    loadingPercent++
-  }, step);
-}*/
 
 onMounted(() => {
     if (/Android|webOS|iPhone|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
@@ -467,7 +467,7 @@ function animate() {
     }
 
     if(mixer !== undefined && pointingMixer !== undefined) {
-      mixer.update(0.06);
+      mixer.update(0.1);
       pointingMixer.update(0.04);
     }
 
@@ -1127,29 +1127,6 @@ function createTextCategory() {
 
 function createModels() {
 
-  /*const loadingManager = new THREE.LoadingManager();
-
-  // This function will be called while an item is loading
-  loadingManager.onProgress = function(url, itemsLoaded, itemsTotal) {
-      const progress = (itemsLoaded / itemsTotal) * 100;
-      console.log(`Progress: ${progress.toFixed(2)}%`);
-      // Update your progress display here
-      
-  };
-
-  // This function will be called when all items are loaded
-  loadingManager.onLoad = function() {
-      console.log('All items loaded.');
-      // Hide or remove your progress display here
-      //document.getElementById('progress').innerText = 'Loading complete!';
-  };
-
-// This function will be called when an item errors
-loadingManager.onError = function(url) {
-    console.log(`There was an error loading ${url}`);
-};*/
-
-
     loader.load(cdn + 'models/map.glb', function ( gltf ) {
 
         mapModel = gltf.scene;
@@ -1372,43 +1349,43 @@ function updatePlayer(){
     if (forwardValue > 0) {
       if (detectCollision(walkModel, bridgeHandleL1) === true && walkModel.position.x <= (bridgeHandleL1.position.x + bridgeHandleL1.geometry.boundingBox.max.x) / 3.6) {
           tempVector.set(0, 0, -forwardValue).applyAxisAngle(upVector, angle)
-          walkModel.position.addScaledVector(tempVector, 0.3)
+          walkModel.position.addScaledVector(tempVector, 0.4)
           walk.play()
         }
         else if(detectCollision(walkModel, bridgeHandleL3) === true && walkModel.position.x <= (bridgeHandleL3.position.x + bridgeHandleL3.geometry.boundingBox.max.x) /3.6
         ) {
           tempVector.set(0, 0, -forwardValue).applyAxisAngle(upVector, angle)
-          walkModel.position.addScaledVector(tempVector, 0.3)
+          walkModel.position.addScaledVector(tempVector, 0.4)
           walk.play()
         }
           else if(detectCollision(walkModel, bridgeHandleL2) === true && walkModel.position.x <= (bridgeHandleL2.position.x + bridgeHandleL2.geometry.boundingBox.max.x) / 3.6
         ) {
           tempVector.set(0, 0, -forwardValue).applyAxisAngle(upVector, angle)
-          walkModel.position.addScaledVector(tempVector, 0.3)
+          walkModel.position.addScaledVector(tempVector, 0.4)
           walk.play()
         }
         else if(detectCollision(walkModel, bridgeHandleL4) === true && walkModel.position.x <= (bridgeHandleL4.position.x + bridgeHandleL4.geometry.boundingBox.max.x) / 3.6
         ) {
           tempVector.set(0, 0, -forwardValue).applyAxisAngle(upVector, angle)
-          walkModel.position.addScaledVector(tempVector, 0.3)
+          walkModel.position.addScaledVector(tempVector, 0.4)
           walk.play()
         }
         else {
           if(detectObjectCollision(walkModel, mapModel.children[195], 5.1) === true) {
             walkModel.position.y = 7.5
             tempVector.set(0, 0, -forwardValue).applyAxisAngle(upVector, angle)
-            walkModel.position.addScaledVector(tempVector, 0.3)
+            walkModel.position.addScaledVector(tempVector, 0.4)
             walk.play()
           }
           else if(detectObjectCollision(walkModel, mapModel.children[194], 4.7) === true) {
             walkModel.position.y = 6.5
             tempVector.set(0, 0, -forwardValue).applyAxisAngle(upVector, angle)
-            walkModel.position.addScaledVector(tempVector, 0.3)
+            walkModel.position.addScaledVector(tempVector, 0.4)
             walk.play()
           }
           else {
             tempVector.set(0, 0, -forwardValue).applyAxisAngle(upVector, angle)
-            walkModel.position.addScaledVector(tempVector, 0.3)
+            walkModel.position.addScaledVector(tempVector, 0.4)
             walk.play()          
           }
         }
@@ -1418,25 +1395,25 @@ function updatePlayer(){
       if (detectCollision(walkModel, bridgeHandleL1) === true && walkModel.position.x <= (bridgeHandleL1.position.x + bridgeHandleL1.geometry.boundingBox.max.x) / 3.47
         ) {
           tempVector.set(0, 0, backwardValue).applyAxisAngle(upVector, angle)
-          walkModel.position.addScaledVector(tempVector, 0.3)
+          walkModel.position.addScaledVector(tempVector, 0.4)
           walk.play()
         }
         else if(detectCollision(walkModel, bridgeHandleL3) === true && walkModel.position.x <= (bridgeHandleL3.position.x + bridgeHandleL3.geometry.boundingBox.max.x) / 3.5
         ) {
           tempVector.set(0, 0, backwardValue).applyAxisAngle(upVector, angle)
-          walkModel.position.addScaledVector(tempVector, 0.3)
+          walkModel.position.addScaledVector(tempVector, 0.4)
           walk.play()
         }
           else if(detectCollision(walkModel, bridgeHandleL2) === true && walkModel.position.x <= (bridgeHandleL2.position.x + bridgeHandleL2.geometry.boundingBox.max.x) / 3.47
         ) {
           tempVector.set(0, 0, backwardValue).applyAxisAngle(upVector, angle)
-          walkModel.position.addScaledVector(tempVector, 0.3)
+          walkModel.position.addScaledVector(tempVector, 0.4)
           walk.play()
         }
         else if(detectCollision(walkModel, bridgeHandleL4) === true && walkModel.position.x <= (bridgeHandleL4.position.x + bridgeHandleL4.geometry.boundingBox.max.x) / 3.45
         ) {
           tempVector.set(0, 0, backwardValue).applyAxisAngle(upVector, angle)
-          walkModel.position.addScaledVector(tempVector, 0.3)
+          walkModel.position.addScaledVector(tempVector, 0.4)
           walk.play()
         }
         else 
@@ -1444,18 +1421,18 @@ function updatePlayer(){
           if(detectObjectCollision(walkModel, mapModel.children[195], 5.1) === true) {
             walkModel.position.y = 7.5
             tempVector.set(0, 0, backwardValue).applyAxisAngle(upVector, angle)
-            walkModel.position.addScaledVector(tempVector, 0.3)
+            walkModel.position.addScaledVector(tempVector, 0.4)
             walk.play()
           }
           else if(detectObjectCollision(walkModel, mapModel.children[194], 4.7) === true) {
             walkModel.position.y = 6.5
             tempVector.set(0, 0, backwardValue).applyAxisAngle(upVector, angle)
-            walkModel.position.addScaledVector(tempVector, 0.3)
+            walkModel.position.addScaledVector(tempVector, 0.4)
             walk.play()
           }
           else {
             tempVector.set(0, 0, backwardValue).applyAxisAngle(upVector, angle)
-            walkModel.position.addScaledVector(tempVector, 0.3)
+            walkModel.position.addScaledVector(tempVector, 0.4)
             walk.play()          
           }
         }
@@ -1465,40 +1442,40 @@ function updatePlayer(){
 
       if (detectCollision(walkModel, bridgeHandleL1) === true && walkModel.position.x <= (bridgeHandleL1.position.x + bridgeHandleL1.geometry.boundingBox.max.x) / 3.65) {
           tempVector.set(-leftValue, 0, 0).applyAxisAngle(upVector, angle)
-          walkModel.position.addScaledVector(tempVector, 0.3)
+          walkModel.position.addScaledVector(tempVector, 0.4)
           walk.play()  
         }
         else if(detectCollision(walkModel, bridgeHandleL3) === true && walkModel.position.x <= (bridgeHandleL3.position.x + bridgeHandleL3.geometry.boundingBox.max.x) / 3.65) {
           tempVector.set(-leftValue, 0, 0).applyAxisAngle(upVector, angle)
-          walkModel.position.addScaledVector(tempVector, 0.3)
+          walkModel.position.addScaledVector(tempVector, 0.4)
           walk.play()  
         }
           else if(detectCollision(walkModel, bridgeHandleL2) === true && walkModel.position.x <= (bridgeHandleL2.position.x + bridgeHandleL2.geometry.boundingBox.max.x) / 3.65) {
           tempVector.set(-leftValue, 0, 0).applyAxisAngle(upVector, angle)
-          walkModel.position.addScaledVector(tempVector, 0.3)
+          walkModel.position.addScaledVector(tempVector, 0.4)
           walk.play()  
         }
         else if(detectCollision(walkModel, bridgeHandleL4) === true && walkModel.position.x <= (bridgeHandleL4.position.x + bridgeHandleL4.geometry.boundingBox.max.x) / 3.65) {
           tempVector.set(-leftValue, 0, 0).applyAxisAngle(upVector, angle)
-          walkModel.position.addScaledVector(tempVector, 0.3)
+          walkModel.position.addScaledVector(tempVector, 0.4)
           walk.play()  
         }
         else {
           if(detectObjectCollision(walkModel, mapModel.children[195], 5.1) === true) {
             walkModel.position.y = 7.5
             tempVector.set(-leftValue, 0, 0).applyAxisAngle(upVector, angle)
-            walkModel.position.addScaledVector(tempVector, 0.3)
+            walkModel.position.addScaledVector(tempVector, 0.4)
             walk.play()   
           }
           else if(detectObjectCollision(walkModel, mapModel.children[194], 4.7) === true) {
             walkModel.position.y = 6.5
             tempVector.set(-leftValue, 0, 0).applyAxisAngle(upVector, angle)
-            walkModel.position.addScaledVector(tempVector, 0.3)
+            walkModel.position.addScaledVector(tempVector, 0.4)
             walk.play()   
           }
           else {
             tempVector.set(-leftValue, 0, 0).applyAxisAngle(upVector, angle)
-            walkModel.position.addScaledVector(tempVector, 0.3)
+            walkModel.position.addScaledVector(tempVector, 0.4)
             walk.play()        
           }     
         }
@@ -1568,6 +1545,7 @@ function updatePlayerDesktop() {
   document.onkeydown = ((event) => {
       // Move forward
       if(event.keyCode === forwardKey.value) {
+        console.log(detectObjectCollision(walkModel, bridgeHandleL1, 3) === true)
         if (detectCollision(walkModel, bridge1) === true && walkModel.position.y <= (bridge1.position.y + bridge1.geometry.boundingBox.max.y) / 2.3) {
           walkModel.position.y = walkModel.position.y + (bridge1.position.y + bridge1.geometry.boundingBox.max.y) / 100; 
         }

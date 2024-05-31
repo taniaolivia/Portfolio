@@ -20,7 +20,7 @@
           <span  v-html="'<br><strong>Project link(s) : </strong>'"></span>
 
           <ul>
-            <a :href="link" v-for="link in project.link" target="_blank">
+            <a :href="link" v-for="link in project.links" target="_blank">
               <li class="popin--list" v-html="link"></li>
             </a>
           </ul>
@@ -34,7 +34,7 @@
               <p class="popin--description txt--bold" v-html="ressource.page"></p><br>
               <p class="popin--description" v-html="ressource.description"></p><br>
               <a :href="ressource.link" target="_blank" v-if="ressource.link !== undefined">
-                <span class="popin--description" v-html="ressource.link"></span>
+                <span class="popin--description" v-html="'Click here'"></span>
               </a>
 
               <img :src="ressource.image" v-if="ressource.image !== undefined" @click="zoomImage(ressource.image)"/>
