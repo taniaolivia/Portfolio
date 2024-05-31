@@ -123,6 +123,7 @@ let arrowRightModel, pointingArrowRight, arrowRightMixer;
 let arrowFrontModel, pointingArrowFront, arrowFrontMixer;
 
 let cdn = import.meta.env.VITE_CDN_URL;
+let cdn2 = import.meta.env.VITE_CDN_URL2;
 let width = window.innerWidth, height = window.innerHeight;
 let camera = new THREE.PerspectiveCamera( 70, width / height, 0.1, 1000 );
 
@@ -495,7 +496,7 @@ let spriteRight1, spriteRight2, spriteRight3, spriteRight4, spriteRight5, sprite
 let spriteStone1, spriteStone2, spriteStone3, spriteStone4, spriteStone5;
 
 function createClickStandsLeftSide() {
-  let  map = new THREE.TextureLoader().load( "/textures/click-left.png" );
+  let  map = new THREE.TextureLoader().load( cdn2 + "click-left.png" );
   map.crossOrigin = null
 
   let material = new THREE.SpriteMaterial( { map: map, color: 0xffffff });
@@ -586,7 +587,7 @@ function createClickStandsLeftSide() {
 }
 
 function createClickStandsRightSide() {
-  let  map = new THREE.TextureLoader().load( "/textures/click-left.png" );
+  let  map = new THREE.TextureLoader().load(cdn2 + "click-left.png" );
 
   let material = new THREE.SpriteMaterial( { map: map, color: 0xffffff });
  
@@ -634,7 +635,7 @@ function createClickStandsRightSide() {
 }
 
 function createClickStones() {
-  let  map = new THREE.TextureLoader().load("/textures/click-left.png" );
+  let  map = new THREE.TextureLoader().load(cdn2 + "click-left.png" );
   let material = new THREE.SpriteMaterial( { map: map, color: 0xffffff });
  
   spriteStone1 = new THREE.Sprite( material );
