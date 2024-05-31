@@ -500,7 +500,7 @@ a {
   justify-content: center;
   align-items: center;
   width: 85%;
-  margin: auto;
+  margin: auto auto 2em auto;
 }
 
 .info {
@@ -687,8 +687,8 @@ a {
 
 @media screen and (max-width: 500px) {
   .click-btn {
-    max-width: 55px;
-    right: calc(100% - 240px);
+    max-width: 40px;
+    right: calc(100% - 220px);
   }
 
   #mobileInterface {
