@@ -554,17 +554,11 @@ a {
 
 .click-btn-desktop {
   width: 100%;
-  max-width: 60px;
+  max-width: 70px;
   position: fixed;
   bottom: 70px;
   left: calc(100% - 200px);
-  background-color: orange;
-  border-radius: 50%;
-  padding: 1em 1em;
-}
-
-.click-orange {
-  background-color: orange;
+  background-color: #ffa500;
   border-radius: 50%;
   padding: 0.2em 0.2em;
 }
