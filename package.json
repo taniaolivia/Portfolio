@@ -9,7 +9,10 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "cannon": "^0.6.2",
+    "lil-gui": "^0.19.2",
     "nipplejs": "^0.10.1",
+    "sass-loader": "^14.2.1",
     "three": "^0.162.0",
     "vue": "^3.4.19"
   },
