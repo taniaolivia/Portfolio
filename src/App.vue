@@ -42,7 +42,7 @@
             <li class="popin--list">SPACE : To do the click movement, it'll be use to open the information where there's this image <img :src="cdn + 'left-click.png'" class="click"/> and move close to it. <span class="txt--bold">If when you've clicked, it shows nothing that means you need to move closer to this image this image <img :src="cdn + 'left-click.png'" class="click"/></span></li>
           </ul>
 
-          <br>To see the informations of each stand and others, you need to move closer to this image <img :src="cdn + 'left-click.png'" class="click"/> and click this button <img :src="cdn + 'left-click.png'" class="click click-orange"/> which is on the right side bottom to open it. <span class="txt--bold">If when you've clicked, it shows nothing that means you need to move closer to this image <img :src="cdn + 'left-click.png'" class="click"/> and reclick the button <img :src="cdn + 'left-click.png'" class="click click-orange"/></span>
+          <br>To see the informations of each stand and others, you need to move closer to this image <img :src="cdn + 'left-click.png'" class="click"/> and click this button <img :src="cdn + 'left-click.png'" class="click "/> which is on the right side bottom to open it. <span class="txt--bold">If when you've clicked, it shows nothing that means you need to move closer to this image <img :src="cdn + 'left-click.png'" class="click"/> and reclick the button <img :src="cdn + 'left-click.png'" class="click "/></span>
           <br><br><br>The keyboard by default is the <span class="txt--bold">EU keyboard.</span> You can change the keyboard to EU or US by clicking one of these buttons :
           <br>
           <div class="popin--buttons">
@@ -60,7 +60,7 @@
         </div>
         <br v-if="deviceName === 'mobile'">
         <div class="popin--description1" v-if="deviceName === 'mobile'">  
-          To see the informations of each stand, you need to move closer to this image <img :src="cdn + 'left-click.png'" class="click"/> and click this button <img :src="cdn + 'left-click.png'" class="click click-orange"/> to open it. <span class="txt--bold">If when you've clicked, it shows nothing that means you need to move closer to this image <img :src="cdn + 'left-click.png'" class="click"/> and reclick the button <img :src="cdn + 'left-click.png'" class="click click-orange"/></span>
+          To see the informations of each stand, you need to move closer to this image <img :src="cdn + 'left-click.png'" class="click"/> and click this button <img :src="cdn + 'left-click.png'" class="click "/> to open it. <span class="txt--bold">If when you've clicked, it shows nothing that means you need to move closer to this image <img :src="cdn + 'left-click.png'" class="click"/> and reclick the button <img :src="cdn + 'left-click.png'" class="click "/></span>
         </div>
         <br><br>
         <div class="popin--description1 txt--bold">  
@@ -1136,19 +1136,21 @@ function createModels() {
         scene.add(mapModel);
 
         wave = mapModel.children[0];
-        bridge1 = mapModel.children[53];
-        bridge2 = mapModel.children[54];
-        bridge3 = mapModel.children[55];
-        bridge4 = mapModel.children[56];
+        bridge1 = mapModel.children[58];
+        bridge2 = mapModel.children[59];
+        bridge3 = mapModel.children[60];
+        bridge4 = mapModel.children[61];
 
-        bridgeHandleR2 = mapModel.children[65];
-        bridgeHandleR3 = mapModel.children[66];
-        bridgeHandleL2 = mapModel.children[67];
-        bridgeHandleL3 = mapModel.children[68];
-        bridgeHandleR4 = mapModel.children[69];
-        bridgeHandleL4 = mapModel.children[70];
-        bridgeHandleL1 = mapModel.children[71];
-        bridgeHandleR1 = mapModel.children[72];
+        console.log(mapModel)
+
+        bridgeHandleR2 = mapModel.children[70];
+        bridgeHandleR3 = mapModel.children[71];
+        bridgeHandleL2 = mapModel.children[72];
+        bridgeHandleL3 = mapModel.children[73];
+        bridgeHandleR4 = mapModel.children[74];
+        bridgeHandleL4 = mapModel.children[75];
+        bridgeHandleL1 = mapModel.children[76];
+        bridgeHandleR1 = mapModel.children[77];
 
         loader.load(cdn + 'models/tania_walking.glb', function (gltf) {
 
@@ -1230,7 +1232,7 @@ function resize(){
   camera.updateProjectionMatrix();
 }
 
-function detectCollision(modelMesh, otherMesh, distanceThreshold) {
+function detectCollision(modelMesh, otherMesh) {
     const modelBox = new THREE.Box3().setFromObject(modelMesh);
     const otherBox = new THREE.Box3().setFromObject(otherMesh);
 
@@ -1320,7 +1322,7 @@ function updatePlayer(){
       walkModel.position.y = walkModel.position.y - (bridge4.position.y + bridge4.geometry.boundingBox.max.y) / 50;
     }
 
-    if(detectCollision(walkModel, bridge1) === false && detectCollision(walkModel, bridge2) === false && detectCollision(walkModel, bridge3) === false && detectCollision(walkModel, bridge4) === false && detectObjectCollision(walkModel, mapModel.children[195], 5.1) === false && detectObjectCollision(walkModel, mapModel.children[194], 4.7) === false){
+    if(detectCollision(walkModel, bridge1) === false && detectCollision(walkModel, bridge2) === false && detectCollision(walkModel, bridge3) === false && detectCollision(walkModel, bridge4) === false && detectObjectCollision(walkModel, mapModel.children[200], 5.1) === false && detectObjectCollision(walkModel, mapModel.children[199], 4.7) === false){
       walkModel.position.y = 5.5;
     }
     
@@ -1349,13 +1351,13 @@ function updatePlayer(){
           walk.play()
         }
         else {
-          if(detectObjectCollision(walkModel, mapModel.children[195], 5.1) === true) {
+          if(detectObjectCollision(walkModel, mapModel.children[200], 5.1) === true) {
             walkModel.position.y = 7.5
             tempVector.set(0, 0, -forwardValue).applyAxisAngle(upVector, angle)
             walkModel.position.addScaledVector(tempVector, 0.4)
             walk.play()
           }
-          else if(detectObjectCollision(walkModel, mapModel.children[194], 4.7) === true) {
+          else if(detectObjectCollision(walkModel, mapModel.children[199], 4.7) === true) {
             walkModel.position.y = 6.5
             tempVector.set(0, 0, -forwardValue).applyAxisAngle(upVector, angle)
             walkModel.position.addScaledVector(tempVector, 0.4)
@@ -1396,13 +1398,13 @@ function updatePlayer(){
         }
         else 
         {
-          if(detectObjectCollision(walkModel, mapModel.children[195], 5.1) === true) {
+          if(detectObjectCollision(walkModel, mapModel.children[200], 5.1) === true) {
             walkModel.position.y = 7.5
             tempVector.set(0, 0, backwardValue).applyAxisAngle(upVector, angle)
             walkModel.position.addScaledVector(tempVector, 0.4)
             walk.play()
           }
-          else if(detectObjectCollision(walkModel, mapModel.children[194], 4.7) === true) {
+          else if(detectObjectCollision(walkModel, mapModel.children[199], 4.7) === true) {
             walkModel.position.y = 6.5
             tempVector.set(0, 0, backwardValue).applyAxisAngle(upVector, angle)
             walkModel.position.addScaledVector(tempVector, 0.4)
@@ -1439,13 +1441,13 @@ function updatePlayer(){
           walk.play()  
         }
         else {
-          if(detectObjectCollision(walkModel, mapModel.children[195], 5.1) === true) {
+          if(detectObjectCollision(walkModel, mapModel.children[200], 5.1) === true) {
             walkModel.position.y = 7.5
             tempVector.set(-leftValue, 0, 0).applyAxisAngle(upVector, angle)
             walkModel.position.addScaledVector(tempVector, 0.4)
             walk.play()   
           }
-          else if(detectObjectCollision(walkModel, mapModel.children[194], 4.7) === true) {
+          else if(detectObjectCollision(walkModel, mapModel.children[199], 4.7) === true) {
             walkModel.position.y = 6.5
             tempVector.set(-leftValue, 0, 0).applyAxisAngle(upVector, angle)
             walkModel.position.addScaledVector(tempVector, 0.4)
@@ -1491,13 +1493,13 @@ function updatePlayer(){
           walk.play()
         }
         else {
-          if(detectObjectCollision(walkModel, mapModel.children[195], 5.1) === true) {
+          if(detectObjectCollision(walkModel, mapModel.children[200], 5.1) === true) {
             walkModel.position.y = 7.5
             tempVector.set(rightValue, 0, 0).applyAxisAngle(upVector, angle)
             walkModel.position.addScaledVector(tempVector, 0.3)
             walk.play()     
           }
-          else if(detectObjectCollision(walkModel, mapModel.children[194], 4.7) === true) {
+          else if(detectObjectCollision(walkModel, mapModel.children[199], 4.7) === true) {
             walkModel.position.y = 6.5
             tempVector.set(rightValue, 0, 0).applyAxisAngle(upVector, angle)
             walkModel.position.addScaledVector(tempVector, 0.3)
@@ -1523,8 +1525,9 @@ function updatePlayerDesktop() {
   document.onkeydown = ((event) => {
       // Move forward
       if(event.keyCode === forwardKey.value) {
-        console.log(detectObjectCollision(walkModel, bridgeHandleL1, 3) === true)
+        
         if (detectCollision(walkModel, bridge1) === true && walkModel.position.y <= (bridge1.position.y + bridge1.geometry.boundingBox.max.y) / 2.3) {
+          console.log("ok")
           walkModel.position.y = walkModel.position.y + (bridge1.position.y + bridge1.geometry.boundingBox.max.y) / 100; 
         }
         else if (detectCollision(walkModel, bridge2) === true && walkModel.position.y <= (bridge2.position.y + bridge2.geometry.boundingBox.max.y) / 2.2) {
@@ -1537,7 +1540,7 @@ function updatePlayerDesktop() {
           walkModel.position.y = walkModel.position.y - (bridge4.position.y + bridge4.geometry.boundingBox.max.y) / 50;
         }
 
-        if(detectCollision(walkModel, bridge1) === false && detectCollision(walkModel, bridge2) === false && detectCollision(walkModel, bridge3) === false && detectCollision(walkModel, bridge4) === false && detectObjectCollision(walkModel, mapModel.children[195], 5.1) === false && detectObjectCollision(walkModel, mapModel.children[194], 4.7) === false){
+        if(detectCollision(walkModel, bridge1) === false && detectCollision(walkModel, bridge2) === false && detectCollision(walkModel, bridge3) === false && detectCollision(walkModel, bridge4) === false && detectObjectCollision(walkModel, mapModel.children[200], 5.1) === false && detectObjectCollision(walkModel, mapModel.children[199], 4.7) === false){
           walkModel.position.y = 5.5;
         }
 
@@ -1567,12 +1570,12 @@ function updatePlayerDesktop() {
         }
         else 
         {
-          if(detectObjectCollision(walkModel, mapModel.children[195], 5.1) === true) {
+          if(detectObjectCollision(walkModel, mapModel.children[200], 5.1) === true) {
             walkModel.position.y = 7.5
             walkModel.translateZ(0.6);
             walkModel.translateX(-0.1);  
           }
-          else if(detectObjectCollision(walkModel, mapModel.children[194], 4.7) === true) {
+          else if(detectObjectCollision(walkModel, mapModel.children[199], 4.7) === true) {
             walkModel.position.y = 6.5
             walkModel.translateZ(0.6);
             walkModel.translateX(-0.1);  
@@ -1600,7 +1603,7 @@ function updatePlayerDesktop() {
         }
         
 
-        if(detectCollision(walkModel, bridge1) === false && detectCollision(walkModel, bridge2) === false && detectCollision(walkModel, bridge3) === false && detectCollision(walkModel, bridge4) === false && detectObjectCollision(walkModel, mapModel.children[195], 5.1) === false && detectObjectCollision(walkModel, mapModel.children[194], 4.7) === false){
+        if(detectCollision(walkModel, bridge1) === false && detectCollision(walkModel, bridge2) === false && detectCollision(walkModel, bridge3) === false && detectCollision(walkModel, bridge4) === false && detectObjectCollision(walkModel, mapModel.children[200], 5.1) === false && detectObjectCollision(walkModel, mapModel.children[199], 4.7) === false){
           walkModel.position.y = 5.5;
         }
 
@@ -1619,11 +1622,11 @@ function updatePlayerDesktop() {
           && walkModel.position.x >= (bridgeHandleR4.position.x + bridgeHandleR4.geometry.boundingBox.max.x) / 3.87
         ) {}
         else {
-          if(detectObjectCollision(walkModel, mapModel.children[195], 5.1) === true) {
+          if(detectObjectCollision(walkModel, mapModel.children[200], 5.1) === true) {
             walkModel.position.y = 7.5
             walkModel.translateX(-0.5);
           }
-          else if(detectObjectCollision(walkModel, mapModel.children[194], 4.7) === true) {
+          else if(detectObjectCollision(walkModel, mapModel.children[199], 4.7) === true) {
             walkModel.position.y = 6.5
             walkModel.translateX(-0.5);
           }
@@ -1648,7 +1651,7 @@ function updatePlayerDesktop() {
           walkModel.position.y = walkModel.position.y - (bridge4.position.y + bridge4.geometry.boundingBox.max.y) / 50;
         }
         
-        if(detectCollision(walkModel, bridge1) === false && detectCollision(walkModel, bridge2) === false && detectCollision(walkModel, bridge3) === false && detectCollision(walkModel, bridge4) === false && detectObjectCollision(walkModel, mapModel.children[195], 5.1) === false && detectObjectCollision(walkModel, mapModel.children[194], 4.7) === false){
+        if(detectCollision(walkModel, bridge1) === false && detectCollision(walkModel, bridge2) === false && detectCollision(walkModel, bridge3) === false && detectCollision(walkModel, bridge4) === false && detectObjectCollision(walkModel, mapModel.children[200], 5.1) === false && detectObjectCollision(walkModel, mapModel.children[199], 4.7) === false){
           walkModel.position.y = 5.5;
         }
 
@@ -1665,11 +1668,11 @@ function updatePlayerDesktop() {
         ) {}
         else
         {
-          if(detectObjectCollision(walkModel, mapModel.children[195], 5.1) === true) {
+          if(detectObjectCollision(walkModel, mapModel.children[200], 5.1) === true) {
             walkModel.position.y = 7.5
             walkModel.translateX(0.5);
           }
-          else if(detectObjectCollision(walkModel, mapModel.children[194], 4.7) === true) {
+          else if(detectObjectCollision(walkModel, mapModel.children[199], 4.7) === true) {
             walkModel.position.y = 6.5
             walkModel.translateX(0.5);
           }
@@ -1692,12 +1695,12 @@ function updatePlayerDesktop() {
           ) {}
           else 
           {
-            if(detectObjectCollision(walkModel, mapModel.children[195], 5.1) === true) {
+            if(detectObjectCollision(walkModel, mapModel.children[200], 5.1) === true) {
               walkModel.position.y = 7.5
               walkModel.translateX(0.1);          
               walkModel.translateZ(-0.6);
             }
-            else if(detectObjectCollision(walkModel, mapModel.children[194], 4.7) === true) {
+            else if(detectObjectCollision(walkModel, mapModel.children[199], 4.7) === true) {
               walkModel.position.y = 6.5
               walkModel.translateX(0.1);    
               walkModel.translateZ(-0.6);      
@@ -1708,7 +1711,7 @@ function updatePlayerDesktop() {
             }
           }
 
-        if(detectCollision(walkModel, bridge1) === false && detectCollision(walkModel, bridge2) === false && detectCollision(walkModel, bridge3) === false && detectCollision(walkModel, bridge4) === false && detectObjectCollision(walkModel, mapModel.children[195], 5.1) === false && detectObjectCollision(walkModel, mapModel.children[194], 4.7) === false){
+        if(detectCollision(walkModel, bridge1) === false && detectCollision(walkModel, bridge2) === false && detectCollision(walkModel, bridge3) === false && detectCollision(walkModel, bridge4) === false && detectObjectCollision(walkModel, mapModel.children[200], 5.1) === false && detectObjectCollision(walkModel, mapModel.children[199], 4.7) === false){
           walkModel.position.y = 5.5;
         }
                   
