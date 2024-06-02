@@ -420,20 +420,6 @@ onMounted(() => {
     if(deviceName.value === 'mobile') {
       setTimeout(() => {
         addMobileJoystick();
-
-        let clickBtn = document.querySelector('.click-btn');
-
-        if(clickBtn !== undefined) {
-
-          clickBtn.addEventListener('touchend', function(e) {
-            point.stop();
-
-            walkModel.visible = true;
-            pointingModel.visible = false;
-
-            pointingModel.position.copy(walkModel.position)
-          });
-        }
       }, 200)
     }
 
@@ -1527,7 +1513,6 @@ function updatePlayerDesktop() {
       if(event.keyCode === forwardKey.value) {
         
         if (detectCollision(walkModel, bridge1) === true && walkModel.position.y <= (bridge1.position.y + bridge1.geometry.boundingBox.max.y) / 2.3) {
-          console.log("ok")
           walkModel.position.y = walkModel.position.y + (bridge1.position.y + bridge1.geometry.boundingBox.max.y) / 100; 
         }
         else if (detectCollision(walkModel, bridge2) === true && walkModel.position.y <= (bridge2.position.y + bridge2.geometry.boundingBox.max.y) / 2.2) {

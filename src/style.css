@@ -543,13 +543,13 @@ a {
 
 .click-btn {
   width: 100%;
-  max-width: 80px;
+  max-width: 70px;
   position: fixed;
   bottom: 80px;
   right: calc(100% - 380px);
   background-color: orange;
   border-radius: 50%;
-  padding: 1em 1em;
+  padding: 0.2em 0.2em;
 }
 
 .click-btn-desktop {
@@ -818,7 +818,7 @@ a {
 
 @media screen and (max-width: 500px) {
   .click-btn {
-    max-width: 40px;
+    max-width: 60px;
     right: calc(100% - 220px);
   }
 
