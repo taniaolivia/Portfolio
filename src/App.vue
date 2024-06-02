@@ -1127,8 +1127,6 @@ function createModels() {
         bridge3 = mapModel.children[60];
         bridge4 = mapModel.children[61];
 
-        console.log(mapModel)
-
         bridgeHandleR2 = mapModel.children[70];
         bridgeHandleR3 = mapModel.children[71];
         bridgeHandleL2 = mapModel.children[72];
