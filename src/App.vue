@@ -35,18 +35,18 @@
         <div class="popin--description1" v-if="deviceName === 'desktop'">  
           Keys to move the character in desktop :<br>
           <ul>
-            <li class="popin--list">Z : Move forward (If you are using QWERTY KEYBOARD, the key to move forward is W)</li>
-            <li class="popin--list">S : Move backward</li>
-            <li class="popin--list">D : Move to the right</li>
-            <li class="popin--list">Q : Move to the left (If you are using QWERTY KEYBOARD, the key to move to the left is A)</li>
-            <li class="popin--list">SPACE : To do the click movement, it'll be use to open the information where there's this image <img :src="cdn + 'click-left.png'" class="click"/> and move close to it .</li>
+            <li class="popin--list"><span class="txt--bold">Z</span> : Move forward (If you are using <span class="txt--bold">QWERTY KEYBOARD</span>, the key to move forward is <span class="txt--bold">W</span>)</li>
+            <li class="popin--list"><span class="txt--bold">S</span> : Move backward</li>
+            <li class="popin--list"><span class="txt--bold">D</span> : Move to the right</li>
+            <li class="popin--list"><span class="txt--bold">Q</span> : Move to the left (If you are using <span class="txt--bold">QWERTY KEYBOARD</span>, the key to move to the left is <span class="txt--bold">A</span>)</li>
+            <li class="popin--list">SPACE : To do the click movement, it'll be use to open the information where there's this image <img :src="cdn + 'click-left.png'" class="click"/> and move close to it. <span class="txt--bold">If when you've clicked, it shows nothing that means you need to move closer to this image this image <img :src="cdn + 'click-left.png'" class="click"/></span></li>
           </ul>
 
-          <br>The keyboard by default is the EU keyboard. You can change the keyboard to EU or US by clicking one of these buttons :
+          <br>The keyboard by default is the <span class="txt--bold">EU keyboard.</span> You can change the keyboard to EU or US by clicking one of these buttons :
           <br>
           <div class="popin--buttons">
-            <button @click="changeKeyboard('EU')">EU</button>
-            <button @click="changeKeyboard('US')">US</button>    
+            <button @click="changeKeyboard('EU')" class="txt--bold">EU</button>
+            <button @click="changeKeyboard('US')" class="txt--bold">US</button>    
           </div>
           
           <br>To move the direction of the character, you need to click and drag the screen by using your trackpad or mouse. I recommend you to use mouse to have a more fluid experience.
@@ -59,7 +59,7 @@
         </div>
         <br v-if="deviceName === 'mobile'">
         <div class="popin--description1" v-if="deviceName === 'mobile'">  
-          To see the informations of each stand, you need to move closer to this image <img :src="cdn + 'click-left.png'" class="click"/> and click this button <img :src="cdn + 'left-click.png'" class="click"/> to open it.
+          To see the informations of each stand, you need to move closer to this image <img :src="cdn + 'click-left.png'" class="click"/> and click this button <img :src="cdn + 'left-click.png'" class="click"/> to open it. <span class="txt--bold">If when you've clicked, it shows nothing that means you need to move closer to this image this image <img :src="cdn + 'click-left.png'" class="click"/></span>
         </div>
         <br><br>
         <div class="popin--description1 txt--bold">  
@@ -70,7 +70,7 @@
   </div>
 
   <div class="launchScreen" v-if="showLaunchScreen">
-    <p class="txt--bold">Loading</p>
+    <p class="txt--bold">Loading...</p>
     <div class="progressBar">
       <div class="progress"></div>
     </div>
@@ -651,7 +651,7 @@ function createClickStones() {
   scene.add( spriteStone2 );
 
   spriteStone3 = new THREE.Sprite( material );
-  spriteStone3.position.set(30.346, 13.137, -77.824);
+  spriteStone3.position.set(29.346, 10.137, -77.824);
   spriteStone3.scale.set(3, 3, 3);
 
   scene.add( spriteStone3 );
@@ -1072,7 +1072,7 @@ function createTextCategory() {
     textAboutMesh = new THREE.Mesh(aboutGeometry, new THREE.MeshPhongMaterial({color: 0xFF7F00}), new THREE.MeshPhongMaterial({color: 0xFF7F00}));
 
     textAboutMesh.castShadow = true;
-    textAboutMesh.position.set(29, 14, -88.2);
+    textAboutMesh.position.set(29, 12, -88.2);
     textAboutMesh.rotation.set(0, -0.6, 0);
 
     scene.add(textAboutMesh)
@@ -1280,7 +1280,7 @@ function detectClickCollision(modelMesh, otherMesh) {
     modelBox.getSize(sizeModel);
     otherBox.getSize(sizeOther);
 
-    let distanceThreshold = 1.2;
+    let distanceThreshold = 1.3;
     // Calculate adjusted distance
     let adjustedDistance = distance;
     adjustedDistance -= sizeModel.length() / 2;
