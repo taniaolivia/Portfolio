@@ -7,7 +7,7 @@
     <div id="joystick-wrapper"></div> 
   </div>
 
-  <img :src="cdn + 'left-click.png'" class="click-btn" draggable="false" @click="click()" v-if="deviceName === 'mobile'"/>
+  <img :src="cdn + 'left-click.png'" :class="deviceName === 'mobile' ? 'click-btn' : 'click-btn-desktop'" draggable="false" @click="click()"/>
 
   <div class="popin" v-if="showPopinHow">
     <div class="popin--close" @click="close()">
@@ -33,16 +33,17 @@
         </div>
         <br>
         <div class="popin--description1" v-if="deviceName === 'desktop'">  
-          Keys to move the character in desktop :<br>
+          Keys to move the character :<br>
           <ul>
             <li class="popin--list"><span class="txt--bold">Z</span> : Move forward (If you are using <span class="txt--bold">QWERTY KEYBOARD</span>, the key to move forward is <span class="txt--bold">W</span>)</li>
             <li class="popin--list"><span class="txt--bold">S</span> : Move backward</li>
             <li class="popin--list"><span class="txt--bold">D</span> : Move to the right</li>
             <li class="popin--list"><span class="txt--bold">Q</span> : Move to the left (If you are using <span class="txt--bold">QWERTY KEYBOARD</span>, the key to move to the left is <span class="txt--bold">A</span>)</li>
-            <li class="popin--list">SPACE : To do the click movement, it'll be use to open the information where there's this image <img :src="cdn + 'click-left.png'" class="click"/> and move close to it. <span class="txt--bold">If when you've clicked, it shows nothing that means you need to move closer to this image this image <img :src="cdn + 'click-left.png'" class="click"/></span></li>
+            <li class="popin--list">SPACE : To do the click movement, it'll be use to open the information where there's this image <img :src="cdn + 'left-click.png'" class="click"/> and move close to it. <span class="txt--bold">If when you've clicked, it shows nothing that means you need to move closer to this image this image <img :src="cdn + 'left-click.png'" class="click"/></span></li>
           </ul>
 
-          <br>The keyboard by default is the <span class="txt--bold">EU keyboard.</span> You can change the keyboard to EU or US by clicking one of these buttons :
+          <br>To see the informations of each stand and others, you need to move closer to this image <img :src="cdn + 'left-click.png'" class="click"/> and click this button <img :src="cdn + 'left-click.png'" class="click click-orange"/> which is on the right side bottom to open it. <span class="txt--bold">If when you've clicked, it shows nothing that means you need to move closer to this image <img :src="cdn + 'left-click.png'" class="click"/> and reclick the button <img :src="cdn + 'left-click.png'" class="click click-orange"/></span>
+          <br><br><br>The keyboard by default is the <span class="txt--bold">EU keyboard.</span> You can change the keyboard to EU or US by clicking one of these buttons :
           <br>
           <div class="popin--buttons">
             <button @click="changeKeyboard('EU')" class="txt--bold">EU</button>
@@ -59,7 +60,7 @@
         </div>
         <br v-if="deviceName === 'mobile'">
         <div class="popin--description1" v-if="deviceName === 'mobile'">  
-          To see the informations of each stand, you need to move closer to this image <img :src="cdn + 'click-left.png'" class="click"/> and click this button <img :src="cdn + 'left-click.png'" class="click"/> to open it. <span class="txt--bold">If when you've clicked, it shows nothing that means you need to move closer to this image this image <img :src="cdn + 'click-left.png'" class="click"/></span>
+          To see the informations of each stand, you need to move closer to this image <img :src="cdn + 'left-click.png'" class="click"/> and click this button <img :src="cdn + 'left-click.png'" class="click click-orange"/> to open it. <span class="txt--bold">If when you've clicked, it shows nothing that means you need to move closer to this image <img :src="cdn + 'left-click.png'" class="click"/> and reclick the button <img :src="cdn + 'left-click.png'" class="click click-orange"/></span>
         </div>
         <br><br>
         <div class="popin--description1 txt--bold">  
@@ -122,7 +123,6 @@ let openPopin = ref(4);
 let showLaunchScreen = ref(true);
 
 
-let pointingMixer, pointingModel, point;
 let mixer, walkModel, walk;
 let wave, mapModel, bridge1, bridge2, bridge3, bridge4;
 let bridgeHandleR1, bridgeHandleR2, bridgeHandleR3, bridgeHandleR4, bridgeHandleL1, bridgeHandleL2, bridgeHandleL3, bridgeHandleL4;
@@ -466,9 +466,8 @@ function animate() {
       updatePlayerDesktop() 
     }
 
-    if(mixer !== undefined && pointingMixer !== undefined) {
+    if(mixer !== undefined) {
       mixer.update(0.1);
-      pointingMixer.update(0.04);
     }
 
     if(arrowLeftMixer !== undefined && arrowRightMixer !== undefined && arrowFrontMixer !== undefined) {
@@ -496,7 +495,7 @@ let spriteRight1, spriteRight2, spriteRight3, spriteRight4, spriteRight5, sprite
 let spriteStone1, spriteStone2, spriteStone3, spriteStone4, spriteStone5;
 
 function createClickStandsLeftSide() {
-  let  map = new THREE.TextureLoader().load( cdn2 + "click-left.png" );
+  let  map = new THREE.TextureLoader().load( cdn2 + "left-click.png" );
   map.crossOrigin = null
 
   let material = new THREE.SpriteMaterial( { map: map, color: 0xffffff });
@@ -587,7 +586,7 @@ function createClickStandsLeftSide() {
 }
 
 function createClickStandsRightSide() {
-  let  map = new THREE.TextureLoader().load(cdn2 + "click-left.png" );
+  let  map = new THREE.TextureLoader().load(cdn2 + "left-click.png" );
 
   let material = new THREE.SpriteMaterial( { map: map, color: 0xffffff });
  
@@ -635,7 +634,7 @@ function createClickStandsRightSide() {
 }
 
 function createClickStones() {
-  let  map = new THREE.TextureLoader().load(cdn2 + "click-left.png" );
+  let  map = new THREE.TextureLoader().load(cdn2 + "left-click.png" );
   let material = new THREE.SpriteMaterial( { map: map, color: 0xffffff });
  
   spriteStone1 = new THREE.Sprite( material );
@@ -1151,27 +1150,6 @@ function createModels() {
         bridgeHandleL1 = mapModel.children[71];
         bridgeHandleR1 = mapModel.children[72];
 
-        console.log(mapModel)
-
-        /*const light = new THREE.PointLight( 0xffffff, 1, 100 );
-        light.position.set( 50, 50, 50 );
-        scene.add( light );*/
-
-        loader.load(cdn + 'models/tania_pointing.glb', function ( gltf ) {
-      
-          pointingModel = gltf.scene;
-          pointingModel.scale.set(0.8, 0.8, 0.8); 
-          pointingModel.position.set(-56.5, 6.5, 85); 
-          pointingModel.rotation.set(0, -3.5, 0);
-
-          scene.add(pointingModel)
-          
-          pointingMixer = new THREE.AnimationMixer(pointingModel);
-          point = pointingMixer.clipAction(gltf.animations[0]);
-
-          pointingModel.visible = false;
-        });
-
         loader.load(cdn + 'models/tania_walking.glb', function (gltf) {
 
           walkModel = gltf.scene;
@@ -1280,7 +1258,7 @@ function detectClickCollision(modelMesh, otherMesh) {
     modelBox.getSize(sizeModel);
     otherBox.getSize(sizeOther);
 
-    let distanceThreshold = 1.3;
+    let distanceThreshold = 1.2;
     // Calculate adjusted distance
     let adjustedDistance = distance;
     adjustedDistance -= sizeModel.length() / 2;
@@ -1749,11 +1727,6 @@ function updatePlayerDesktop() {
       }
       // Click the object
       else if(event.keyCode === 32){        
-        pointingModel.position.copy(walkModel.position);
-        point.play();
-
-        walkModel.visible = false;
-        pointingModel.visible = true;
 
         if(detectClickCollision(walkModel, sprite1) == true) {
           // Viami
@@ -1878,12 +1851,7 @@ function updatePlayerDesktop() {
         walk.stop();
       }
       else if(event.keyCode === 32){
-        point.stop();
-
         walkModel.visible = true;
-        pointingModel.visible = false;
-
-        pointingModel.position.copy(walkModel.position)
       }
     })
 
@@ -1970,122 +1938,231 @@ function openInformation() {
 
 function click() {
 
-  const clickBtn = document.querySelector('.click-btn');
+  if(deviceName.value === 'mobile') {
+    const clickBtn = document.querySelector('.click-btn');
 
-  clickBtn.addEventListener('touchstart', function(e) {
-    pointingModel.position.copy(walkModel.position);
-    point.play();
+    clickBtn.addEventListener('touchstart', function(e) {
 
-    walkModel.visible = false;
-    pointingModel.visible = true;
+      if(detectClickCollision(walkModel, sprite1) == true) {
+        // Viami
+        showPopin.value = true;
+        openPopin.value = 0;
+      }
+      else if(detectClickCollision(walkModel, sprite2) == true) {
+        // Timer
+        showPopin.value = true;
+        openPopin.value = 2;
+      }
+      else if(detectClickCollision(walkModel, sprite3) == true) {
+        // Reuninou
+        showPopin.value = true;
+        openPopin.value = 4;
+      }
+      else if(detectClickCollision(walkModel, sprite4) == true) {
+        // Bicycle
+        showPopin.value = true;
+        openPopin.value = 5;
+      }
+      else if(detectClickCollision(walkModel, sprite5) == true) {
+        // Covid
+        showPopin.value = true;
+        openPopin.value = 7;
+      }
+      else if(detectClickCollision(walkModel, sprite6) == true) {
+        // Museum maritime
+        showPopin.value = true;
+        openPopin.value = 8;
+      }
+      else if(detectClickCollision(walkModel, sprite7) == true) {
+        // Lehangar.local
+        showPopin.value = true;
+        openPopin.value = 12;
+      }
+      else if(detectClickCollision(walkModel, sprite8) == true) {
+        showPopin.value = true;
+        openPopin.value = 1;
+      }
+      else if(detectClickCollision(walkModel, sprite9) == true) {
+        showPopin.value = true;
+        openPopin.value = 3;
+      }
+      else if(detectClickCollision(walkModel, sprite10) == true) {
+        showPopin.value = true;
+        openPopin.value = 6;
+      }
+      else if(detectClickCollision(walkModel, sprite11) == true) {
+        showPopin.value = true;
+        openPopin.value = 9;
+      }
+      else if(detectClickCollision(walkModel, sprite12) == true) {
+        showPopin.value = true;
+        openPopin.value = 10;
+      }
+      else if(detectClickCollision(walkModel, sprite13) == true) {
+        showPopin.value = true;
+        openPopin.value = 11;
+      }
+      else if(detectClickCollision(walkModel, sprite14) == true) {
+        showPopin.value = true;
+        openPopin.value = 13;
+      }
+      else if(detectClickCollision(walkModel, spriteRight1) == true) {
+        showPopinRD.value = true;
+        openPopin.value = 0;
+      }
+      else if(detectClickCollision(walkModel, spriteRight2) == true) {
+        showPopinRD.value = true;
+        openPopin.value = 1;
+      }
+      else if(detectClickCollision(walkModel, spriteRight3) == true) {
+        showPopinRD.value = true;
+        openPopin.value = 5;
+      }
+      else if(detectClickCollision(walkModel, spriteRight4) == true) {
+        showPopinRD.value = true;
+        openPopin.value = 4;
+      }
+      else if(detectClickCollision(walkModel, spriteRight5) == true) {
+        showPopinRD.value = true;
+        openPopin.value = 3;
+      }
+      else if(detectClickCollision(walkModel, spriteRight6) == true) {
+        showPopinRD.value = true;
+        openPopin.value = 6;
+      }
+      else if(detectClickCollision(walkModel, spriteRight7) == true) {
+        showPopinRD.value = true;
+        openPopin.value = 2;
+      }
+      else if(detectClickCollision(walkModel, spriteStone1) == true) {
+        showPopinExperience.value = true;
+      }
+      else if(detectClickCollision(walkModel, spriteStone2) == true) {
+        showPopinSkill.value = true;
+      }
+      else if(detectClickCollision(walkModel, spriteStone3) == true) {
+        showPopinAboutMe.value = true;
+      }
+      else if(detectClickCollision(walkModel, spriteStone4) == true) {
+        showPopinEducation.value = true;
+      }
+      else if(detectClickCollision(walkModel, spriteStone5) == true) {
+        showPopinMedSoc.value = true;
+      }
+    });
+  }
+  else {
+   // const clickBtn = document.querySelector('.click-btn-desktop');
 
-    if(detectClickCollision(walkModel, sprite1) == true) {
-      // Viami
-      showPopin.value = true;
-      openPopin.value = 0;
-    }
-    else if(detectClickCollision(walkModel, sprite2) == true) {
-      // Timer
-      showPopin.value = true;
-      openPopin.value = 2;
-    }
-    else if(detectClickCollision(walkModel, sprite3) == true) {
-      // Reuninou
-      showPopin.value = true;
-      openPopin.value = 4;
-    }
-    else if(detectClickCollision(walkModel, sprite4) == true) {
-      // Bicycle
-      showPopin.value = true;
-      openPopin.value = 5;
-    }
-    else if(detectClickCollision(walkModel, sprite5) == true) {
-      // Covid
-      showPopin.value = true;
-      openPopin.value = 7;
-    }
-    else if(detectClickCollision(walkModel, sprite6) == true) {
-      // Museum maritime
-      showPopin.value = true;
-      openPopin.value = 8;
-    }
-    else if(detectClickCollision(walkModel, sprite7) == true) {
-      // Lehangar.local
-      showPopin.value = true;
-      openPopin.value = 12;
-    }
-    else if(detectClickCollision(walkModel, sprite8) == true) {
-      showPopin.value = true;
-      openPopin.value = 1;
-    }
-    else if(detectClickCollision(walkModel, sprite9) == true) {
-      showPopin.value = true;
-      openPopin.value = 3;
-    }
-    else if(detectClickCollision(walkModel, sprite10) == true) {
-      showPopin.value = true;
-      openPopin.value = 6;
-    }
-    else if(detectClickCollision(walkModel, sprite11) == true) {
-      showPopin.value = true;
-      openPopin.value = 9;
-    }
-    else if(detectClickCollision(walkModel, sprite12) == true) {
-      showPopin.value = true;
-      openPopin.value = 10;
-    }
-    else if(detectClickCollision(walkModel, sprite13) == true) {
-      showPopin.value = true;
-      openPopin.value = 11;
-    }
-    else if(detectClickCollision(walkModel, sprite14) == true) {
-      showPopin.value = true;
-      openPopin.value = 13;
-    }
-    else if(detectClickCollision(walkModel, spriteRight1) == true) {
-      showPopinRD.value = true;
-      openPopin.value = 0;
-    }
-    else if(detectClickCollision(walkModel, spriteRight2) == true) {
-      showPopinRD.value = true;
-      openPopin.value = 1;
-    }
-    else if(detectClickCollision(walkModel, spriteRight3) == true) {
-      showPopinRD.value = true;
-      openPopin.value = 5;
-    }
-    else if(detectClickCollision(walkModel, spriteRight4) == true) {
-      showPopinRD.value = true;
-      openPopin.value = 4;
-    }
-    else if(detectClickCollision(walkModel, spriteRight5) == true) {
-      showPopinRD.value = true;
-      openPopin.value = 3;
-    }
-    else if(detectClickCollision(walkModel, spriteRight6) == true) {
-      showPopinRD.value = true;
-      openPopin.value = 6;
-    }
-    else if(detectClickCollision(walkModel, spriteRight7) == true) {
-      showPopinRD.value = true;
-      openPopin.value = 2;
-    }
-    else if(detectClickCollision(walkModel, spriteStone1) == true) {
-      showPopinExperience.value = true;
-    }
-    else if(detectClickCollision(walkModel, spriteStone2) == true) {
-      showPopinSkill.value = true;
-    }
-    else if(detectClickCollision(walkModel, spriteStone3) == true) {
-      showPopinAboutMe.value = true;
-    }
-    else if(detectClickCollision(walkModel, spriteStone4) == true) {
-      showPopinEducation.value = true;
-    }
-    else if(detectClickCollision(walkModel, spriteStone5) == true) {
-      showPopinMedSoc.value = true;
-    }
-  });
+    //clickBtn.addEventListener('mousedown', function(e) {
+      if(detectClickCollision(walkModel, sprite1) == true) {
+        // Viami
+        showPopin.value = true;
+        openPopin.value = 0;
+      }
+      else if(detectClickCollision(walkModel, sprite2) == true) {
+        // Timer
+        showPopin.value = true;
+        openPopin.value = 2;
+      }
+      else if(detectClickCollision(walkModel, sprite3) == true) {
+        // Reuninou
+        showPopin.value = true;
+        openPopin.value = 4;
+      }
+      else if(detectClickCollision(walkModel, sprite4) == true) {
+        // Bicycle
+        showPopin.value = true;
+        openPopin.value = 5;
+      }
+      else if(detectClickCollision(walkModel, sprite5) == true) {
+        // Covid
+        showPopin.value = true;
+        openPopin.value = 7;
+      }
+      else if(detectClickCollision(walkModel, sprite6) == true) {
+        // Museum maritime
+        showPopin.value = true;
+        openPopin.value = 8;
+      }
+      else if(detectClickCollision(walkModel, sprite7) == true) {
+        // Lehangar.local
+        showPopin.value = true;
+        openPopin.value = 12;
+      }
+      else if(detectClickCollision(walkModel, sprite8) == true) {
+        showPopin.value = true;
+        openPopin.value = 1;
+      }
+      else if(detectClickCollision(walkModel, sprite9) == true) {
+        showPopin.value = true;
+        openPopin.value = 3;
+      }
+      else if(detectClickCollision(walkModel, sprite10) == true) {
+        showPopin.value = true;
+        openPopin.value = 6;
+      }
+      else if(detectClickCollision(walkModel, sprite11) == true) {
+        showPopin.value = true;
+        openPopin.value = 9;
+      }
+      else if(detectClickCollision(walkModel, sprite12) == true) {
+        showPopin.value = true;
+        openPopin.value = 10;
+      }
+      else if(detectClickCollision(walkModel, sprite13) == true) {
+        showPopin.value = true;
+        openPopin.value = 11;
+      }
+      else if(detectClickCollision(walkModel, sprite14) == true) {
+        showPopin.value = true;
+        openPopin.value = 13;
+      }
+      else if(detectClickCollision(walkModel, spriteRight1) == true) {
+        showPopinRD.value = true;
+        openPopin.value = 0;
+      }
+      else if(detectClickCollision(walkModel, spriteRight2) == true) {
+        showPopinRD.value = true;
+        openPopin.value = 1;
+      }
+      else if(detectClickCollision(walkModel, spriteRight3) == true) {
+        showPopinRD.value = true;
+        openPopin.value = 5;
+      }
+      else if(detectClickCollision(walkModel, spriteRight4) == true) {
+        showPopinRD.value = true;
+        openPopin.value = 4;
+      }
+      else if(detectClickCollision(walkModel, spriteRight5) == true) {
+        showPopinRD.value = true;
+        openPopin.value = 3;
+      }
+      else if(detectClickCollision(walkModel, spriteRight6) == true) {
+        showPopinRD.value = true;
+        openPopin.value = 6;
+      }
+      else if(detectClickCollision(walkModel, spriteRight7) == true) {
+        showPopinRD.value = true;
+        openPopin.value = 2;
+      }
+      else if(detectClickCollision(walkModel, spriteStone1) == true) {
+        showPopinExperience.value = true;
+      }
+      else if(detectClickCollision(walkModel, spriteStone2) == true) {
+        showPopinSkill.value = true;
+      }
+      else if(detectClickCollision(walkModel, spriteStone3) == true) {
+        showPopinAboutMe.value = true;
+      }
+      else if(detectClickCollision(walkModel, spriteStone4) == true) {
+        showPopinEducation.value = true;
+      }
+      else if(detectClickCollision(walkModel, spriteStone5) == true) {
+        showPopinMedSoc.value = true;
+      }
+    //});
+  }
 }
 
 </script>
