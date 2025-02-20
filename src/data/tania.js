@@ -13,7 +13,6 @@ const data = {
                 link: [
                     "https://github.com/taniaolivia/Viami-Back",
                     "https://github.com/taniaolivia/Viami-Front",
-                    "https://apps.apple.com/app/viami/id6474764405"
                 ],
                 ressources: [
                     {
@@ -84,27 +83,27 @@ const data = {
                     {
                         page: "List of Capsules Page - React.js",
                         description: "",
-                        image: "https://d1y03iejmbtlm3.cloudfront.net/portfolio/datas/projects/spacex/list_capsules_reactjs.png"
+                        image: "/assets/datas/projects/spacex/list_capsules_reactjs.png"
                     },
                     {
                         page: "List of Launches Page - React.js",
                         description: "",
-                        image: "https://d1y03iejmbtlm3.cloudfront.net/portfolio/datas/projects/spacex/list_launches_reactjs.png"
+                        image: "/assets/datas/projects/spacex/list_launches_reactjs.png"
                     },
                     {
                         page: "Details of Capsule Page - React.js",
                         description: "",
-                        image: "https://d1y03iejmbtlm3.cloudfront.net/portfolio/datas/projects/spacex/capsule_details_reactjs.png"
+                        image: "/assets/datas/projects/spacex/capsule_details_reactjs.png"
                     },
                     {
                         page: "List of Capsules Page - Vue.js",
                         description: "",
-                        image: "https://d1y03iejmbtlm3.cloudfront.net/portfolio/datas/projects/spacex/list_capsules_vuejs.png"
+                        image: "/assets/datas/projects/spacex/list_capsules_vuejs.png"
                     },
                     {
                         page: "List of Launches Page - Vue.js",
                         description: "",
-                        image: "https://d1y03iejmbtlm3.cloudfront.net/portfolio/datas/projects/spacex/list_launches_vuejs.png"
+                        image: "/assets/datas/projects/spacex/list_launches_vuejs.png"
                     },
                 ]
             },
@@ -136,32 +135,32 @@ const data = {
                     {
                         page: "Home Page - Back Office",
                         description: "This page is the home page of the back office which is accessible only for the admin.",
-                        image: "https://d1y03iejmbtlm3.cloudfront.net/portfolio/datas/projects/reuninou/hp.png"
+                        image: "/assets/datas/projects/reuninou/hp.png"
                     },
                     {
                         page: "Sign In Page",
                         description: "This page is the connection page of the back office which is accessible only for the admin.",
-                        image: "https://d1y03iejmbtlm3.cloudfront.net/portfolio/datas/projects/reuninou/sign_in.png"
+                        image: "/assets/datas/projects/reuninou/sign_in.png"
                     },
                     {
                         page: "List of All Users Page",
                         description: "This page displays all the users in the application. This is part of the back office which is accessible only for the admin.",
-                        image: "https://d1y03iejmbtlm3.cloudfront.net/portfolio/datas/projects/reuninou/list_users.png"
+                        image: "/assets/datas/projects/reuninou/list_users.png"
                     },
                     {
                         page: "List of All Events Organised By All Users Page",
                         description: "This page displays all the events organised by all users in the application. This is part of the back office which is accessible only for the admin.",
-                        image: "https://d1y03iejmbtlm3.cloudfront.net/portfolio/datas/projects/reuninou/list_events.png"
+                        image: "/assets/datas/projects/reuninou/list_events.png"
                     },
                     {
                         page: "List of All Events Participated of A User Page",
                         description: "This page displays all the events participated by a specific user in the application. This is part of the back office which is accessible only for the admin.",
-                        image: "https://d1y03iejmbtlm3.cloudfront.net/portfolio/datas/projects/reuninou/list_events_participated_user.png"
+                        image: "/assets/datas/projects/reuninou/list_events_participated_user.png"
                     },
                     {
                         page: "List of All Events Organised By A User Page",
                         description: "This page displays all the events organised by a specific user in the application. This is part of the back office which is accessible only for the admin.",
-                        image: "https://d1y03iejmbtlm3.cloudfront.net/portfolio/datas/projects/reuninou/list_events_user.png"
+                        image: "/assets/datas/projects/reuninou/list_events_user.png"
                     },
                 ]
             },
@@ -182,17 +181,17 @@ const data = {
                     {
                         page: "Map Of Bicycle Stations",
                         description: "This is where a user can see all the bicycle stations available in Nancy, France and know their current position in the map.",
-                        image: "https://d1y03iejmbtlm3.cloudfront.net/portfolio/datas/projects/bicycle/map.png"
+                        image: "/assets/datas/projects/bicycle/map.png"
                     },
                     {
                         page: "Weather Forecast",
                         description: "This is where a user can see the weather in Nancy, France",
-                        image: "https://d1y03iejmbtlm3.cloudfront.net/portfolio/datas/projects/bicycle/weather.png"
+                        image: "/assets/datas/projects/bicycle/weather.png"
                     },
                     {
                         page: "Air Quality Diagram",
                         description: "This is where a user can see a diagram of the air quality in Grand Est, France.",
-                        image: "https://d1y03iejmbtlm3.cloudfront.net/portfolio/datas/projects/bicycle/air.png"
+                        image: "/assets/datas/projects/bicycle/air.png"
                     },
                 ]
             },
@@ -215,87 +214,87 @@ const data = {
                     {
                         page: "Home Page - Listener/Invited Guest",
                         description: "This page is only available for listener and invited guest. It is the homepage of Net'Radio.",
-                        image: "https://d1y03iejmbtlm3.cloudfront.net/portfolio/datas/projects/netradio/hp.png"
+                        image: "/assets/datas/projects/netradio/hp.png"
                     },
                     {
                         page: "Connection Page - Listener/Invited Guest",
                         description: "This page is only available for listener and invited guest. It is a page to sign in and sign up where a user can create an account or connect to an account.",
-                        image: "https://d1y03iejmbtlm3.cloudfront.net/portfolio/datas/projects/netradio/sign_in.png"
+                        image: "/assets/datas/projects/netradio/sign_in.png"
                     },
                     {
                         page: "Invitation Link Form - Listener/Invited Guest",
                         description: "This page is only available for listener and invited guest. It displays a popup form to insert an invitation link. This link is only for the invited guest who gets a link from the presenter.",
-                        image: "https://d1y03iejmbtlm3.cloudfront.net/portfolio/datas/projects/netradio/invitation.png"
+                        image: "/assets/datas/projects/netradio/invitation.png"
                     },
                     {
                         page: "Live Podcast - Listener/Invited Guest",
                         description: "his page is only available for listener and invited guest. In Net'Radio, a user can listen to a live podcast.",
-                        image: "https://d1y03iejmbtlm3.cloudfront.net/portfolio/datas/projects/netradio/live.png"
+                        image: "/assets/datas/projects/netradio/live.png"
                     },
                     {
                         page: "Presenter's Podcasts Page - Listener/Invited Guest",
                         description: "This page is only available for listener and invited guest. It displays an information about the presenter and list of his/her podcasts.",
-                        image: "https://d1y03iejmbtlm3.cloudfront.net/portfolio/datas/projects/netradio/presenter_podcast.png"
+                        image: "/assets/datas/projects/netradio/presenter_podcast.png"
                     },
                     {
                         page: "Replay A Podcast's Episode - Listener/Invited Guest",
                         description: "This page is only available for listener and invited guest. In Net'Radio, a user can listen to a replay of any episodes available in the presenter's podcast channel.",
-                        image: "https://d1y03iejmbtlm3.cloudfront.net/portfolio/datas/projects/netradio/replay.png"
+                        image: "/assets/datas/projects/netradio/replay.png"
                     },
                     {
                         page: "Weekly Program Page - Listener/Invited Guest",
                         description: "This page is only available for listener and invited guest. It displays a list of programs weekly.",
-                        image: "https://d1y03iejmbtlm3.cloudfront.net/portfolio/datas/projects/netradio/weekly_program.png"
+                        image: "/assets/datas/projects/netradio/weekly_program.png"
                     },
                     {
                         page: "Detail of A Podcast's Episode - Listener/Invited Guest",
                         description: "This page is only available for listener and invited guest. It displays a popup with a podcast's episode information.",
-                        image: "https://d1y03iejmbtlm3.cloudfront.net/portfolio/datas/projects/netradio/podcast_details.png"
+                        image: "/assets/datas/projects/netradio/podcast_details.png"
                     },
                     {
                         page: "Creation Of A Schedule Page - Administrator",
                         description: "This page is only available for administrator. In this is a page an administrator arranges/gives each presenter a timetable/schedule. Each presenter will get at least one date and time per week.",
-                        image: "https://d1y03iejmbtlm3.cloudfront.net/portfolio/datas/projects/netradio/create_schedule.png"
+                        image: "/assets/datas/projects/netradio/create_schedule.png"
                     },
                     {
                         page: "List Of Presenters Page - Administrator",
                         description: "This page is only available for administrator. It displays a list of presenters.",
-                        image: "https://d1y03iejmbtlm3.cloudfront.net/portfolio/datas/projects/netradio/list_presenters.png"
+                        image: "/assets/datas/projects/netradio/list_presenters.png"
                     },
                     {
                         page: "Manage A Presenter's Account Page - Administrator",
                         description: "This page is only available for administrator. In this page, an administrator has the ability to manage all the accounts of presenters.",
-                        image: "https://d1y03iejmbtlm3.cloudfront.net/portfolio/datas/projects/netradio/manage_account.png"
+                        image: "/assets/datas/projects/netradio/manage_account.png"
                     },
                     {
                         page: "Timetable Page - Presenter",
                         description: "This page is only available for presenter. It displays a list of date and time available to be scheduled for a live podcast.",
-                        image: "https://d1y03iejmbtlm3.cloudfront.net/portfolio/datas/projects/netradio/timetable.png"
+                        image: "/assets/datas/projects/netradio/timetable.png"
                     },
                     {
                         page: "Scheduling A Live Podcast Form - Presenter",
                         description: "This is page is only available for presenter. It displays a popup form where a presenter can fill the details with a live podcast they want to schedule.",
-                        image: "https://d1y03iejmbtlm3.cloudfront.net/portfolio/datas/projects/netradio/schedule_form.png"
+                        image: "/assets/datas/projects/netradio/schedule_form.png"
                     },
                     {
                         page: "Start A Live Podcast Page - Presenter",
                         description: "This page is only available for presenter. It displays the information of a live podcast and a button to start the live.",
-                        image: "https://d1y03iejmbtlm3.cloudfront.net/portfolio/datas/projects/netradio/start_live.png"
+                        image: "/assets/datas/projects/netradio/start_live.png"
                     },
                     {
                         page: "Live Podcast Page - Presenter",
                         description: "This page is only available for presenter. It is a page when a presenter is 'Live'. A presenter can play a live music and also stop a live. ",
-                        image: "https://d1y03iejmbtlm3.cloudfront.net/portfolio/datas/projects/netradio/live_presenter.png"
+                        image: "/assets/datas/projects/netradio/live_presenter.png"
                     },
                     {
                         page: "Stop Live Podcast - Presenter",
                         description: "This is a popup to stop a live podcast when the presenter clicked a 'Stop' button.",
-                        image: "https://d1y03iejmbtlm3.cloudfront.net/portfolio/datas/projects/netradio/stop_live.png"
+                        image: "/assets/datas/projects/netradio/stop_live.png"
                     },
                     {
                         page: "My Podcast - Presenter",
                         description: "This page is only available for presenter. It displays all the episodes of each podcast the presenter's had done. The presenter can either put the podcast's episode to be seen publicly or remove it.",
-                        image: "https://d1y03iejmbtlm3.cloudfront.net/portfolio/datas/projects/netradio/my_podcast.png"
+                        image: "/assets/datas/projects/netradio/my_podcast.png"
                     },
                 ]
             },
@@ -313,92 +312,92 @@ const data = {
                     {
                         page: "Sign In Page",
                         description: "This page is where a user can sign in to their account.",
-                        image: "https://d1y03iejmbtlm3.cloudfront.net/portfolio/datas/projects/covid/sign_in.png"
+                        image: "/assets/datas/projects/covid/sign_in.png"
                     },
                     {
                         page: "Sign Up Page",
                         description: "This is where a user can create an account.",
-                        image: "https://d1y03iejmbtlm3.cloudfront.net/portfolio/datas/projects/covid/sign_up.png"
+                        image: "/assets/datas/projects/covid/sign_up.png"
                     },
                     {
                         page: "User's Account Page",
                         description: "This is where a user can see the detail of their account such as username, email, status and current position.",
-                        image: "https://d1y03iejmbtlm3.cloudfront.net/portfolio/datas/projects/covid/my_account.png"
+                        image: "/assets/datas/projects/covid/my_account.png"
                     },
                     {
                         page: "Update Password Page",
                         description: "This is where a user can update/modify their password.",
-                        image: "https://d1y03iejmbtlm3.cloudfront.net/portfolio/datas/projects/covid/update_pass.png"
+                        image: "/assets/datas/projects/covid/update_pass.png"
                     },
                     {
                         page: "My Contact Page",
                         description: "This is all of the contacts of the user.",
-                        image: "https://d1y03iejmbtlm3.cloudfront.net/portfolio/datas/projects/covid/my_contact.png"
+                        image: "/assets/datas/projects/covid/my_contact.png"
                     },
                     {
                         page: "Contact Profile Page",
                         description: "This is a page where a user can see the detail of their friends in his/her contact.",
-                        image: "https://d1y03iejmbtlm3.cloudfront.net/portfolio/datas/projects/covid/contact_profile.png"
+                        image: "/assets/datas/projects/covid/contact_profile.png"
                     },
                     {
                         page: "Private Messenger Page",
                         description: "This is a page where a user can send a private message to a friend that has been added by the user to his/her contact list.",
-                        image: "https://d1y03iejmbtlm3.cloudfront.net/portfolio/datas/projects/covid/chat.png"
+                        image: "/assets/datas/projects/covid/chat.png"
                     },
                     {
                         page: "My Group Page",
                         description: "This is a list of groups that a user participates in.",
-                        image: "https://d1y03iejmbtlm3.cloudfront.net/portfolio/datas/projects/covid/my_group.png"
+                        image: "/assets/datas/projects/covid/my_group.png"
                     },
                     {
                         page: "List Of Users Page",
                         description: "This is a page where a user can see all of the users registered in this website.",
-                        image: "https://d1y03iejmbtlm3.cloudfront.net/portfolio/datas/projects/covid/list_users.png"
+                        image: "/assets/datas/projects/covid/list_users.png"
                     },
                     {
                         page: "User's Profile Page",
                         description: "This is a page where a user can see the detail of the other users such as email, username, position, etc with a button 'add to contact' if a user hasn't added her/him yet.",
-                        image: "https://d1y03iejmbtlm3.cloudfront.net/portfolio/datas/projects/covid/user_profile.png"
+                        image: "/assets/datas/projects/covid/user_profile.png"
                     },
                     {
                         page: "List Of Groups Page",
                         description: "This is a page which list all of the groups.",
-                        image: "https://d1y03iejmbtlm3.cloudfront.net/portfolio/datas/projects/covid/list_groups.png"
+                        image: "/assets/datas/projects/covid/list_groups.png"
                     },
                     {
                         page: "Group Details Page",
                         description: "This is a page where a user can see the group information such as name and members of the group.",
-                        image: "https://d1y03iejmbtlm3.cloudfront.net/portfolio/datas/projects/covid/group_details.png"
+                        image: "/assets/datas/projects/covid/group_details.png"
                     },
                     {
                         page: "Create A Post Page",
                         description: "This is a page where a user can create a post in the group announcement board.",
-                        image: "https://d1y03iejmbtlm3.cloudfront.net/portfolio/datas/projects/covid/create_post.png"
+                        image: "/assets/datas/projects/covid/create_post.png"
                     },
                     {
                         page: "Announcement Board Page",
                         description: "This is a page which list all of the posts posted by the group members.",
-                        image: "https://d1y03iejmbtlm3.cloudfront.net/portfolio/datas/projects/covid/board.png"
+                        image: "/assets/datas/projects/covid/board.png"
                     },
                     {
                         page: "Post's Details Page",
                         description: "This is a page where a user can see the information of a post.",
-                        image: "https://d1y03iejmbtlm3.cloudfront.net/portfolio/datas/projects/covid/post_details.png"
+                        image: "/assets/datas/projects/covid/post_details.png"
                     },
                     {
                         page: "Group Messenger Page",
                         description: "This is a page where all member of the groups can chat.",
-                        image: "https://d1y03iejmbtlm3.cloudfront.net/portfolio/datas/projects/covid/group_chat.png"
+                        image: "/assets/datas/projects/covid/group_chat.png"
                     },
                     {
                         page: "Location Of Infected Users Page",
                         description: "This is a page where a user can see the location of infected users.",
-                        image: "https://d1y03iejmbtlm3.cloudfront.net/portfolio/datas/projects/covid/location_infected.png"
+                        image: "/assets/datas/projects/covid/location_infected.png"
                     },
                     {
                         page: "Report Positive Covid-19 Form Page",
                         description: "This is a page where a user can report himself/herself if he/she is infected.",
-                        image: "https://d1y03iejmbtlm3.cloudfront.net/portfolio/datas/projects/covid/report.png"
+                        image: "/assets/datas/projects/covid/report.png"
                     },
                 ]
             },
@@ -419,42 +418,42 @@ const data = {
                     {
                         page: "Home Page",
                         description: "This is a home page where a user can see if the museum is open or not based on the current time, the wather forecast, map of all the positions of the boats/ships.",
-                        image: "https://d1y03iejmbtlm3.cloudfront.net/portfolio/datas/projects/maritime/hp.png"
+                        image: "/assets/datas/projects/maritime/hp.png"
                     },
                     {
                         page: "Weather Forecast Page",
                         description: "This page displays the weather forecast of the current city and time. It displays three days weather.",
-                        image: "https://d1y03iejmbtlm3.cloudfront.net/portfolio/datas/projects/maritime/weather.png"
+                        image: "/assets/datas/projects/maritime/weather.png"
                     },
                     {
                         page: "List Of Ships/Boats Page",
                         description: "This page displays a list of ships or boats with a photo and name of the ship or boat.",
-                        image: "https://d1y03iejmbtlm3.cloudfront.net/portfolio/datas/projects/maritime/list_ships.png"
+                        image: "/assets/datas/projects/maritime/list_ships.png"
                     },
                     {
                         page: "Ship's Information Page",
                         description: "This page displays the selected ship's information.",
-                        image: "https://d1y03iejmbtlm3.cloudfront.net/portfolio/datas/projects/maritime/ship_info.png"
+                        image: "/assets/datas/projects/maritime/ship_info.png"
                     },
                     {
                         page: "List Of Testimonies Page",
                         description: "This page displays a list of testimonies about all the boats or ships in Museum Maritime.",
-                        image: "https://d1y03iejmbtlm3.cloudfront.net/portfolio/datas/projects/maritime/list_testimonies.png"
+                        image: "/assets/datas/projects/maritime/list_testimonies.png"
                     },
                     {
                         page: "Time Table Of A Ship Page",
                         description: "This page displays a time table or a schedule to know at what time the tickets are still available to be reserved.",
-                        image: "https://d1y03iejmbtlm3.cloudfront.net/portfolio/datas/projects/maritime/timetable.png"
+                        image: "/assets/datas/projects/maritime/timetable.png"
                     },
                     {
                         page: "Reservation Page",
                         description: "This page is to reserve a ticket to visit the museum.",
-                        image: "https://d1y03iejmbtlm3.cloudfront.net/portfolio/datas/projects/maritime/reservation.png"
+                        image: "/assets/datas/projects/maritime/reservation.png"
                     },
                     {
                         page: "Gallery Photo Page",
                         description: "This page is a gallery photo of ships or boats.",
-                        image: "https://d1y03iejmbtlm3.cloudfront.net/portfolio/datas/projects/maritime/gallery.png"
+                        image: "/assets/datas/projects/maritime/gallery.png"
                     },
                 ]
             },
@@ -472,47 +471,47 @@ const data = {
                     {
                         page: "Home Page",
                         description: "This page is a homepage.",
-                        image: "https://d1y03iejmbtlm3.cloudfront.net/portfolio/datas/projects/beehoneyst/hp.png"
+                        image: "/assets/datas/projects/beehoneyst/hp.png"
                     },
                     {
                         page: "Sign In Page",
                         description: "This page is where a user can sign in by filling the form.",
-                        image:  "https://d1y03iejmbtlm3.cloudfront.net/portfolio/datas/projects/beehoneyst/sign_in.png"
+                        image:  "/assets/datas/projects/beehoneyst/sign_in.png"
                     },
                     {
                         page: "Sign Up Page",
                         description: "This page is where a user can sign up by filling the form.",
-                        image:  "https://d1y03iejmbtlm3.cloudfront.net/portfolio/datas/projects/beehoneyst/sign_up.png"
+                        image:  "/assets/datas/projects/beehoneyst/sign_up.png"
                     },
                     {
                         page: "Game Page",
                         description: "This page is where the game starts. A user will scan a QR code and get an information from the OR code.",
-                        image:  "https://d1y03iejmbtlm3.cloudfront.net/portfolio/datas/projects/beehoneyst/game.png"
+                        image:  "/assets/datas/projects/beehoneyst/game.png"
                     },
                     {
                         page: "List Of Plants Page",
                         description: "This page displays a list of plants with a name, a description and a photo for each plant.",
-                        image: "https://d1y03iejmbtlm3.cloudfront.net/portfolio/datas/projects/beehoneyst/list_plant.png"
+                        image: "/assets/datas/projects/beehoneyst/list_plant.png"
                     },
                     {
                         page: "Map Page",
                         description: "In this page, a user can know their position and the location of each plant. Each plant displays a name.",
-                        image: "https://d1y03iejmbtlm3.cloudfront.net/portfolio/datas/projects/beehoneyst/map.png"
+                        image: "/assets/datas/projects/beehoneyst/map.png"
                     },
                     {
                         page: "Map Of Game Page",
                         description: "In this page, a user can know their position and the location of each plant. This map is different from the general map because this page is a map of the game. So, each plant displays not only a name but also a photo and a OR code.",
-                        image: "https://d1y03iejmbtlm3.cloudfront.net/portfolio/datas/projects/beehoneyst/map_game.png"
+                        image: "/assets/datas/projects/beehoneyst/map_game.png"
                     },
                     {
                         page: "Leaderboard Page",
                         description: "This page displays the best 10 players and their points.",
-                        image: "https://d1y03iejmbtlm3.cloudfront.net/portfolio/datas/projects/beehoneyst/leaderboard.png"
+                        image: "/assets/datas/projects/beehoneyst/leaderboard.png"
                     },
                     {
                         page: "Information Page",
                         description: "This page explains the objective of this game and how to play the game.",
-                        image: "https://d1y03iejmbtlm3.cloudfront.net/portfolio/datas/projects/beehoneyst/info.png"
+                        image: "/assets/datas/projects/beehoneyst/info.png"
                     },
                 ]
             },
@@ -530,22 +529,22 @@ const data = {
                     {
                         page: "List Of All Medias",
                         description: "It displays all medias with their names, descriptions, ratings and many more.",
-                        image: "https://d1y03iejmbtlm3.cloudfront.net/portfolio/datas/projects/media_library/list.png"
+                        image: "/assets/datas/projects/media_library/list.png"
                     },
                     {
                         page: "Filtered List",
                         description: "The media is filtered by type of medias by clicking one of the medias provided (Game, Music, Film) on the navigation bar.",
-                        image: "https://d1y03iejmbtlm3.cloudfront.net/portfolio/datas/projects/media_library/filtered.png"
+                        image: "/assets/datas/projects/media_library/filtered.png"
                     },
                     {
                         page: "Add Media",
                         description: "This is a form where a user is able to add a new media.",
-                        image: "https://d1y03iejmbtlm3.cloudfront.net/portfolio/datas/projects/media_library/add.png"
+                        image: "/assets/datas/projects/media_library/add.png"
                     },
                     {
                         page: "Edit Media",
                         description: "This is a form where a user is able to edit an existing media.",
-                        image: "https://d1y03iejmbtlm3.cloudfront.net/portfolio/datas/projects/media_library/edit.png"
+                        image: "/assets/datas/projects/media_library/edit.png"
                     },
                 ]
             },
@@ -563,27 +562,27 @@ const data = {
                     {
                         page: "Demontrastion of Breakout Game",
                         description: "This is where a user can play the game, save the game and see the leaderboard.",
-                        image: "https://d1y03iejmbtlm3.cloudfront.net/portfolio/datas/projects/breakout/game.png"
+                        image: "/assets/datas/projects/breakout/game.png"
                     },
                     {
                         page: "Play Breakout Game",
                         description: "This is how to play a breakout game.",
-                        image: "https://d1y03iejmbtlm3.cloudfront.net/portfolio/datas/projects/breakout/brickbreaker.mov"
+                        image: "/assets/datas/projects/breakout/brickbreaker.mov"
                     },
                     {
                         page: "Paddle",
                         description: "This is the design of the paddle used in the game.",
-                        image: "https://d1y03iejmbtlm3.cloudfront.net/portfolio/datas/projects/breakout/paddle.png"
+                        image: "/assets/datas/projects/breakout/paddle.png"
                     },
                     {
                         page: "Ball",
                         description: "This is the design of the ball used in the game.",
-                        image: "https://d1y03iejmbtlm3.cloudfront.net/portfolio/datas/projects/breakout/ball.png"
+                        image: "/assets/datas/projects/breakout/ball.png"
                     },
                     {
                         page: "Brick",
                         description: "This is the design of the brick used in the game.",
-                        image: "https://d1y03iejmbtlm3.cloudfront.net/portfolio/datas/projects/breakout/brick.png"
+                        image: "/assets/datas/projects/breakout/brick.png"
                     },
                 ]
             },
@@ -609,62 +608,62 @@ const data = {
                     {
                         page: "Home Page",
                         description: "This is the homepage of 'lehangal.local' web application.",
-                        image: "https://d1y03iejmbtlm3.cloudfront.net/portfolio/datas/projects/lehangar/hp.png"
+                        image: "/assets/datas/projects/lehangar/hp.png"
                     },
                     {
                         page: "Connection Page",
                         description: "This is a connection page which is used only by a registered distributor and seller. So, a client doesn't need to create an account to buy something.",
-                        image: "https://d1y03iejmbtlm3.cloudfront.net/portfolio/datas/projects/lehangar/sign_in.png"
+                        image: "/assets/datas/projects/lehangar/sign_in.png"
                     },
                     {
                         page: "List Of Products Page",
                         description: "This is a page where a client can see all the products.",
-                        image: "https://d1y03iejmbtlm3.cloudfront.net/portfolio/datas/projects/lehangar/list_products.png"
+                        image: "/assets/datas/projects/lehangar/list_products.png"
                     },
                     {
                         page: "Detail Of A Product Page",
                         description: "This is a page where it details the information of each product.",
-                        image: "https://d1y03iejmbtlm3.cloudfront.net/portfolio/datas/projects/lehangar/product_details.png"
+                        image: "/assets/datas/projects/lehangar/product_details.png"
                     },
                     {
                         page: "List Of Sellers Page",
                         description: "This page displays a list of sellers that sell a product.",
-                        image: "https://d1y03iejmbtlm3.cloudfront.net/portfolio/datas/projects/lehangar/list_sellers.png"
+                        image: "/assets/datas/projects/lehangar/list_sellers.png"
                     },
                     {
                         page: "Seller's Information Page",
                         description: "This page displays the information of each seller.",
-                        image: "https://d1y03iejmbtlm3.cloudfront.net/portfolio/datas/projects/lehangar/seller_info.png"
+                        image: "/assets/datas/projects/lehangar/seller_info.png"
                     },
                     {
                         page: "Shopping Cart Page",
                         description: "This page displays all the products that have been added to the shopping cart by a client.",
-                        image: "https://d1y03iejmbtlm3.cloudfront.net/portfolio/datas/projects/lehangar/cart.png"
+                        image: "/assets/datas/projects/lehangar/cart.png"
                     },
                     {
                         page: "Client's Information Page",
                         description: "This is a page which displays a form that needs to be filled by a client's data such as name, address, phone number, etc.",
-                        image: "https://d1y03iejmbtlm3.cloudfront.net/portfolio/datas/projects/lehangar/client_info.png"
+                        image: "/assets/datas/projects/lehangar/client_info.png"
                     },
                     {
                         page: "List of demanded products (Producer)",
                         description: "This is a page where the producer can see a list of demanded products.",
-                        image: "https://d1y03iejmbtlm3.cloudfront.net/portfolio/datas/projects/lehangar/list_demanded_products.png"
+                        image: "/assets/datas/projects/lehangar/list_demanded_products.png"
                     },
                     {
                         page: "List of commands (Manager)",
                         description: "This is a page where a manager will manage the status of each command.",
-                        image: "https://d1y03iejmbtlm3.cloudfront.net/portfolio/datas/projects/lehangar/list_commands.png"
+                        image: "/assets/datas/projects/lehangar/list_commands.png"
                     },
                     {
                         page: "Dashboard (Manager)",
                         description: "This a page where a manager can see the number of clients, producers, commands, etc.",
-                        image: "https://d1y03iejmbtlm3.cloudfront.net/portfolio/datas/projects/lehangar/dashboard.png"
+                        image: "/assets/datas/projects/lehangar/dashboard.png"
                     },
                     {
                         page: "Dashboard (Manager)",
                         description: "This a page where a manager can see the number of clients, producers, commands, etc.",
-                        image: "https://d1y03iejmbtlm3.cloudfront.net/portfolio/datas/projects/lehangar/dashboard.png"
+                        image: "/assets/datas/projects/lehangar/dashboard.png"
                     },
                 ]
             },
@@ -682,42 +681,42 @@ const data = {
                     {
                         page: "Home Page",
                         description: "This is a homepage.",
-                        image: "https://d1y03iejmbtlm3.cloudfront.net/portfolio/datas/projects/franck_picci/hp.png"
+                        image: "/assets/datas/projects/franck_picci/hp.png"
                     },
                     {
                         page: "Biography Page",
                         description: "This is a page about a biography of Franck Picci.",
-                        image: "https://d1y03iejmbtlm3.cloudfront.net/portfolio/datas/projects/franck_picci/biography.png"
+                        image: "/assets/datas/projects/franck_picci/biography.png"
                     },
                     {
                         page: "Album List Page",
                         description: "This is an album list page.",
-                        image: "https://d1y03iejmbtlm3.cloudfront.net/portfolio/datas/projects/franck_picci/list_albums.png"
+                        image: "/assets/datas/projects/franck_picci/list_albums.png"
                     },
                     {
                         page: "Music List Page",
                         description: "This is a music list page.",
-                        image: "https://d1y03iejmbtlm3.cloudfront.net/portfolio/datas/projects/franck_picci/list_musics.png"
+                        image: "/assets/datas/projects/franck_picci/list_musics.png"
                     },
                     {
                         page: "List Of Music Lessons Page",
                         description: "This is a page of list of all the music lessons proposed by Franck Picci.",
-                        image: "https://d1y03iejmbtlm3.cloudfront.net/portfolio/datas/projects/franck_picci/list_lessons.png"
+                        image: "/assets/datas/projects/franck_picci/list_lessons.png"
                     },
                     {
                         page: "Music Lesson Details Page",
                         description: "This page displays a more detailed information about a music lesson proposed by Franck Picci.",
-                        image: "https://d1y03iejmbtlm3.cloudfront.net/portfolio/datas/projects/franck_picci/lesson_details.png"
+                        image: "/assets/datas/projects/franck_picci/lesson_details.png"
                     },
                     {
                         page: "Contact Page",
                         description: "This page is to contact Franck Picci.",
-                        image: "https://d1y03iejmbtlm3.cloudfront.net/portfolio/datas/projects/franck_picci/contact.png"
+                        image: "/assets/datas/projects/franck_picci/contact.png"
                     },
                     {
                         page: "Footer Of The Page",
                         description: "This is the footer of this website.",
-                        image: "https://d1y03iejmbtlm3.cloudfront.net/portfolio/datas/projects/franck_picci/footer.png"
+                        image: "/assets/datas/projects/franck_picci/footer.png"
                     },
                 ]
             }
@@ -811,9 +810,9 @@ const data = {
         aboutMe: {
             name: "About Me",
             description: "Currently, in a Master’s degree IT student specialized in Developer Fullstack at MyDigitalSchool Paris. I had my two-year undergraduate diploma in IT at the University Institute of Technology La Rochelle in 2021 and a professional Bachelor’s degree specialized in web development at the University Institute of Technology Nancy-Charlemagne. <br><br>I have gained skills in creating web and mobile applications during my third year in my university. I may be inexperienced in some programming language skills and I don’t have any professional experience besides my internship, but I’m open to learning new knowledge and skills. <br><br>I’m also an ambitious person and always try to do my best both in my studies and personal life. I’m also trilingual. I have the ability to communicate well in Indonesian which is my mother tongue, English which is kind of my second mother tongue and French which I currently use during my studies in France.",
-            cv: "https://d1y03iejmbtlm3.cloudfront.net/portfolio/datas/aboutme/CV-Tania_Olivia.pdf",
-            cvFrench: "https://d1y03iejmbtlm3.cloudfront.net/portfolio/datas/aboutme/CV-Tania_OLIVIA.pdf",
-            image: "https://d1y03iejmbtlm3.cloudfront.net/portfolio/datas/aboutme/tania.jpg"
+            cv: "/assets/datas/aboutme/CV-Tania_Olivia.pdf",
+            cvFrench: "/assets/datas/aboutme/CV-Tania_OLIVIA.pdf",
+            image: "/assets/datas/aboutme/tania.jpg"
 
         },
         experiences: {
@@ -821,7 +820,7 @@ const data = {
             works: [
                 {
                     id: "relatia",
-                    logo: "https://d1y03iejmbtlm3.cloudfront.net/portfolio/datas/experience/relatia.png",
+                    logo: "/assets/datas/experience/relatia.png",
                     name: "Junior Front-end Developer (Apprentice)",
                     date: "9 january 2023 - 30 august 2024 (2 years)",
                     location: "Relatia, Paris, France",
@@ -844,7 +843,7 @@ const data = {
                 },
                 {
                     id: "neonomade",
-                    logo: "https://d1y03iejmbtlm3.cloudfront.net/portfolio/datas/experience/neonomade.png",
+                    logo: "/assets/datas/experience/neonomade.png",
                     name: "Full-Stack Web Development Internship",
                     date: "19 april 2022 - 8 july 2022 (3 months)",
                     location: "Neo-nomade, Nancy, France",
@@ -858,7 +857,7 @@ const data = {
                 },
                 {
                     id: "dsi",
-                    logo: "https://d1y03iejmbtlm3.cloudfront.net/portfolio/datas/experience/dsi-larochelle.png",
+                    logo: "/assets/datas/experience/dsi-larochelle.png",
                     name: "API Development Internship",
                     date: "12 april 2021 - 4 june 2021 (2 months)",
                     location: "Information Systems Department in University of La Rochelle, La Rochelle, France",
@@ -874,21 +873,21 @@ const data = {
             {
                 name: "LinkedIn",
                 link: "https://linkedin.com/in/tania-olivia",
-                logo: "https://d1y03iejmbtlm3.cloudfront.net/portfolio/datas/medsoc/linkedin.png",
+                logo: "/assets/datas/medsoc/linkedin.png",
             },
             {
                 name: "Github",
-                logo: "https://d1y03iejmbtlm3.cloudfront.net/portfolio/datas/medsoc/github.png",
+                logo: "/assets/datas/medsoc/github.png",
                 link: "https://github.com/taniaolivia",
             },
             {
                 name: "Email Address",
-                logo: "https://d1y03iejmbtlm3.cloudfront.net/portfolio/datas/medsoc/email.png",
+                logo: "/assets/datas/medsoc/email.png",
                 link: "taniaoliviaa@yahoo.com",
             },
             {
                 name: "Information",
-                logo: "https://d1y03iejmbtlm3.cloudfront.net/portfolio/datas/medsoc/info.png",
+                logo: "/assets/datas/medsoc/info.png",
                 description: "I'm open to job offers either it's in English or French. You can contact me by sending me a personal message in linkedIn or by email."
             }]
            
@@ -932,32 +931,32 @@ const data = {
                     degree: "Master's Degree in Developer Fullstack<br>",
                     year: "2022 - 2024<br>",
                     location: "MyDigitalSchool Paris, Paris, France",
-                    logo: "https://d1y03iejmbtlm3.cloudfront.net/portfolio/datas/education/mydigitalschool.jpg"
+                    logo: "/assets/datas/education/mydigitalschool.jpg"
                 },
                 {
                     degree: "Professional Bachelor's Degree in Web Development<br>",
                     year: "2021 - 2022<br>",
                     location: "University Institute of Technology Nancy-Charlemagne, Nancy, France",
-                    logo: "https://d1y03iejmbtlm3.cloudfront.net/portfolio/datas/education/iut-nancy.png"
+                    logo: "/assets/datas/education/iut-nancy.png"
                 },
                 {
                     degree: "Two-year Undergraduate Diploma in IT<br>",
                     year: "2019 -2021<br>",
                     location: "University Institute of Technology La Rochelle, La Rochelle, France",
-                    logo: "https://d1y03iejmbtlm3.cloudfront.net/portfolio/datas/education/iut-larochelle.png"
+                    logo: "/assets/datas/education/iut-larochelle.png"
                 },
                 {
                     degree: "French Course - Super Intensif<br>",
                     year: "2018 (6 - 7 months)<br>",
                     location: "Institut Français Indonésie, Jakarta, Indonesia",
-                    logo: "https://d1y03iejmbtlm3.cloudfront.net/portfolio/datas/education/ifi.jpeg"
+                    logo: "/assets/datas/education/ifi.jpeg"
 
                 },
                 {
                     degree: "High School Graduation, Majoring in Science<br>",
                     year: "2015 - 2018<br>",
                     location: "SMAK 5 PENABUR, Jakarta, Indonesia",
-                    logo: "https://d1y03iejmbtlm3.cloudfront.net/portfolio/datas/education/penabur.png"
+                    logo: "/assets/datas/education/penabur.png"
                 },
             ]
         }
