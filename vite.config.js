@@ -5,7 +5,7 @@ export default defineConfig({
     plugins: [
         vue(),
     ],
-    server: {
+    /*server: {
         proxy: {
             '/textures': {
             target: 'https://d1y03iejmbtlm3.cloudfront.net/portfolio',
@@ -13,7 +13,7 @@ export default defineConfig({
             rewrite: (path) => path.replace(/^\/textures/, ''),
             },
         },
-    },
+    },*/
     resolve: {
         extensions: ['.mjs', '.js', '.ts', '.jsx', '.tsx', '.json', '.vue'],
         alias: {
